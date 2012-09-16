@@ -1,0 +1,89 @@
+ 34
+** Atomic data from version 5.2 of the CHIANTI database **
+% Experimental energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+   NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61.
+% Theoretical energy levels:
+         3s2 3p5, 3s 3p6,
+         3s2 3p4 3d,  3s 3p5 3d,  3p6 3d,
+         3s2 3p3 3d2, 3s 3p4 3d2, 3p5 3d2,
+         3s2 3p2 3d3, 3s 3p3 3d3, 3p4 3d3,
+         3s2 3p4 4s,  3s2 3p4 4d, 3s2 3p4 4f
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data collaboration
+%
+% E. Landi 1998
+% Experimental energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+   NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61.
+% Theoretical energy levels and radiative transition probabilities: SUPERSTRUCTURE calculations
+%comment: the SUPERSTRUCTURE has been carried out with the following configurations:
+
+         3s2.3p5, 3s.3p6,
+         3s2.3p4.3d,  3s.3p5.3d,  3p6.3d,
+         3s2.3p3.3d2, 3s.3p4.3d2, 3p5.3d2,
+         3s2.3p2.3d3, 3s.3p3.3d3, 3p4.3d3,
+         3s2.3p4.4s,  3s2.3p4.4d, 3s2.3p4.4f
+
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data collaboration
+%
+% E. Landi 1998
+
+%filename: ni_12.splups
+%Oscillator strengths: calculated using SUPERSTRUCTURE, see file ni_12.wgfa
+%effective collision strengths: Matthew, Ramsbottom, Bell, Keenan, ApJ, 491, 415
+%comment: effective collision strengths were provided in the temperature range 3.2 < Log T < 6.6
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1998
+ 2 23 0
+  1  3s2.3p5 2P3/2
+  2  3s2.3p5 2P1/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   7.22e-01
+  0  0   7.24e-01
+  0  0   7.26e-01
+  0  0   7.30e-01
+  0  0   7.36e-01
+  0  0   7.45e-01
+  0  0   7.59e-01
+  0  0   7.82e-01
+  0  0   8.18e-01
+  0  0   8.74e-01
+  0  0   9.60e-01
+  0  0   1.09e+00
+  0  0   1.28e+00
+  0  0   1.54e+00
+  0  0   1.85e+00
+  0  0   2.15e+00
+  0  0   2.32e+00
+  0  0   2.32e+00
+  0  0   2.16e+00
+  0  0   1.86e+00
+  0  0   1.47e+00
+  0  0   1.10e+00
+  0  0   8.11e-01
+ 0 0 0
+  1  2   2.373e+02
+  1  4        0.0
+  2  2    23629.0

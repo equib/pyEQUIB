@@ -1,0 +1,150 @@
+ 45
+** Atomic data from version 5.2 of the CHIANTI database **
+%energy levels: Fuhr, J.R., Kelleher, D.E., Martin, W.C., Musgrove, A., Sugar, J., Wiese, W.L.,
+        Dalton, G.R., Dragoset, R.A., Mohr, P.J., Olsen, K., Reader, J., Saloman, E.B., Sansonetti, C.J.,
+        Wiersma, G., "NIST Atomic Spectra Database" Ver. 2.0, March 1999, NIST Physical Reference Data.
+%theoretical energy levels (n=2,3,4): Badnell, N.R., Pindzola, M.S., 2000, J.Phys.B, 33, 1013
+%theoretical energy levels (n=5): Zhang,H.L., Sampson,D.H., Fontes,C.J., 1990, ADNDT, 44, 31.
+%Innershell theoretical energy levels: Sampson, D.H., Goett,S.J., 1983, ADNDT, 29, 535
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E.Landi - Jun 2001
+%energy levels: Fuhr, J.R., et al., "NIST Atomic Spectra Database" Ver. 2.0, 
+       March 1999, NIST Physical Reference Data.
+%theoretical energy levels (n=2,3,4): Badnell, N.R., Pindzola, M.S., 2000, J.Phys.B, 33, 1013
+%theoretical energy levels (n=5): Zhang, H.L., Sampson, D.H., Fontes, C.J., 1990, ADNDT, 44, 31.
+%Innershell theoretical energy levels: Sampson, D.H., Goett, S.J., 1983, ADNDT, 29, 535
+%oscillator strengths: H.L.Zhang, D.H.Sampson, C.J.Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths: Martin, I., Karwowski, J., Diercksen, G.H.F., Barrientos, C., 1993, A&AS, 100, 595.
+%Innershell radiative data: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%Comment: Other radiative data were calculated using SUPERSTRUCTURE with a 23 configuration model
+%A values (autoionizing): Vainshtein, L.A., Safronova, U.I., 1978, ADNDT, 21, 49 and 1980, ADNDT, 25, 311 
+                          - updated by U.I. Safronova, 1999
+%comment:  unobserved lines
+    1   26       -22.5472      3.689e-06      2.419e+07        1S2 2S 2S0.5 -  1s.(2S).2s.2p 4P0.5
+    1   28       -22.5401      1.325e-07      2.899e+05        1S2 2S 2S0.5 -  1s.(2S).2s.2p 4P2.5
+    2   25       -23.1869      6.745e-03      4.182e+10        1S2 2P 2P0.5 -         1s.2s2 2S0.5
+    2   31       -22.4131      6.981e-06      4.632e+07        1S2 2P 2P0.5 -         1s.2p2 4P0.5
+    3   25       -23.1898      1.323e-02      8.200e+10        1S2 2P 2P1.5 -         1s.2s2 2S0.5
+    3   31       -22.4158      7.072e-07      4.692e+06        1S2 2P 2P1.5 -         1s.2p2 4P0.5
+    3   33       -22.4123      4.447e-05      9.836e+07        1S2 2P 2P1.5 -         1s.2p2 4P2.5
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E. Landi and K.P.Dere - Jun 2001
+
+%filename: o_6.splups
+%effective collision strengths (transitions 1 - 2 to 1 - 15): Badnell, N.R., Pindzola, M.S., 2000, J.Phys.B, 33, 1013
+%oscillator strengths (levels 1 - 24): H.L. Zhang, D.H. Sampson, C.J. Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths innershell (levels 25 - 40): Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%collision strengths (levels 16 - 24, transitions 2 - 3 to 2 - 24):  H.L. Zhang, D.H. Sampson, C.J. Fontes, 1990, ADNDT, 44, 31
+%collision strengths innershell (levels 25 - 40): Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%comment: the original data from Badnell & Pindzola are provided in LS coupling. These have been transformed into 
+    intermediate coupling effective collision strengths according to the statistical weights
+%comment: effective collision strengths were provided in the temperature range 4.55 < Log T < 6.85
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi - Jun 2001
+ 3 23 0
+  1  1s2.2s 2S1/2
+  2  1s2.2p 2P1/2
+  3  1s2.2p 2P3/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.68e+00
+  0  0   1.67e+00
+  0  0   1.68e+00
+  0  0   1.69e+00
+  0  0   1.71e+00
+  0  0   1.76e+00
+  0  0   1.82e+00
+  0  0   1.89e+00
+  0  0   2.01e+00
+  0  0   2.14e+00
+  0  0   2.29e+00
+  0  0   2.48e+00
+  0  0   2.71e+00
+  1  3   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.32e+00
+  0  0   3.33e+00
+  0  0   3.34e+00
+  0  0   3.35e+00
+  0  0   3.37e+00
+  0  0   3.42e+00
+  0  0   3.52e+00
+  0  0   3.63e+00
+  0  0   3.78e+00
+  0  0   4.02e+00
+  0  0   4.28e+00
+  0  0   4.58e+00
+  0  0   4.97e+00
+  0  0   5.43e+00
+  2  3   5.51e-01
+  0  0   5.51e-01
+  0  0   5.51e-01
+  0  0   5.51e-01
+  0  0   5.51e-01
+  0  0   5.50e-01
+  0  0   5.50e-01
+  0  0   5.50e-01
+  0  0   5.49e-01
+  0  0   5.48e-01
+  0  0   5.46e-01
+  0  0   5.44e-01
+  0  0   5.40e-01
+  0  0   5.33e-01
+  0  0   5.24e-01
+  0  0   5.10e-01
+  0  0   4.91e-01
+  0  0   4.66e-01
+  0  0   4.36e-01
+  0  0   4.04e-01
+  0  0   3.73e-01
+  0  0   3.43e-01
+  0  0   3.13e-01
+ 0 0 0
+  1  2   4.207e+08
+  1  3   4.282e+08
+  2  3   0.000e+00
+  1  2        0.0
+  2  2    96375.0
+  3  4    96907.5

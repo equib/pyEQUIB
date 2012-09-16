@@ -1,0 +1,80 @@
+ 25
+** Atomic data from version 5.2 of the CHIANTI database **
+%Observed energy levels: Martin,W.C., Sugar,J., Musgrove,A., Dalton,G.R., 1995, 
+    NIST Standard Reference Database 61, NIST Database for Atomic Spectroscopy, Version 1.0
+%Theoretical energy levels: Sampson,D.H., Zhang,H.L., Fontes,C.J., 1991, ADNDT, 48, 25
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% K.P.Dere and E.Landi 2000
+%Observed energy levels: Martin,W.C., Sugar,J., Musgrove,A., Dalton,G.R., 1995, 
+   NIST Standard Reference Database 61, NIST Database for Atomic Spectroscopy, Version 1.0
+%Theoretical energy levels: Sampson,D.H., Zhang,H.L., Fontes,C.J., 1991, ADNDT, 48, 25
+%oscillator strengths: Sampson,D.H., Zhang,H.L., Fontes,C.J., 1991, ADNDT, 48, 25
+%transition probabilities: Martin,W.C., Sugar,J., Musgrove,A., Dalton,G.R., 1995, 
+   NIST Standard Reference Database 61, NIST Database for Atomic Spectroscopy, Version 1.0
+%transition probabilities: Blackford, H.M.S., Hibbert, A., 1994, ADNDT, 58, 101
+%transition probabilities: Cornille,M., Dubau,J., Loulergue,M., Bely-Dubau,F., Faucher,P., 1992, A&A, 259, 669
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% K.P.Dere and E.Landi 2000
+
+%filename: ni_20.splups
+%oscillator strengths: Sampson, D.H., Zhang, H.L., Fontes, C.J., 1991, ADNDT, 48, 25
+%collision strengths: Sampson, D.H., Zhang, H.L., Fontes, C.J., 1991, ADNDT, 48, 25
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% K.P. Dere - Oct 95
+ 2 23 0
+  1  2s2.2p5 2P3/2
+  2  2s2.2p5 2P1/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.76e-02
+  0  0   3.75e-02
+  0  0   3.75e-02
+  0  0   3.74e-02
+  0  0   3.73e-02
+  0  0   3.71e-02
+  0  0   3.69e-02
+  0  0   3.65e-02
+  0  0   3.58e-02
+  0  0   3.49e-02
+  0  0   3.35e-02
+ 0 0 0
+  1  2   5.350e+04
+  1  4        0.0
+  2  2   143959.0

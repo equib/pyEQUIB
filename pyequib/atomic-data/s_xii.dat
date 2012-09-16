@@ -1,0 +1,314 @@
+ 37
+** Atomic data from version 5.2 of the CHIANTI database **
+%energy levels (n=2): Edlen, B, 1983, Phys. Scripta, 28, 483
+%energy levels (n=3): Ralchenko Y., Jou, F.C., Kelleher, D.E., Kramida, A.E., Musgrove, A., Reader, J., 
+    Wiese, W.L., Olsen, K., 2005, NIST Atomic Spectra Database, Version 3.0
+%energy levels (levels 37,75,77,89,122): Lepson et al, 2005, ApJ, 625, 1045
+%Theoretical energy levels(n=2): Zhang, H.L., Graziani, M., Pradhan, A.K., 1994, A&A, 283, 319.
+%theoretical energy levels(n=3): Sampson and Zhang, 1995, unpublished calculations
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data collaboration
+%
+% K.P.Dere and E.Landi - Mar 2005
+%observed energy levels (n=2): Edlen, B, 1983, Phys. Scripta, 28, 483
+%energy levels (n=3): Ralchenko Y., Jou, F.C., Kelleher, D.E., Kramida, A.E., Musgrove, A., Reader, J.,
+    Wiese, W.L., Olsen, K., 2005, NIST Atomic Spectra Database, Version 3.0
+%energy levels (levels 37,75,77,89,122): Lepson et al, 2005, ApJ, 625, 1045
+%theoretical energy levels (16- 125): Sampson and Zhang, 1995, unpublished calculations
+%oscillator strengths (16- 125): Sampson and Zhang, 1995, unpublished calculations
+%oscillator strengths: Dankwort, W., Trefftz, E., 1978, A&A, 65, 93
+%oscillator strengths: Bhatia, A.K., Feldman, U., Seely, J.F., 1986, ADNDT, 35, 319
+%A values: Flower, D.R., Nussbaumer, H., 1975, A&A, 45, 349
+%A values: Saha, H.P., Trefftz, E., 1983, Solar Phys., 87, 233
+%comment: theoretical wavelengths agree with NIST observed wavelength on the order of 1-10%
+%comment: gf and A values for transitions 123-71 and 124-72 are estimates
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data collaboration
+%
+% K.P.Dere and E.Landi - Mar 2005
+
+%filename: s_12.splups
+%oscillator strengths: Dankwort, W., Trefftz, E., 1978, A&A, 65, 93
+%collision strengths: Zhang, H.L., Graziani, M., Pradhan, A.K., 1994, A&A, 283, 319
+% Comment: A small error was found in Zhang, H.L. et al 1994 upsilons, affecting
+           upsilons for Al IX, Si X, S XII, Ar XIV, Ca XVI (and not lower-Z ions).
+           The present data have been corrected by the authors.
+%comment: effective collision strengths are provided in the temperature range 4.1 < Log T < 6.8
+           temperature range.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi - Aug 2001
+ 5 23 0
+  1  2s2.2p 2P1/2
+  2  2s2.2p 2P3/2
+  3  2s.2p2 4P1/2
+  4  2s.2p2 4P3/2
+  5  2s.2p2 4P5/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   7.85e-02
+  0  0   7.87e-02
+  0  0   7.90e-02
+  0  0   7.94e-02
+  0  0   8.01e-02
+  0  0   8.13e-02
+  0  0   8.30e-02
+  0  0   8.59e-02
+  0  0   9.04e-02
+  0  0   9.79e-02
+  0  0   1.11e-01
+  0  0   1.38e-01
+  0  0   1.97e-01
+  0  0   3.24e-01
+  0  0   4.93e-01
+  0  0   6.14e-01
+  0  0   6.88e-01
+  0  0   7.06e-01
+  0  0   6.48e-01
+  0  0   5.50e-01
+  0  0   4.42e-01
+  0  0   3.35e-01
+  0  0   2.47e-01
+  1  3   1.85e-02
+  0  0   1.85e-02
+  0  0   1.85e-02
+  0  0   1.85e-02
+  0  0   1.86e-02
+  0  0   1.86e-02
+  0  0   1.87e-02
+  0  0   1.88e-02
+  0  0   1.90e-02
+  0  0   1.92e-02
+  0  0   1.97e-02
+  0  0   2.03e-02
+  0  0   2.12e-02
+  0  0   2.21e-02
+  0  0   2.27e-02
+  0  0   2.21e-02
+  0  0   2.08e-02
+  0  0   1.90e-02
+  0  0   1.70e-02
+  0  0   1.52e-02
+  0  0   1.35e-02
+  0  0   1.23e-02
+  0  0   1.09e-02
+  1  4   2.80e-02
+  0  0   2.81e-02
+  0  0   2.81e-02
+  0  0   2.81e-02
+  0  0   2.81e-02
+  0  0   2.82e-02
+  0  0   2.83e-02
+  0  0   2.85e-02
+  0  0   2.88e-02
+  0  0   2.93e-02
+  0  0   3.00e-02
+  0  0   3.10e-02
+  0  0   3.24e-02
+  0  0   3.41e-02
+  0  0   3.51e-02
+  0  0   3.42e-02
+  0  0   3.21e-02
+  0  0   2.90e-02
+  0  0   2.55e-02
+  0  0   2.24e-02
+  0  0   1.94e-02
+  0  0   1.72e-02
+  0  0   1.49e-02
+  1  5   1.89e-02
+  0  0   1.89e-02
+  0  0   1.89e-02
+  0  0   1.89e-02
+  0  0   1.90e-02
+  0  0   1.91e-02
+  0  0   1.92e-02
+  0  0   1.94e-02
+  0  0   1.98e-02
+  0  0   2.03e-02
+  0  0   2.11e-02
+  0  0   2.24e-02
+  0  0   2.41e-02
+  0  0   2.60e-02
+  0  0   2.72e-02
+  0  0   2.66e-02
+  0  0   2.49e-02
+  0  0   2.23e-02
+  0  0   1.92e-02
+  0  0   1.63e-02
+  0  0   1.37e-02
+  0  0   1.18e-02
+  0  0   9.97e-03
+  2  3   1.40e-02
+  0  0   1.40e-02
+  0  0   1.41e-02
+  0  0   1.41e-02
+  0  0   1.41e-02
+  0  0   1.42e-02
+  0  0   1.43e-02
+  0  0   1.44e-02
+  0  0   1.47e-02
+  0  0   1.51e-02
+  0  0   1.56e-02
+  0  0   1.65e-02
+  0  0   1.77e-02
+  0  0   1.90e-02
+  0  0   1.98e-02
+  0  0   1.93e-02
+  0  0   1.80e-02
+  0  0   1.59e-02
+  0  0   1.37e-02
+  0  0   1.16e-02
+  0  0   9.85e-03
+  0  0   8.56e-03
+  0  0   7.35e-03
+  2  4   3.72e-02
+  0  0   3.72e-02
+  0  0   3.73e-02
+  0  0   3.73e-02
+  0  0   3.74e-02
+  0  0   3.75e-02
+  0  0   3.78e-02
+  0  0   3.81e-02
+  0  0   3.86e-02
+  0  0   3.95e-02
+  0  0   4.07e-02
+  0  0   4.26e-02
+  0  0   4.52e-02
+  0  0   4.81e-02
+  0  0   4.98e-02
+  0  0   4.85e-02
+  0  0   4.53e-02
+  0  0   4.05e-02
+  0  0   3.52e-02
+  0  0   3.02e-02
+  0  0   2.58e-02
+  0  0   2.26e-02
+  0  0   1.93e-02
+  2  5   7.91e-02
+  0  0   7.91e-02
+  0  0   7.91e-02
+  0  0   7.92e-02
+  0  0   7.94e-02
+  0  0   7.96e-02
+  0  0   8.00e-02
+  0  0   8.05e-02
+  0  0   8.14e-02
+  0  0   8.28e-02
+  0  0   8.49e-02
+  0  0   8.81e-02
+  0  0   9.24e-02
+  0  0   9.74e-02
+  0  0   1.00e-01
+  0  0   9.77e-02
+  0  0   9.15e-02
+  0  0   8.25e-02
+  0  0   7.25e-02
+  0  0   6.34e-02
+  0  0   5.50e-02
+  0  0   4.88e-02
+  0  0   4.24e-02
+  3  4   1.13e-01
+  0  0   1.13e-01
+  0  0   1.13e-01
+  0  0   1.14e-01
+  0  0   1.15e-01
+  0  0   1.17e-01
+  0  0   1.20e-01
+  0  0   1.25e-01
+  0  0   1.32e-01
+  0  0   1.44e-01
+  0  0   1.61e-01
+  0  0   1.86e-01
+  0  0   2.19e-01
+  0  0   2.51e-01
+  0  0   2.63e-01
+  0  0   2.52e-01
+  0  0   2.37e-01
+  0  0   2.11e-01
+  0  0   1.84e-01
+  0  0   1.54e-01
+  0  0   1.28e-01
+  0  0   1.07e-01
+  0  0   8.63e-02
+  3  5   1.00e-01
+  0  0   1.01e-01
+  0  0   1.01e-01
+  0  0   1.02e-01
+  0  0   1.03e-01
+  0  0   1.04e-01
+  0  0   1.07e-01
+  0  0   1.10e-01
+  0  0   1.16e-01
+  0  0   1.25e-01
+  0  0   1.39e-01
+  0  0   1.59e-01
+  0  0   1.85e-01
+  0  0   2.08e-01
+  0  0   2.12e-01
+  0  0   1.98e-01
+  0  0   1.82e-01
+  0  0   1.59e-01
+  0  0   1.36e-01
+  0  0   1.13e-01
+  0  0   9.35e-02
+  0  0   7.83e-02
+  0  0   6.62e-02
+  4  5   2.37e-01
+  0  0   2.37e-01
+  0  0   2.38e-01
+  0  0   2.40e-01
+  0  0   2.43e-01
+  0  0   2.47e-01
+  0  0   2.54e-01
+  0  0   2.64e-01
+  0  0   2.81e-01
+  0  0   3.07e-01
+  0  0   3.46e-01
+  0  0   4.01e-01
+  0  0   4.73e-01
+  0  0   5.38e-01
+  0  0   5.54e-01
+  0  0   5.26e-01
+  0  0   4.88e-01
+  0  0   4.30e-01
+  0  0   3.72e-01
+  0  0   3.08e-01
+  0  0   2.57e-01
+  0  0   2.14e-01
+  0  0   1.76e-01
+ 0 0 0
+  1  2   1.960e+01
+  1  3   1.010e+06
+  1  4   2.320e+04
+  1  5   0.000e+00
+  2  3   6.520e+05
+  2  4   2.020e+05
+  2  5   7.900e+05
+  3  4   0.000e+00
+  3  5   0.000e+00
+  4  5   0.000e+00
+  1  2        0.0
+  2  4    13136.0
+  3  2   193920.0
+  4  4   198713.0
+  5  6   205426.0

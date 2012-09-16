@@ -1,0 +1,148 @@
+ 43
+** Atomic data from version 5.2 of the CHIANTI database **
+%energy levels (1-24): Sugar, J., Corliss, C., 1979, J.Phys.Chem.Ref.Data, 8, 865.
+%energy levels (9,10,11,12,13): Kelly, R.L., 1987, J.Phys.Chem.Ref.Data 16, Suppl. 1.
+%Innershell energy levels: Fuhr, J.R., Kelleher, D.E., Martin, W.C., Musgrove, A., Sugar, J., Wiese, W.L.,
+        Dalton, G.R., Dragoset, R.A., Mohr, P.J., Olsen, K., Reader, J., Saloman, E.B., Sansonetti, C.J.,
+        Wiersma, G., "NIST Atomic Spectra Database" Ver. 2.0, March 1999, NIST Physical Reference Data
+% Theoretical energy levels (1-24):  Zhang,H.L., Sampson,D.H., Fontes,C.J., 1990, ADNDT, 44, 31.
+%Innershell theoretical energy levels: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E. Landi - July 1999
+%observed energy levels: Sugar, J., Corliss, C., 1979, J.Phys.Chem.Ref.Data, 8, 865.
+%observed energy levels: Kelly,R.L., 1987, J.Phys.Chem.Ref.Data, 16, Suppl. 1
+% Theoretical energy levels (1-24):  Zhang,H.L., Sampson,D.H., Fontes,C.J., 1990, ADNDT, 44, 31
+%Innershell theoretical energy levels: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%comments:  4s, 4p, 4d from Kelly
+%oscillator strengths: H.L.Zhang, D.H.Sampson, C.J.Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths: Martin,I., Karwowski,J., Diercksen,G.H.F., Barrientos, C., 1993, A&AS, 100, 595
+% Innershell radiative data: Goett,S.J., Sampson,D.H., 1983, ADNDT, 29, 535
+%A values (autoionizing): Vainshtein, L.A., Safronova, U.I., 1978, ADNDT, 21, 49
+   and 1980, ADNDT, 25, 311 - updated by U.I. Safronova, 1999
+%Comment: Other radiative data were calculated using SUPERSTRUCTURE with a 23 configuration model
+%comment:  unobserved lines
+
+    1   28        -1.6017      2.665e-05      1.154e+10        1s2.2s 2S0.5 --  1s.(2S).2s.2p 4P2.5
+    1   35        -1.5901      2.340e-03      1.543e+12        1s2.2s 2S0.5 -  1s.(2S).2s.2p 2P1.5
+    2   25        -1.6203      9.512e-03      1.208e+13        1s2.2p 2P0.5 -         1s.2s2 2S0.5
+    3   25        -1.6250      8.197e-03      1.035e+13        1s2.2p 2P1.5 -         1s.2s2 2S0.5
+    3   33        -1.6035      1.420e-01      6.136e+13        1s2.2p 2P1.5 -    1s.(2S).2p2 4P2.5
+
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E. Landi and K.P.Dere - July 1999
+
+%filename: ni_26.splups
+%oscillator strengths: Zhang, Sampson, Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths innershell transitions: Vainshtein, L.A., Safronova, U.I., 1978, ADNDT, 21, 49
+   and 1980, ADNDT, 25, 311 - updated by U.I. Safronova, 1999
+%collision strengths: Zhang, Sampson, Fontes, 1990, ADNDT, 44, 31
+%collision strengths innershell transitions: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E.Landi and K.P.Dere - July 1999
+ 3 23 0
+  1  1s2.2s 2S1/2
+  2  1s2.2p 2P1/2
+  3  1s2.2p 2P3/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.34e-01
+  0  0   1.35e-01
+  0  0   1.35e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.37e-01
+  0  0   1.39e-01
+  0  0   1.41e-01
+  0  0   1.46e-01
+  1  3   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.61e-01
+  0  0   2.60e-01
+  0  0   2.60e-01
+  0  0   2.60e-01
+  0  0   2.60e-01
+  0  0   2.59e-01
+  0  0   2.60e-01
+  0  0   2.60e-01
+  0  0   2.62e-01
+  0  0   2.65e-01
+  0  0   2.70e-01
+  0  0   2.78e-01
+  2  3   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.70e-02
+  0  0   2.69e-02
+  0  0   2.69e-02
+  0  0   2.68e-02
+  0  0   2.66e-02
+  0  0   2.64e-02
+  0  0   2.61e-02
+  0  0   2.56e-02
+  0  0   2.48e-02
+ 0 0 0
+  1  2   1.996e+09
+  1  3   5.781e+09
+  2  3   5.575e+04
+  1  2        0.0
+  2  2   427180.0
+  3  4   604680.0
