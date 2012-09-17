@@ -1,0 +1,373 @@
+ 96
+** Atomic data from version 5.2 of the CHIANTI database **
+%observed energy levels: NIST Database for Atomic Spectroscopy, Version 1.0, 
+  NIST Standard Reference Database 61, 1995.
+%observed energy levels (12,13,41): Jupen et al., MNRAS, 264, 627, 1993
+%theoretical energy levels 1-9: Gupta & Tayal, 1999, ApJ, 510, 1078
+%theoretical energy levels: Bhatia & Doschek 1996, ADNDT, 64, 183
+%comment: The third column of energies contains scaled superstructure values.
+%comment: Have had problems with the identification of some of the Fe XI
+   lines. The following are proposed.
+
+   Level 37 has been proposed as giving the 188.30 line (Jupen et
+   al.). Don't think this is right, as the 3P2 - 3S1 transition is
+   quite weak. Can not find any lines which correspond to the 3S1
+   transitions, so have put the scaled superstructure value in.
+
+   Level 38 (3P2) is identified from the strong line at 188.23.
+
+   Level 39 (1P1) is identified as the strong line at 188.30.
+
+   There's only one line from level 40 (3P0), whose identification
+   I'm uncertain about (near 189.10 AA?). Have used the scaled 
+   superstructure energy relative to the 3P1 level.
+
+   Level 41 (3P1) has been identified from the 184.704 line seen by
+   Jupen et al., two other transitions from this level match up
+   nicely with the 189.123 and 189.733 lines seen by Behring et
+   al.(1976).
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%  P.R. Young  Feb. 1996 & Enrico Landi Apr. 1999
+%observed energy levels: NIST Database for Atomic Spectroscopy, Version 1.0,
+  NIST Standard Reference Database 61, 1995.
+%observed energy levels (12,13,41): Jupen et al., MNRAS, 264, 627, 1993
+%theoretical energy levels 1-9: Gupta & Tayal, 1999, ApJ, 510, 1078
+%theoretical energy levels: Bhatia & Doschek 1996, ADNDT, 64, 183
+%A values: obtained from a 13 configuration model of Fe XI used in "superstructure", 
+%comment: the configurations used were:
+
+	3s2 3p4, 3s 3p5, 3s2 3p3 3d, 3p6
+	3s2 3p3 {4s, 4p, 4d, 4f}
+	3s 3p4 3d, 3s2 3p2 3d2
+	3p5 3d, 3s 3p3 3d2, 3s2 3p 3d3
+
+   The most striking difference between this model and the 4 conf
+   model occurs for the (2D*) 3P1, 3S1 and 1P1 levels. Essentially,
+   the 3S1 level is pushed closer to the other two levels,
+   increasing the amount of interaction between them. The data
+   below, from "superstructure" shows this.
+
+   The first column gives the levels; the second and third the
+   theoretical energies for the 4 conf model and the 13 conf model;
+   the next three columns give the percentage contributions of the
+   three levels to each other: "a/b" means a is percentage for 4
+   conf model, while b is percentage for 13 conf model.
+
+				3S1	3P1	1P1
+	3S1	532878	547264	97/71	-/-	-/10
+	3P1	555764	553263	1/14	50/42	11/7
+	1P1	564755	542936 	-/12	21/16	17/16
+
+   Clearly the change of energies gives rise to different
+   interactions. Most notably, 1P1 starts mixing with 3S1, whereas
+   it did not before
+
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Peter Young    Jul 2000.
+
+%filename: fe_11.splups
+%oscillator strengths: obtained from a SUPERSTRUCTURE calculation (see fe_11.wgfa for details)
+%effective collision strengths levels 1-9: Gupta & Tayal, 1999, ApJ, 510, 1081
+%collision strengths: Bhatia, A.K., Doschek, G.A., 1996, ADNDT, 64, 183
+%comment: effective collision strengths were provided in the temperature range 5.7 < Log T < 6.7
+%comment:
+   Selected transitions have been fitted in order to reproduce the 
+   level balance of the complete collisional data. Essentially all 
+   significant collision strengths involving the levels 1-5 and 
+   14,20,23,24,25,30.
+
+   This file contains fits to the SCALED Bhatia omega data. It was
+   found that the 4 configuration collisional model does not
+   accurately predict some important collision strengths, so it was
+   decided to scale all the 3s2 3p2 - 3s2 3p 3d collision strengths
+   (for which there was a corresponding oscillator strength) by the
+   factor:
+
+	(accurate "superstructure" oscillator strength)
+	-----------------------------------------------
+	     (original Bhatia oscillator strength)
+
+   In particular, this improves the agreement of the 188.22, 188.30 lines
+   with theory.
+%
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% P.R.Young Aug 1997 and E.Landi Apr 1999
+ 5 23 0
+  1  3s2.3p4 3P2
+  2  3s2.3p4 3P1
+  3  3s2.3p4 3P0
+  4  3s2.3p4 1D2
+  5  3s2.3p4 1S0
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   3.03e+00
+  0  0   3.03e+00
+  0  0   3.03e+00
+  0  0   3.03e+00
+  0  0   3.03e+00
+  0  0   3.03e+00
+  0  0   3.03e+00
+  0  0   3.03e+00
+  0  0   3.02e+00
+  0  0   3.02e+00
+  0  0   3.01e+00
+  0  0   2.99e+00
+  0  0   2.96e+00
+  0  0   2.92e+00
+  0  0   2.86e+00
+  0  0   2.76e+00
+  0  0   2.62e+00
+  0  0   2.42e+00
+  0  0   2.14e+00
+  0  0   1.80e+00
+  0  0   1.42e+00
+  0  0   1.07e+00
+  0  0   7.87e-01
+  1  3   6.50e-01
+  0  0   6.50e-01
+  0  0   6.50e-01
+  0  0   6.50e-01
+  0  0   6.50e-01
+  0  0   6.50e-01
+  0  0   6.49e-01
+  0  0   6.49e-01
+  0  0   6.48e-01
+  0  0   6.47e-01
+  0  0   6.45e-01
+  0  0   6.41e-01
+  0  0   6.36e-01
+  0  0   6.28e-01
+  0  0   6.16e-01
+  0  0   5.97e-01
+  0  0   5.69e-01
+  0  0   5.29e-01
+  0  0   4.74e-01
+  0  0   4.05e-01
+  0  0   3.30e-01
+  0  0   2.57e-01
+  0  0   1.96e-01
+  1  4   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.86e+00
+  0  0   1.85e+00
+  0  0   1.85e+00
+  0  0   1.84e+00
+  0  0   1.82e+00
+  0  0   1.80e+00
+  0  0   1.76e+00
+  0  0   1.71e+00
+  0  0   1.63e+00
+  0  0   1.51e+00
+  0  0   1.34e+00
+  0  0   1.13e+00
+  0  0   8.98e-01
+  0  0   6.72e-01
+  0  0   4.84e-01
+  1  5   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.10e-01
+  0  0   2.09e-01
+  0  0   2.09e-01
+  0  0   2.07e-01
+  0  0   2.06e-01
+  0  0   2.03e-01
+  0  0   1.99e-01
+  0  0   1.93e-01
+  0  0   1.83e-01
+  0  0   1.70e-01
+  0  0   1.51e-01
+  0  0   1.26e-01
+  0  0   9.78e-02
+  0  0   7.01e-02
+  0  0   4.86e-02
+  2  3   1.09e+00
+  0  0   1.09e+00
+  0  0   1.09e+00
+  0  0   1.09e+00
+  0  0   1.09e+00
+  0  0   1.09e+00
+  0  0   1.08e+00
+  0  0   1.08e+00
+  0  0   1.08e+00
+  0  0   1.08e+00
+  0  0   1.08e+00
+  0  0   1.07e+00
+  0  0   1.06e+00
+  0  0   1.05e+00
+  0  0   1.03e+00
+  0  0   9.97e-01
+  0  0   9.49e-01
+  0  0   8.81e-01
+  0  0   7.86e-01
+  0  0   6.64e-01
+  0  0   5.20e-01
+  0  0   3.80e-01
+  0  0   2.66e-01
+  2  4   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.21e+00
+  0  0   1.20e+00
+  0  0   1.20e+00
+  0  0   1.19e+00
+  0  0   1.18e+00
+  0  0   1.17e+00
+  0  0   1.14e+00
+  0  0   1.11e+00
+  0  0   1.05e+00
+  0  0   9.70e-01
+  0  0   8.60e-01
+  0  0   7.22e-01
+  0  0   5.65e-01
+  0  0   4.16e-01
+  0  0   2.95e-01
+  2  5   2.17e-01
+  0  0   2.17e-01
+  0  0   2.17e-01
+  0  0   2.17e-01
+  0  0   2.16e-01
+  0  0   2.16e-01
+  0  0   2.16e-01
+  0  0   2.16e-01
+  0  0   2.16e-01
+  0  0   2.15e-01
+  0  0   2.14e-01
+  0  0   2.13e-01
+  0  0   2.11e-01
+  0  0   2.08e-01
+  0  0   2.04e-01
+  0  0   1.97e-01
+  0  0   1.86e-01
+  0  0   1.71e-01
+  0  0   1.51e-01
+  0  0   1.26e-01
+  0  0   9.79e-02
+  0  0   7.15e-02
+  0  0   5.02e-02
+  3  4   4.27e-01
+  0  0   4.27e-01
+  0  0   4.27e-01
+  0  0   4.27e-01
+  0  0   4.27e-01
+  0  0   4.27e-01
+  0  0   4.27e-01
+  0  0   4.26e-01
+  0  0   4.26e-01
+  0  0   4.25e-01
+  0  0   4.23e-01
+  0  0   4.21e-01
+  0  0   4.18e-01
+  0  0   4.12e-01
+  0  0   4.04e-01
+  0  0   3.91e-01
+  0  0   3.72e-01
+  0  0   3.44e-01
+  0  0   3.06e-01
+  0  0   2.58e-01
+  0  0   2.03e-01
+  0  0   1.51e-01
+  0  0   1.08e-01
+  3  5   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.88e-01
+  0  0   1.87e-01
+  0  0   1.87e-01
+  0  0   1.86e-01
+  0  0   1.85e-01
+  0  0   1.82e-01
+  0  0   1.79e-01
+  0  0   1.73e-01
+  0  0   1.65e-01
+  0  0   1.54e-01
+  0  0   1.38e-01
+  0  0   1.19e-01
+  0  0   9.70e-02
+  0  0   7.59e-02
+  0  0   5.80e-02
+  4  5   8.01e-01
+  0  0   8.01e-01
+  0  0   8.01e-01
+  0  0   8.01e-01
+  0  0   8.01e-01
+  0  0   8.00e-01
+  0  0   8.00e-01
+  0  0   8.00e-01
+  0  0   7.99e-01
+  0  0   7.98e-01
+  0  0   7.96e-01
+  0  0   7.93e-01
+  0  0   7.89e-01
+  0  0   7.83e-01
+  0  0   7.72e-01
+  0  0   7.57e-01
+  0  0   7.33e-01
+  0  0   7.00e-01
+  0  0   6.55e-01
+  0  0   6.00e-01
+  0  0   5.38e-01
+  0  0   4.73e-01
+  0  0   4.03e-01
+ 0 0 0
+  1  2   4.383e+01
+  1  3   1.016e-02
+  1  4   8.533e+01
+  1  5   1.274e+00
+  2  3   2.260e-01
+  2  4   8.686e+00
+  2  5   9.748e+02
+  3  4   1.559e-03
+  3  5   0.000e+00
+  4  5   8.341e+00
+  1  5        0.0
+  2  3    12667.9
+  3  1    14312.0
+  4  5    37743.6
+  5  1    80814.7

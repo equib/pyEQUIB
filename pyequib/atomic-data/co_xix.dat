@@ -1,0 +1,75 @@
+ 20
+** Atomic data from version 5.2 of the CHIANTI database **
+%observed energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+  NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61.
+% theoretical energy levels: extrapolated using S VIII, Ca XII, Fe XVII, Ni XX.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+%observed energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+    NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61
+% A values: interpolated using S VIII, Ca XII, Fe XVII, Ni XX
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+
+% filename: co_19.splups
+%oscillator strengths: interpolated using S VIII, Ca XII, Fe XVII, Ni XX
+% collision strengths: interpolated using S VIII, Ca XII, Fe XVII, Ni XX
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+ 2 23 0
+  1  2s2.2p5 2P3/2
+  2  2s2.2p5 2P1/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   4.14e-02
+  0  0   4.14e-02
+  0  0   4.14e-02
+  0  0   4.14e-02
+  0  0   4.14e-02
+  0  0   4.14e-02
+  0  0   4.14e-02
+  0  0   4.14e-02
+  0  0   4.13e-02
+  0  0   4.13e-02
+  0  0   4.13e-02
+  0  0   4.13e-02
+  0  0   4.12e-02
+  0  0   4.11e-02
+  0  0   4.10e-02
+  0  0   4.08e-02
+  0  0   4.05e-02
+  0  0   4.00e-02
+  0  0   3.95e-02
+  0  0   3.87e-02
+  0  0   3.80e-02
+  0  0   3.69e-02
+  0  0   3.54e-02
+ 0 0 0
+  1  2   3.323e+04
+  1  4        0.0
+  2  2   121960.0

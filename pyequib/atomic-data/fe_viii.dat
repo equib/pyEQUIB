@@ -1,0 +1,99 @@
+ 44
+** Atomic data from version 5.2 of the CHIANTI database **
+%Experimental energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1999,
+    NIST Database for Atomic Spectroscopy, Version 2.0, NIST Standard Reference Database 61
+%Experimental energy levels (3p6.4d levels - 51,52): Ekberg, J.O. & Feldman U., 2003, ApJ, 595, 517
+%theoretical energy levels: Griffin, D.C., Pindzola, M.S., Badnell, N.R., 2000, A&ASS, 142, 317
+%theoretical energy levels n=5,6,7: Czyzak,S.J., Krueger,T.K., 1966, ApJ, 144, 381
+%Comment: Shirai,T., Sugar,J., Musgrove,A., Wiese,W.L., 2000, J.Phys.Chem.Ref.Data, Monograph 8 report
+          an inversion of energies between levels 70 and 72 (same J). For consistency with Griffin 
+          et al 2000, who adapted their atomic structure calculation to a set of observed energies
+          identical to the NIST one, we use the NIST v.2 level ordering.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E.Landi - Nov 2004
+%Experimental energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1999,
+      NIST Database for Atomic Spectroscopy, Version 2.0, NIST Standard Reference Database 61.
+%Experimental energy levels (3p6.4d levels - 51,52): Ekberg, J.O. & Feldman U., 2003, ApJ, 595, 517
+%theoretical energy levels: Griffin, D.C., Pindzola, M.S., Badnell, N.R., 2000, A&ASS, 142, 317
+%Comment: Shirai,T., Sugar,J., Musgrove,A., Wiese,W.L., 2000, J.Phys.Chem.Ref.Data, Monograph 8 report
+          an inversion of energies between levels 70 and 72 (ssame J). For consistency with Griffin 
+          et al 2000, who adapted their atomic structure calculation to a set of observed energies
+          identical to the NIST v.2 one, we use the NIST v.2 level ordering.
+%Radiative data: Griffin, D.C., Pindzola, M.S., Badnell, N.R., 2000, A&ASS, 142, 317
+%Radiative data n=5,6,7: Czyzak,S.J., Krueger,T.K., 1966, ApJ, 144, 381
+%Radiative data 1 - 2 transition: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1999,
+      NIST Database for Atomic Spectroscopy, Version 2.0, NIST Standard Reference Database 61
+%Radiative data for levels with J=9/2, 11/2: calculated using SUPERSTRUCTURE, with the configurations
+               3s2.3p6.3d, 3s2.3p5.3d2, 3s2.3p5.3d.4s, 3s2.3p6.4s, 3s2.3p6.4p, 3s2.3p6.4d, 3s2.3p6.4f,
+               3s2.3p4.3d3, 3s2.3p3.3d4
+%comment: SUPERSTRUCTURE radiative data have been corrected for the differences between experimental
+          and SUPERSTRUCTURE transition wavelength differences, where experimental values were available.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E.Landi - Nov 2004
+
+%filename: fe_8.splups
+%Oscillator strengths: Griffin, D.C., Pindzola, M.S., Badnell, N.R., 2000, A&ASS, 142, 317
+%Effective collision strengths: Griffin, D.C., Pindzola, M.S., Badnell, N.R., 2000, A&ASS, 142, 317
+%collision strengths and gf values n=5,6,7:  Czyzak,S.J., Krueger,T.K., 1966, ApJ, 144, 381
+%comment: effective collision strengths were provided in the temperature range 4.5 < Log T < 6.5
+%comment: added collisional data for transitions involving levels 21,25,28,29,39. They affect
+          level populations at electron densities larger than 10^9 cm^-3 (June 2003).
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+% 
+% Enrico Landi - June 2003
+ 2 23 0
+  1  3p6.3d 2D3/2
+  2  3p6.3d 2D5/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   3.67e-01
+  0  0   3.58e-01
+  0  0   3.44e-01
+  0  0   3.24e-01
+  0  0   2.95e-01
+  0  0   2.58e-01
+  0  0   2.11e-01
+  0  0   1.60e-01
+  0  0   1.08e-01
+  0  0   6.03e-02
+  0  0   2.16e-02
+  0  0   1.00e-22
+  0  0   1.00e-22
+  0  0   1.00e-22
+  0  0   1.00e-22
+  0  0   2.98e-02
+  0  0   1.22e-01
+  0  0   2.81e-01
+  0  0   4.86e-01
+  0  0   6.27e-01
+  0  0   6.46e-01
+  0  0   5.94e-01
+  0  0   5.09e-01
+ 0 0 0
+  1  2   7.050e-02
+  1  4        0.0
+  2  6     1836.0

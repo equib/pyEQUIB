@@ -1,0 +1,126 @@
+ 21
+** Atomic data from version 5.2 of the CHIANTI database **
+%observed energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+    NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61.
+%theoretical energy levels: Zhang, Sampson, Fontes, ADNDT, 1990, 44, 31.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+%observed energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+    NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61
+%Allowed transitions oscillator strengths: Zhang, Sampson, Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths: Martin, I., Karwowski, J., Diercksen, G.H.F., Barrientos, C., 1993, A&AS, 100, 595
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%Enrico Landi - 1997
+
+%filename: co_25.splups
+%oscillator strengths: Zhang, Sampson, Fontes, 1990, ADNDT, 44, 31
+%collision strengths: Zhang, Sampson, Fontes, 1990, ADNDT, 44, 31
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+ 3 23 0
+  1  1s2.2s 2S1/2
+  2  1s2.2p 2P1/2
+  3  1s2.2p 2P3/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   1.19e-01
+  0  0   1.19e-01
+  0  0   1.19e-01
+  0  0   1.19e-01
+  0  0   1.19e-01
+  0  0   1.19e-01
+  0  0   1.19e-01
+  0  0   1.20e-01
+  0  0   1.20e-01
+  0  0   1.20e-01
+  0  0   1.20e-01
+  0  0   1.20e-01
+  0  0   1.21e-01
+  0  0   1.21e-01
+  0  0   1.22e-01
+  0  0   1.24e-01
+  0  0   1.26e-01
+  0  0   1.29e-01
+  0  0   1.34e-01
+  0  0   1.39e-01
+  0  0   1.46e-01
+  0  0   1.52e-01
+  0  0   1.59e-01
+  1  3   2.41e-01
+  0  0   2.41e-01
+  0  0   2.41e-01
+  0  0   2.41e-01
+  0  0   2.41e-01
+  0  0   2.41e-01
+  0  0   2.41e-01
+  0  0   2.42e-01
+  0  0   2.42e-01
+  0  0   2.42e-01
+  0  0   2.42e-01
+  0  0   2.42e-01
+  0  0   2.43e-01
+  0  0   2.44e-01
+  0  0   2.45e-01
+  0  0   2.47e-01
+  0  0   2.50e-01
+  0  0   2.54e-01
+  0  0   2.61e-01
+  0  0   2.69e-01
+  0  0   2.79e-01
+  0  0   2.90e-01
+  0  0   3.02e-01
+  2  3   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.92e-02
+  0  0   2.91e-02
+  0  0   2.91e-02
+  0  0   2.91e-02
+  0  0   2.90e-02
+  0  0   2.89e-02
+  0  0   2.88e-02
+  0  0   2.85e-02
+  0  0   2.82e-02
+  0  0   2.76e-02
+  0  0   2.68e-02
+ 0 0 0
+  1  2   1.905e+09
+  1  3   4.992e+09
+  2  3   0.000e+00
+  1  2        0.0
+  2  2   409520.0
+  3  4   561180.0

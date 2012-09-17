@@ -1,0 +1,104 @@
+ 49
+** Atomic data from version 5.2 of the CHIANTI database **
+%Observed and Theoretical energies (levels 1-54): Del Zanna, Berrington, Mason, 2004, A&A, 422, 731
+%Observed energy levels (55-172): NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard 
+   Reference Database 61, 1995
+%theoretical energy levels (55-172): Malinovsky et al., 1980, ApJ, 235, 665
+%comment: The second column has the theoretical energies of the  scattering calculations,
+   while the third column has the theoretical energies from the SUPERSTRUCTURE calculation 
+   (with term energy corrections).
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%   Giulio Del Zanna and Peter Young - July 20, 2005 
+%Observed and Theoretical energies (levels 1-54): Del Zanna, Berrington, Mason, 2004, A&A, 422, 731
+%Observed energy levels (55-172): NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard
+   Reference Database 61, 1995
+%theoretical energy levels (55-172): Malinovsky et al., 1980, ApJ, 235, 665
+%A values and oscillator strengths (levels 1-54): Del Zanna, Berrington, Mason, 2004, A&A, 422, 731
+%comment: Theoretical wavelengths for levels 1-54 are obtained from the SUPERSTRUCTURE calculation
+   (with term energy corrections) in the .elvlc file, from Del Zanna, Berrington, Mason, 2004, A&A, 422, 731
+%A values (levels 55-172): A SSTRUCT run performed by P.R.Young.
+%comment: the A values for transitions between levels 55-172 have been calculated using a
+    configuration model of Fe X in SSTRUCT. The configurations included were:
+
+    3s2 3p5,  3s 3p6,  3s2 3p4 3d,  3s 3p5 3d,  3p6 3d
+    3s2 3p3 3d2,  3s 3p4 3d2
+    3s2 3p4 4s,  3s2 3p4 4p,  3s2 3p4 4d
+    3s2 3p4 4f,  3s2 3p4 5s,  3s2 3p4 5p
+    3s 3p5 4s,   3s 3p5 4p,   3s 3p5 5s
+
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%   Giulio Del Zanna and Peter Young - July 20, 2005
+
+%filename: fe_10.splups
+%Oscillator strengths (levels 1-54): Del Zanna,  Berrington, Mason, 2004, A&A, 422, 731 (scattering calculation)
+%Collision data for transitions to the first three levels: Pelan, Berrington, A&A 2001, 365, 258
+%Collision data for transitions to levels up to 54: Del Zanna,  Berrington, Mason, 2004, A&A, 422, 731
+%collision strengths for transitions to levels 55-172: Malinovsky et al., ApJ 235, 665, 1980
+%comment: Maxwellian-averaged collision strengths have been calculated in the temperature range 2.5 10^5 - 10^7 K
+%comment:      Although for many of the transitions involving levels >62 there
+     were gf values available, they have been fitted as Type 2
+     transitions. This is because, as Type 1 transitions they were often
+     difficult to fit (the 1-89 transition is a typical example).
+
+     Some of the 4s transitions (levels 55-62) showed unusual shapes
+     in the omega structure (e.g., 2-56, 1-58). I'm not sure how
+     trustworthy this data is.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%   Giulio Del Zanna and Peter Young - July 20, 2005
+ 2 23 0
+  1  3s2 3p5 2P3/2
+  2  3s2 3p5 2P1/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   3.65e+00
+  0  0   3.65e+00
+  0  0   3.65e+00
+  0  0   3.65e+00
+  0  0   3.65e+00
+  0  0   3.65e+00
+  0  0   3.64e+00
+  0  0   3.64e+00
+  0  0   3.64e+00
+  0  0   3.63e+00
+  0  0   3.61e+00
+  0  0   3.59e+00
+  0  0   3.56e+00
+  0  0   3.51e+00
+  0  0   3.44e+00
+  0  0   3.33e+00
+  0  0   3.17e+00
+  0  0   2.97e+00
+  0  0   2.69e+00
+  0  0   2.27e+00
+  0  0   1.79e+00
+  0  0   1.35e+00
+  0  0   9.90e-01
+ 0 0 0
+  1  2   6.938e+01
+  1  4        0.0
+  2  2    15683.1

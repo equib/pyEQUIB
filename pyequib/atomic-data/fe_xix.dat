@@ -1,0 +1,290 @@
+ 36
+** Atomic data from version 5.2 of the CHIANTI database **
+%observed energy levels (n=2): Shirai,T., Sugar,J., Musgrove,A., Wiese,W.L.,2000, J.Phys.Chem.Ref.Data, Monograph 8
+%Observed energy levels (n=3,4,5): identifications from the X-ray spectral line list by Landi & Phillips 2005, ApJ, in press
+%Observed energy levels (21,47,100): From the line list of Brown et al., 2002, ApJS, 140, 589
+%observed energy levels (above ionization): Palmeri P., Mendoza C., Kallman T.R., Bautista M.A., 2003, A&A, 403, 1175
+%Theoretical energy levels: Landi & Gu, 2005, ApJ, in press
+%theoretical energy levels (above ionization): Bautista, M.A., Mendoza, C., Kallman, T.R., Palmeri, P., 2004, A&A, 418, 1171
+%comment: theoretical energy levels from Palmeri et al are treated as experimental ones when no measured value was available
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi - Jul 2005
+%observed energy levels (n=2): Shirai,T., Sugar,J., Musgrove,A., Wiese,W.L.,2000, J.Phys.Chem.Ref.Data, Monograph 8
+%Observed energy levels (n=3,4,5): identifications from the X-ray spectral line list by Landi & Phillips 2005, ApJ, in press
+%Observed energy levels (21,47,100): From the line list of Brown et al 2002, ApJS, 140, 589
+%observed energy levels (above ionization): Palmeri P., Mendoza C., Kallman T.R., Bautista M.A., 2003, A&A, 403, 1175
+%Theoretical energy levels (below ionization): Landi & Gu, 2005, ApJ, in press
+%Radiative data (below ionization): Landi & Gu, 2005, ApJ, in press
+%Radiative data (above ionization): Palmeri, P., Mendoza, C., Kallman, T.R., Bautista, M.A., 2003, A&A, 403, 1175
+%Radiative data (1-632, 4-631): Bautista, M.A., Mendoza, C., Kallman, T.R., Palmeri, P., 2004, A&A, 418, 1171
+%Autoionization rates: Palmeri P., Mendoza C., Kallman T.R., Bautista M.A., 2003, A&A, 403, 1175
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi - Jul 2005
+
+%filename: fe_19.splups
+%oscillator strengths (level 10): Butler, K., Zeippen, C.J., 2001, A&A, 372, 1083
+%oscillator strengths (below ionization): computed with the Flexible Atomic Code - Gu, M.F., 2003, ApJ, 582, 1241
+%oscillator strengths (above ionization): Bautista, M.A., Mendoza, C., Kallman, T.R., Palmeri, P., 2004, A&A, 418, 1171
+%effective collision strengths (level 10): Butler, K., Zeippen, C.J., 2001, A&A, 372, 1083
+%effective collision strengths (levels 1-200): computed with the Flexible Atomic Code - Gu, M.F., 2003, ApJ, 582, 1241
+%Collision strengths (201-630) computed with the Flexible Atomic Code - Gu, M.F., 2003, ApJ, 582, 1241
+%Collisional data (above ionization): Bautista, M.A., Mendoza, C., Kallman, T.R., Palmeri, P., 2004, A&A, 418, 1171
+%Comment: effective collision strengths for levels 1-200 are given in the range 1.16e6 < T < 5.8e7
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%  Enrico Landi - Jan 2004
+ 5 23 0
+  1  2s2.2p4 3P2
+  2  2s2.2p4 3P0
+  3  2s2.2p4 3P1
+  4  2s2.2p4 1D2
+  5  2s2.2p4 1S0
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.82e-02
+  0  0   3.81e-02
+  0  0   3.81e-02
+  0  0   3.81e-02
+  0  0   3.81e-02
+  0  0   3.80e-02
+  0  0   3.79e-02
+  0  0   3.77e-02
+  0  0   3.75e-02
+  0  0   3.71e-02
+  0  0   3.65e-02
+  0  0   3.56e-02
+  0  0   3.43e-02
+  0  0   3.27e-02
+  0  0   3.12e-02
+  1  3   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.84e-01
+  0  0   1.83e-01
+  0  0   1.83e-01
+  0  0   1.83e-01
+  0  0   1.82e-01
+  0  0   1.80e-01
+  0  0   1.78e-01
+  0  0   1.74e-01
+  0  0   1.69e-01
+  0  0   1.61e-01
+  0  0   1.49e-01
+  0  0   1.35e-01
+  0  0   1.22e-01
+  1  4   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.36e-01
+  0  0   1.35e-01
+  0  0   1.35e-01
+  0  0   1.35e-01
+  0  0   1.35e-01
+  0  0   1.34e-01
+  0  0   1.33e-01
+  0  0   1.31e-01
+  0  0   1.29e-01
+  0  0   1.25e-01
+  0  0   1.20e-01
+  0  0   1.16e-01
+  0  0   1.14e-01
+  1  5   9.35e-03
+  0  0   9.35e-03
+  0  0   9.35e-03
+  0  0   9.35e-03
+  0  0   9.35e-03
+  0  0   9.35e-03
+  0  0   9.34e-03
+  0  0   9.34e-03
+  0  0   9.34e-03
+  0  0   9.34e-03
+  0  0   9.33e-03
+  0  0   9.33e-03
+  0  0   9.31e-03
+  0  0   9.29e-03
+  0  0   9.26e-03
+  0  0   9.21e-03
+  0  0   9.13e-03
+  0  0   9.01e-03
+  0  0   8.83e-03
+  0  0   8.57e-03
+  0  0   8.24e-03
+  0  0   7.91e-03
+  0  0   7.72e-03
+  2  3   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.39e-02
+  0  0   4.38e-02
+  0  0   4.38e-02
+  0  0   4.37e-02
+  0  0   4.35e-02
+  0  0   4.32e-02
+  0  0   4.29e-02
+  0  0   4.23e-02
+  0  0   4.13e-02
+  0  0   4.00e-02
+  0  0   3.82e-02
+  0  0   3.64e-02
+  0  0   3.51e-02
+  2  4   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.96e-02
+  0  0   1.95e-02
+  0  0   1.95e-02
+  0  0   1.94e-02
+  0  0   1.93e-02
+  0  0   1.91e-02
+  0  0   1.89e-02
+  0  0   1.89e-02
+  0  0   1.91e-02
+  2  5   9.89e-03
+  0  0   9.89e-03
+  0  0   9.89e-03
+  0  0   9.89e-03
+  0  0   9.89e-03
+  0  0   9.89e-03
+  0  0   9.89e-03
+  0  0   9.89e-03
+  0  0   9.88e-03
+  0  0   9.88e-03
+  0  0   9.86e-03
+  0  0   9.85e-03
+  0  0   9.82e-03
+  0  0   9.78e-03
+  0  0   9.71e-03
+  0  0   9.60e-03
+  0  0   9.43e-03
+  0  0   9.17e-03
+  0  0   8.77e-03
+  0  0   8.20e-03
+  0  0   7.47e-03
+  0  0   6.78e-03
+  0  0   6.39e-03
+  3  4   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.91e-02
+  0  0   5.92e-02
+  0  0   5.92e-02
+  0  0   5.92e-02
+  0  0   5.93e-02
+  0  0   5.94e-02
+  0  0   5.96e-02
+  0  0   5.99e-02
+  0  0   6.04e-02
+  0  0   6.12e-02
+  0  0   6.27e-02
+  0  0   6.52e-02
+  3  5   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.21e-02
+  0  0   1.22e-02
+  0  0   1.22e-02
+  0  0   1.23e-02
+  0  0   1.24e-02
+  0  0   1.25e-02
+  0  0   1.27e-02
+  0  0   1.31e-02
+  0  0   1.37e-02
+  0  0   1.45e-02
+  0  0   1.56e-02
+ 0 0 0
+  1  2   5.038e-01
+  1  3   1.454e+04
+  1  4   1.641e+04
+  1  5   8.637e+00
+  2  3   4.119e+01
+  2  4   0.000e+00
+  2  5   0.000e+00
+  3  4   6.366e+02
+  3  5   1.374e+05
+  4  5   4.922e+01
+  1  5        0.0
+  2  1    75250.0
+  3  3    89441.0
+  4  5   168852.0
+  5  1   325140.0
