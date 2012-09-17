@@ -1,0 +1,76 @@
+ 21
+** Atomic data from version 5.2 of the CHIANTI database **
+%observed energy levels:  Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+    NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61.
+%theoretical energy levels: interpolated using Ne II, Mg IV, Si VI, S VIII.
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+%observed energy levels: Martin, W.C., Sugar, J., Musgrove, A., Dalton, G.R., 1995,
+   NIST Database for Atomic Spectroscopy, Version 1.0, NIST Standard Reference Database 61.
+% A values: Froese Fischer, C., Tachiev, G., 2005, ADNDT, 87, 1
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+%   Enrico Landi 1997
+% Peter Young, 17-Jul-2006, updated with Tachiev & Froese Fischer data.
+
+%filename: na_3.splups
+%oscillator strengths: interpolated using Ne II, Mg IV, Si VI, S VIII
+%effective collision strengths: interpolated using Ne II, Mg IV, Si VI, S VIII
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% Enrico Landi 1997
+ 2 23 0
+  1  2s2.2p5 2P3/2
+  2  2s2.2p5 2P1/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   3.54e-01
+  0  0   3.54e-01
+  0  0   3.53e-01
+  0  0   3.53e-01
+  0  0   3.53e-01
+  0  0   3.52e-01
+  0  0   3.51e-01
+  0  0   3.50e-01
+  0  0   3.48e-01
+  0  0   3.45e-01
+  0  0   3.42e-01
+  0  0   3.39e-01
+  0  0   3.39e-01
+  0  0   3.47e-01
+  0  0   3.66e-01
+  0  0   3.91e-01
+  0  0   4.12e-01
+  0  0   4.26e-01
+  0  0   4.35e-01
+  0  0   4.41e-01
+  0  0   4.45e-01
+  0  0   4.48e-01
+  0  0   4.50e-01
+ 0 0 0
+  1  2   4.504e-02
+  1  4        0.0
+  2  2     1366.3
