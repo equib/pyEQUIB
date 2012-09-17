@@ -1,0 +1,157 @@
+ 52
+** Atomic data from version 5.2 of the CHIANTI database **
+%energy levels (1-24): Martin, W.C., Zalubas, R., 1983, J. Phys. Chem. Ref. Data, 12, 323.
+%Theoretical energy levels (1-24): Zhang,H.L., Sampson,D.H., Fontes,C.J., ADNDT, 44, 31.
+%Innershell energy levels: Fuhr, J.R., Kelleher, D.E., Martin, W.C., Musgrove, A., Sugar, J., Wiese, W.L.,
+        Dalton, G.R., Dragoset, R.A., Mohr, P.J., Olsen, K., Reader, J., Saloman, E.B., Sansonetti, C.J.,
+        Wiersma, G., "NIST Atomic Spectra Database" Ver. 2.0, March 1999, NIST Physical Reference Data
+%Innershell theoretical energy levels: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E. Landi - July 1999
+%observed energy levels: Sugar, J., Corliss, C., 1979, J.Phys.Chem.Ref.Data, 8, 865
+%observed energy levels: Kelly, R.L., 1987, J.Phys.Chem.Ref.Data, 16, Suppl. 1
+%comments:  4s, 4p and 4p levels from Kelly
+%oscillator strengths: H.L. Zhang, D.H. Sampson, C.J. Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths: Martin, I., Karwowski, J., Diercksen, G.H.F., Barrientos, C., 1993, A&AS, 100, 595
+% Innershell radiative data: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+%A values (autoionizing): Vainshtein, L.A., Safronova, U.I., 1978, ADNDT, 21, 49
+   and 1980, ADNDT, 25, 311 - updated by U.I. Safronova, 1999
+%Comment: Other radiative data were calculated using SUPERSTRUCTURE with a 23 configuration model
+%comment:  the following lines identified by Feldman, U., Doschek, G., Kreplin, R.W., 1980, ApJ, 238, 365
+    2   36         3.2066      5.910e-01      9.615e+13        1s2.2p 2P0.5 -         1s.2p2 2D1.5   (k)              
+    3   39         3.2033      1.344e+00      2.192e+14        1s2.2p 2P1.5 -         1s.2p2 2P1.5   (a)              
+%comment:  unobserved lines
+    1   26        -3.2260      1.103e-03      3.532e+11        1s2.2s 2S0.5 -  1s.(2S).2s.2p 4P0.5                 
+    1   27        -3.2241      6.620e-03      1.061e+12        1s2.2s 2S0.5 -  1s.(2S).2s.2p 4P1.5                 
+    1   28        -3.2209      6.669e-06      7.142e+08        1s2.2s 2S0.5 --  1s.(2S).2s.2p 4P2.5                
+    1   29        -3.1988      3.691e-01      1.202e+14        1s2.2s 2S0.5 -  1s.(2S).2s.2p 2P0.5                 
+    1   30        -3.1961      9.666e-01      1.577e+14        1s2.2s 2S0.5 -  1s.(2S).2s.2p 2P1.5                 
+    2   25        -3.2634      8.502e-03      2.661e+12        1s2.2p 2P0.5 -         1s.2s2 2S0.5                 
+    2   31        -3.2210      3.368e-03      1.082e+12        1s2.2p 2P0.5 -         1s.2p2 4P0.5                 
+    2   32        -3.2182      7.303e-05      1.175e+10        1s2.2p 2P0.5 -         1s.2p2 4P1.5                 
+    2   38        -3.1970      5.507e-01      1.796e+14        1s2.2p 2P0.5 -         1s.2p2 2P0.5                 
+    2   40        -3.1783      2.860e-02      9.439e+12        1s2.2p 2P0.5 -         1s.2p2 2S0.5                 
+    3   25        -3.2678      1.215e-02      3.792e+12        1s2.2p 2P1.5 -         1s.2s2 2S0.5                 
+    3   31        -3.2252      1.522e-04      4.877e+10        1s2.2p 2P1.5 -         1s.2p2 4P0.5                 
+    3   32        -3.2225      4.753e-03      7.628e+11        1s2.2p 2P1.5 -         1s.2p2 4P1.5                 
+    3   33        -3.2197      1.974e-02      2.115e+12        1s2.2p 2P1.5 -         1s.2p2 4P2.5                 
+    3   38        -3.2012      1.952e-01      6.349e+13        1s2.2p 2P1.5 -         1s.2p2 2P0.5                 
+    3   40        -3.1824      2.153e-01      7.087e+13        1s2.2p 2P1.5 -         1s.2p2 2S0.5                 
+
+%produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E. Landi - July 1999
+
+%filename: ca_18.splups
+%oscillator strengths: H.L. Zhang, D.H. Sampson, C.J. Fontes, 1990, ADNDT, 44, 31
+%oscillator strengths: Martin, I., Karwowski, J., Diercksen, G.H.F., Barrientos, C., 1993, A&AS, 100, 595
+%collision strengths: Zhang, Sampson, Fontes, 1990, ADNDT, 44, 31
+%Collision strengths innershell transitions: Goett, S.J., Sampson, D.H., 1983, ADNDT, 29, 535
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E.Landi and K.P.Dere - July 1999
+ 3 23 0
+  1  1s2.2s 2S1/2
+  2  1s2.2p 2P1/2
+  3  1s2.2p 2P3/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.68e-01
+  0  0   2.69e-01
+  0  0   2.69e-01
+  0  0   2.70e-01
+  0  0   2.71e-01
+  0  0   2.72e-01
+  0  0   2.74e-01
+  0  0   2.76e-01
+  0  0   2.82e-01
+  0  0   2.92e-01
+  0  0   3.08e-01
+  1  3   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.25e-01
+  0  0   5.26e-01
+  0  0   5.26e-01
+  0  0   5.26e-01
+  0  0   5.27e-01
+  0  0   5.29e-01
+  0  0   5.30e-01
+  0  0   5.33e-01
+  0  0   5.36e-01
+  0  0   5.40e-01
+  0  0   5.46e-01
+  0  0   5.56e-01
+  0  0   5.74e-01
+  0  0   6.03e-01
+  2  3   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.74e-02
+  0  0   5.73e-02
+  0  0   5.73e-02
+  0  0   5.72e-02
+  0  0   5.71e-02
+  0  0   5.69e-02
+  0  0   5.67e-02
+  0  0   5.63e-02
+  0  0   5.56e-02
+  0  0   5.47e-02
+  0  0   5.33e-02
+  0  0   5.13e-02
+  0  0   4.88e-02
+ 0 0 0
+  1  2   1.319e+09
+  1  3   1.972e+09
+  2  3   7.403e+02
+  1  2        0.0
+  2  2   290057.0
+  3  4   330918.0

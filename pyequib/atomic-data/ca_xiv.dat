@@ -1,0 +1,312 @@
+ 35
+** Atomic data from version 5.2 of the CHIANTI database **
+%Observed energy levels (1-6): Feldman et al, 2000, ApJ, 544, 508
+%Observed energy levels (6-15): Edlen, 1984, Phys.Scripta, 30, 135
+%Observed energy levels (3d: 52,56,57,58,62,63,67,68,70,74): J.R. Fuhr, D.E. Kelleher, W.C. 
+      Martin, A. Musgrove, J. Sugar, W.L. Wiese, G.R. Dalton, R.A. Dragoset, P.J. Mohr, K. Olsen, 
+      J. Reader, E.B. Saloman, C.J. Sansonetti, G. Wiersma, "NIST Atomic Spectra Database" Ver. 
+      2.0, March 1999, NIST Physical Reference Data
+%Observed energy levels (3s: 17,18,20): Kaufman, V., Sugar, J., Cooper, D., 1982, Phys. Scr., 26, 163
+%Theoretical energy levels: Bhatia & Landi 2005, ADNDT, in press
+%comment: theoretical energy levels come from the 24-configuration calculation in Bhatia & Landi (2005)
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+% 
+% Enrico Landi - April 2004
+%Observed energy levels (1-6): Feldman et al, 2000, ApJ, 544, 508
+%Observed energy levels (6-15): Edlen, 1984, Phys.Scripta, 30, 135
+%Observed energy levels (3d: 52,56,57,58,62,63,67,68,70,74): J.R. Fuhr, D.E. Kelleher, W.C.
+      Martin, A. Musgrove, J. Sugar, W.L. Wiese, G.R. Dalton, R.A. Dragoset, P.J. Mohr, K. Olsen,
+      J. Reader, E.B. Saloman, C.J. Sansonetti, G. Wiersma, "NIST Atomic Spectra Database" Ver.
+      2.0, March 1999, NIST Physical Reference Data
+%Observed energy levels (3s: 17,18,20): Kaufman, V., Sugar, J., Cooper, D., 1982, Phys. Scr., 26, 163
+%Theoretical energy levels: 24-conf. model from Bhatia & Landi 2005, ADNDT, in press
+%A values and oscillator strengths: Bhatia & Landi 2005, ADNDT, in press
+%comment: theoretical energy levels and all radiative data come from the 24-configuration calculation in Bhatia & Landi (2005)
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+% 
+% Enrico Landi - April 2004
+
+%filename: ca_14.splups
+%Collision strengths: Landi & Bhatia, 2005, ADNDT, in press
+%Oscillator strengths: Landi & Bhatia, 2005, ADNDT, in press
+%comment: oscillator strengths have been taken from the 6-configuration model of Bhatia & Landi
+    (2005) for consistency with the collisional calculation
+% produced as part of the Arcetri/Cambridge/NRL 'CHIANTI' atomic data base collaboration
+%
+% E. Landi - Apr 2004
+ 5 23 0
+  1  2s2.2p3 4S3/2
+  2  2s2.2p3 2D3/2
+  3  2s2.2p3 2D5/2
+  4  2s2.2p3 2P1/2
+  5  2s2.2p3 2P3/2
+     100.0
+     158.5
+     251.2
+     398.1
+     631.0
+    1000.0
+    1584.9
+    2511.9
+    3981.1
+    6309.6
+   10000.0
+   15848.9
+   25118.9
+   39810.7
+   63095.8
+  100000.0
+  158489.2
+  251188.7
+  398107.1
+  630957.6
+ 1000000.0
+ 1584892.5
+ 2511887.0
+0
+  1  2   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.70e-02
+  0  0   4.69e-02
+  0  0   4.69e-02
+  0  0   4.68e-02
+  0  0   4.68e-02
+  0  0   4.66e-02
+  0  0   4.64e-02
+  0  0   4.61e-02
+  0  0   4.55e-02
+  0  0   4.47e-02
+  0  0   4.34e-02
+  0  0   4.15e-02
+  0  0   3.89e-02
+  1  3   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.64e-02
+  0  0   6.63e-02
+  0  0   6.63e-02
+  0  0   6.62e-02
+  0  0   6.61e-02
+  0  0   6.59e-02
+  0  0   6.56e-02
+  0  0   6.51e-02
+  0  0   6.44e-02
+  0  0   6.32e-02
+  0  0   6.15e-02
+  0  0   5.89e-02
+  0  0   5.51e-02
+  1  4   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.36e-02
+  0  0   1.35e-02
+  0  0   1.35e-02
+  0  0   1.35e-02
+  0  0   1.34e-02
+  0  0   1.33e-02
+  0  0   1.31e-02
+  0  0   1.29e-02
+  0  0   1.25e-02
+  0  0   1.19e-02
+  0  0   1.10e-02
+  1  5   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.46e-02
+  0  0   2.45e-02
+  0  0   2.45e-02
+  0  0   2.45e-02
+  0  0   2.44e-02
+  0  0   2.43e-02
+  0  0   2.41e-02
+  0  0   2.37e-02
+  0  0   2.33e-02
+  0  0   2.26e-02
+  0  0   2.15e-02
+  0  0   2.00e-02
+  2  3   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.88e-02
+  0  0   8.87e-02
+  0  0   8.87e-02
+  0  0   8.86e-02
+  0  0   8.86e-02
+  0  0   8.84e-02
+  0  0   8.82e-02
+  0  0   8.79e-02
+  0  0   8.73e-02
+  0  0   8.65e-02
+  0  0   8.52e-02
+  0  0   8.33e-02
+  0  0   8.03e-02
+  0  0   7.61e-02
+  2  4   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.61e-02
+  0  0   3.62e-02
+  0  0   3.62e-02
+  0  0   3.63e-02
+  0  0   3.64e-02
+  0  0   3.65e-02
+  0  0   3.67e-02
+  0  0   3.70e-02
+  0  0   3.75e-02
+  2  5   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.92e-02
+  0  0   3.91e-02
+  0  0   3.91e-02
+  0  0   3.90e-02
+  0  0   3.88e-02
+  0  0   3.86e-02
+  0  0   3.82e-02
+  0  0   3.77e-02
+  0  0   3.70e-02
+  3  4   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.50e-02
+  0  0   3.49e-02
+  0  0   3.49e-02
+  0  0   3.48e-02
+  0  0   3.46e-02
+  3  5   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.19e-02
+  0  0   9.20e-02
+  0  0   9.20e-02
+  0  0   9.21e-02
+  0  0   9.21e-02
+  0  0   9.23e-02
+  0  0   9.25e-02
+  0  0   9.28e-02
+  0  0   9.32e-02
+  4  5   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.40e-02
+  0  0   3.39e-02
+  0  0   3.39e-02
+  0  0   3.39e-02
+  0  0   3.38e-02
+  0  0   3.37e-02
+  0  0   3.35e-02
+  0  0   3.31e-02
+  0  0   3.27e-02
+  0  0   3.19e-02
+  0  0   3.08e-02
+  0  0   2.92e-02
+ 0 0 0
+  1  2   4.834e+02
+  1  3   1.408e+01
+  1  4   1.615e+03
+  1  5   3.038e+03
+  2  3   4.170e+00
+  2  4   6.144e+02
+  2  5   1.509e+03
+  3  4   4.277e-01
+  3  5   6.660e+02
+  4  5   1.023e+01
+  1  4        0.0
+  2  4   105978.8
+  3  6   113584.6
+  4  2   172456.0
+  5  4   183406.0
