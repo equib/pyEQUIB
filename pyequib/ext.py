@@ -91,4 +91,93 @@ def redlaw_gal(wave, rv=None):
          extl=val
    return (extl / 3.63) - 1.0
 
+def redlaw_ccm(wave, rv=None):
+   """
+    NAME:
+        redlaw_ccm
+    PURPOSE:
+       reddening law function of Cardelli, Clayton & Mathis
+   
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        fl = redlaw_ccm(wave, rv)
+   
+    INPUTS:
+        wave[] -  wavelength of emission line, Angstroms
+        rv - The ratio of extinction to reddening defined as R_V = A_V/E(B-V)
+    RETURN: extl[] -  extinction evaluation array
+   
+    REVISION HISTORY:
+        Based on Formulae by Cardelli, Clayton & Mathis 1989, ApJ 345, 245-256.
+        1989ApJ...345..245C
+        Originally from IRAF STSDAS SYNPHOT redlaw.x
+        Initial IRAF implementation, based upon CCM module
+            in onedspec.deredden, R. A. Shaw, 18/05/1993
+        Converted to Python code by A. Danehkar, 31/08/2012
+   """
+   if hasattr(wave, "__len__"):
+     npts = len(wave)
+     extl = numpy.zeros(npts)
+   else:
+     npts = 1
+     extl = numpy.int32(0)
+   if (rv is not None):   
+      r_v = rv
+   else:   
+      r_v = 3.1
+   for pix in range(0, (npts - 1)+(1)):
+      if hasattr(wave, "__len__"):
+         wavel=wave[pix]
+      else:
+         wavel=wave
+      if (wavel < 1000.0):   
+         print "redlaw_ccm: Invalid wavelength"
+      
+      # Convert input wavelength to inverse microns
+      x = 10000.e+0 / wavel
+      
+      # For wavelengths longward of the L passband, linearly interpolate
+      # to 0. at 1/lambda = 0.  (a=0.08, b=-0.0734 @ x=0.29)
+      if (x < 0.29e+0):   
+         a = 0.2759 * x
+         b = -0.2531 * x
+      else:   
+         if (x < 1.1e+0):   
+            y = x ** 1.61
+            a = 0.574 * y
+            b = -0.527 * y
+         else:   
+            if (x < 3.3e+0):   
+               y = x - 1.82
+               a = 1 + y * (0.17699 + y * (-0.50447 + y * (-0.02427 + y * (0.72085 + y * (0.01979 + y * (-0.77530 + y * 0.32999))))))
+               b = y * (1.41338 + y * (2.28305 + y * (1.07233 + y * (-5.38434 + y * (-0.62251 + y * (5.30260 - y * 2.09002))))))
+            else:   
+               if (x < 5.9e+0):   
+                  y = (x - 4.67) ** 2
+                  a = 1.752 - 0.316 * x - 0.104 / (y + 0.341)
+                  b = -3.090 + 1.825 * x + 1.206 / (y + 0.263)
+               else:   
+                  if (x < 8.0e+0):   
+                     y = (x - 4.67) ** 2
+                     a = 1.752 - 0.316 * x - 0.104 / (y + 0.341)
+                     b = -3.090 + 1.825 * x + 1.206 / (y + 0.263)
+                     
+                     y = x - 5.9
+                     a = a - 0.04473 * y ** 2 - 0.009779 * y ** 3
+                     b = b + 0.2130 * y ** 2 + 0.1207 * y ** 3
+                     # Truncate range of ISEF to that for 1000 Ang.
+                  else:   
+                     if (x <= 10.0e+0):   
+                        x = min([x, 10.0e+0])
+                        y = x - 8.e+0
+                        a = -1.072 - 0.628 * y + 0.137 * y ** 2 - 0.070 * y ** 3
+                        b = 13.670 + 4.257 * y - 0.420 * y ** 2 + 0.374 * y ** 3
+      # Compute A(lambda)/A(V)
+      y = a * r_v + b
+      if hasattr(extl, "__len__"):
+         extl[pix] = y
+      else:
+         extl= y
+   return (extl / ((1.015452 * r_v) + 0.461000)) - 1.0
 
