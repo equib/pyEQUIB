@@ -294,3 +294,61 @@ def redlaw_jbk(wave):
          extl=val
    return extl
 
+def redlaw_smc(wave):
+   """
+   NAME:
+       redlaw_smc
+   PURPOSE:
+      reddening law function for Small Magellanic Cloud
+   
+   EXPLANATION:
+   
+   CALLING SEQUENCE:
+       fl = redlaw_smc(wave)
+   
+   INPUTS:
+       wave[] -  wavelength of emission line, Angstroms
+   RETURN: extl[] -  extinction evaluation array
+   
+   REVISION HISTORY:
+       Based on Prevot et al. (1984), A&A, 132, 389-392
+       1984A%26A...132..389P
+       Originally from IRAF STSDAS SYNPHOT redlaw.x, ebmvxfunc.x
+       Initial IRAF implementation, R. A. Shaw, 20/09/1994
+       Return A(lambda)/A(V) instead, R. A. Shaw, 04/03/95
+       Converted to Python code by A. Danehkar, 31/08/2012
+   """
+   # Tabulated inverse wavelengths in microns:
+   xtab = numpy.array([0.00, 0.29, 0.45, 0.80, 1.11, 1.43, 1.82, 2.35, 2.70, 3.22, 3.34, 3.46, 3.60, 3.75, 3.92, 4.09, 4.28, 4.50, 4.73, 5.00, 5.24, 5.38, 5.52, 5.70, 5.88, 6.07, 6.27, 6.48, 6.72, 6.98, 7.23, 7.52, 7.84])
+   
+   # Tabulated extinction function, E(lambda-V)/E(B-V):
+   extab = numpy.array([-3.10, -2.94, -2.72, -2.23, -1.60, -0.78, 0.00, 1.00, 1.67, 2.29, 2.65, 3.00, 3.15, 3.49, 3.91, 4.24, 4.53, 5.30, 5.85, 6.38, 6.76, 6.90, 7.17, 7.71, 8.01, 8.49, 9.06, 9.28, 9.84, 10.80, 11.51, 12.52, 13.54])
+   
+   if hasattr(wave, "__len__"):
+     npts = len(wave)
+     extl = numpy.zeros(npts)
+   else:
+     npts = 1
+     extl = numpy.int32(0)
+   for pix in range(0, (npts - 1)+(1)):
+      if hasattr(wave, "__len__"):
+         wavel=wave[pix]
+      else:
+         wavel=wave
+      if (wavel < 1000.0):   
+         print "redlaw_smc: Invalid wavelength"
+      # Convert wavelength in angstroms to 1/microns
+      x = 10000.e+0 / wavel
+      x = min([x, 10.0])
+      
+      # Linearly interpolate extinction law in 1/lam
+      val = lin_interp(extab, xtab, x)
+      #deriv1 = spl_init(xtab, extab)
+      #val=spl_interp(xtab, extab, deriv1, x)
+      
+      if hasattr(extl, "__len__"):
+         extl[pix] = val + 3.1
+      else:
+         extl=val + 3.1
+   return (extl / 3.242) - 1.0
+
