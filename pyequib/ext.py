@@ -352,3 +352,85 @@ def redlaw_smc(wave):
          extl=val + 3.1
    return (extl / 3.242) - 1.0
 
+def redlaw_lmc(wave):
+   """
+   NAME:
+       redlaw_ccm
+   PURPOSE:
+      reddening law function for the Large Magellanic Cloud
+   
+   EXPLANATION:
+   
+   CALLING SEQUENCE:
+       fl = redlaw_ccm(wave)
+   
+   INPUTS:
+       wave[] -  wavelength of emission line, Angstroms
+   RETURN: extl[] -  extinction evaluation array
+   
+   REVISION HISTORY:
+       Based on Formulae by Howarth 1983, MNRAS, 203, 301
+       1983MNRAS.203..301H
+       Originally from IRAF STSDAS SYNPHOT ebmvlfunc.x, redlaw.x
+       Initial IRAF implementation, R. A. Shaw, 18/10/1994
+       Return A(lambda)/A(V) instead, R. A. Shaw, 14/03/95
+       Converted to Python code by A. Danehkar, 31/08/2012
+   """
+   # Tabulated inverse wavelengths in microns:
+   xtab = numpy.array([0.00, 0.29, 0.45, 0.80, 1.11, 1.43, 1.82])
+   
+   # Tabulated extinction function, A(lambda)/E(B-V), from Savage & Mathis:
+   extab = numpy.array([0.00, 0.16, 0.38, 0.87, 1.50, 2.32, 3.10])
+   
+   if hasattr(wave, "__len__"):
+     npts = len(wave)
+     extl = numpy.zeros(npts)
+   else:
+     npts = 1
+     extl = numpy.int32(0)
+   for pix in range(0, (npts - 1)+(1)):
+      if hasattr(wave, "__len__"):
+         wavel=wave[pix]
+      else:
+         wavel=wave
+      if (wavel < 1000.0):   
+         print "redlaw_lmc: Invalid wavelength"
+      
+      # Convert input wavelength to inverse microns
+      x = 10000.e+0 / wavel
+      
+      # Infrared - optical
+      if (x <= 1.82):   
+         # linear interpolation of Savage & Mathis 1979
+         #  val = lin_interp(extab, xtab,  x)
+         #  extl[pix] = val ;+ 3.1
+         # Infrared - extend optical results linearly to 0 at 1/lam = 0
+         val = ((1.86 - 0.48 * x) * x - 0.1) * x
+      else:   
+         # The following polynomial evaluations assume R = 3.1
+         # Renormalize extinction function to A(lambda)/A(V)
+         if (x <= 2.75):   
+            #  Violet
+            val = 3.1 + (2.04 + 0.094 * (x - 1.82)) * (x - 1.82)
+         else:   
+            #  Ultraviolet out to lambda = 1000 A
+            x = min([x, 10.0])
+            val = 3.1 - 0.236 + 0.462 * x + 0.105 * x ** 2 + 0.454 / ((x - 4.557) ** 2 + 0.293)
+      if hasattr(extl, "__len__"):
+         extl[pix] = val
+      else:
+         extl=val
+   return (extl / 3.57) - 1.0
+
+def lin_interp(vv, xx, xout):
+   """
+      linear interpolation/extrapolaton
+   """
+   # Make a copy so we don't overwrite the input arguments.
+   v = vv
+   x = xx
+   interpfunc = interpolate.interp1d(xx,vv, kind='linear')
+   vout=interpfunc(xout)
+   
+   return vout
+
