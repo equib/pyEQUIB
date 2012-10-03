@@ -12,6 +12,57 @@ from scipy import interpolate
         pass
 """ 
 
+def redlaw(wavelength, ext_law=None, rv=None, fmlaw=None):
+   """
+    NAME:
+        redlaw
+    PURPOSE:
+        determine reddening law function for the line at the wavelength of lambda,
+        depending on the law used
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        fl = redlaw(wavelength, ext_law)
+   
+    INPUTS:
+        wavelength -     Wavelength in Angstrom
+        ext_law -     extinction law
+           ext_law='GAL' ; Howarth Galactic
+           ext_law='GAL2' ; Savage and Mathis
+           ext_law='CCM' ; CCM galactic
+           ext_law='JBK' ; Whitford, Seaton, Kaler
+           ext_law='FM' ; Fitxpatrick
+           ext_law='SMC' ; Prevot SMC
+           ext_law='LMC' ; Howarth LMC
+    RETURN:  f(lambda)
+   
+    REVISION HISTORY:
+        Originally from IRAF STSDAS SYNPHOT redlaw.x, ebmvxfunc.x
+        Converted to Python code by A. Danehkar, 31/08/2012
+   """
+   
+   if (ext_law is not None):   
+      extlaw = ext_law
+   else:   
+      extlaw = 'GAL'
+   _expr = extlaw
+   if _expr == 'GAL':   
+      fl = redlaw_gal(wavelength, rv=rv)
+   elif _expr == 'GAL2':   
+      fl = redlaw_gal2(wavelength)
+   elif _expr == 'CCM':   
+      fl = redlaw_ccm(wavelength, rv=rv)
+   elif _expr == 'JBK':  
+      fl = redlaw_jbk(wavelegth)
+   elif _expr == 'SMC':   
+      fl = redlaw_smc(wavelength)
+   elif _expr == 'LMC':   
+      fl = redlaw_lmc(wavelength)
+   else:   
+      print 'ext_law cannnot find'
+   
+   return fl
+
 def redlaw_gal(wave, rv=None):
    """
    NAME:
