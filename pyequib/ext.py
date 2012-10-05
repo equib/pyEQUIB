@@ -12,6 +12,96 @@ from scipy import interpolate
         pass
 """ 
 
+def deredden_relflux(wavelength, relflux, m_ext, ext_law=None, rv=None, fmlaw=None):
+   """
+    NAME:
+        deredden_relflux
+    PURPOSE:
+        determine deredden flux intensity relative to Hb=100,
+        depending on the law used
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        relflux_deredden = deredden_relflux(wavelengths, relflux, m_ext)
+   
+    INPUTS:
+        wavelength -     Wavelength in Angstrom
+        relflux -      flux intensity relative to Hb=100
+        m_ext -      logarithmic extinction
+        ext_law -     extinction law
+           ext_law='GAL' ; Howarth Galactic
+           ext_law='GAL2' ; Savage and Mathis
+           ext_law='CCM' ; CCM galactic
+           ext_law='JBK' ; Whitford, Seaton, Kaler
+           ext_law='FM' ; Fitxpatrick
+           ext_law='SMC' ; Prevot SMC
+           ext_law='LMC' ; Howarth LMC
+    RETURN:  deredden relative intensity
+   
+    REVISION HISTORY:
+        Python code by A. Danehkar, 31/08/2012
+   """
+   if (ext_law is not None):   
+      extlaw = ext_law
+   else:   
+      extlaw = 'GAL'
+   if (rv is not None):   
+      r_v = rv
+   else:   
+      r_v = 3.1
+   if (fmlaw is not None):   
+      fm_law = fmlaw
+   else:   
+      fm_law = 'STANDARD'
+   fl = redlaw(wavelength, ext_law=extlaw, rv=r_v, fmlaw=fm_law)
+   int_dered = relflux * 10.0 ** (m_ext * fl)
+   return int_dered
+
+def deredden_flux(wavelength, flux, m_ext, ext_law=None, rv=None, fmlaw=None):
+   """
+    NAME:
+        deredden
+    PURPOSE:
+        determine deredden flux intensity relative to Hb=100,
+        depending on the law used
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        flux_deredden = deredden_flux(wavelengths, flux, m_ext)
+   
+    INPUTS:
+        wavelength -     Wavelength in Angstrom
+        flux -      absolute flux intensity
+        m_ext -      logarithmic extinction
+        ext_law -     extinction law
+           ext_law='GAL' ; Howarth Galactic
+           ext_law='GAL2' ; Savage and Mathis
+           ext_law='CCM' ; CCM galactic
+           ext_law='JBK' ; Whitford, Seaton, Kaler
+           ext_law='FM' ; Fitxpatrick
+           ext_law='SMC' ; Prevot SMC
+           ext_law='LMC' ; Howarth LMC
+    RETURN:  deredden relative intensity
+   
+    REVISION HISTORY:
+        Python code by A. Danehkar, 31/08/2012
+   """
+   if (ext_law is not None):   
+      extlaw = ext_law
+   else:   
+      extlaw = 'GAL'
+   if (rv is not None):   
+      r_v = rv
+   else:   
+      r_v = 3.1
+   if (fmlaw is not None):   
+      fm_law = fmlaw
+   else:   
+      fm_law = 'STANDARD'
+   fl = redlaw(wavelength, ext_law=extlaw, rv=r_v, fmlaw=fm_law)
+   int_dered = flux * 10.0 ** (m_ext * (1 + fl))
+   return int_dered
+
 def redlaw(wavelength, ext_law=None, rv=None, fmlaw=None):
    """
     NAME:
@@ -288,6 +378,7 @@ def redlaw_ccm(wave, rv=None):
          extl= y
    return (extl / ((1.015452 * r_v) + 0.461000)) - 1.0
 
+
 def redlaw_jbk(wave):
    """
    NAME:
@@ -402,6 +493,7 @@ def redlaw_smc(wave):
       else:
          extl=val + 3.1
    return (extl / 3.242) - 1.0
+
 
 def redlaw_lmc(wave):
    """
