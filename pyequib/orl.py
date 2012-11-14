@@ -131,56 +131,6 @@ def hb_emissivity(temp, dens):
    
    return hr_tmp
 
-def hb_emissivity(temp, dens):
-   """
-    NAME:
-        hb_emissivity
-    PURPOSE:
-        return Hydrogen Beta Balmer emissivity for
-        given electron temperature and density
-        Table 4.4 in D. E. Osterbrock & G. J. Ferland,
-        Astrophysics of Gaseius Nebulae and
-        Active Galactic Nuclei, 2nd Ed., 2006
-    EXPLANATION:
-   
-    CALLING SEQUENCE:
-        h_i = hb_emissivity(temp, dens)
-   
-    INPUTS:
-        temp -     electron temperature in K
-        dens -     electron density in cm-3
-    RETURN:  Hydrogen Beta Balmer emissivity (Case B)
-   
-    REVISION HISTORY:
-        from Table 4.4 in D. E. Osterbrock & 
-        G. J. Ferland, Astrophysics of Gaseius Nebulae
-        and Active Galactic Nuclei, 2nd Ed., 2006
-        Python code by A. Danehkar, 31/08/2012
-   """
-   dens_grid = numpy.array([1.0e2, 1.0e4, 1.0e6])
-   temp_grid = numpy.array([5000.0, 10000.0, 20000.0])
-   hr_grid = numpy.array([numpy.array([2.20, 2.22, 2.29]), numpy.array([1.23, 1.24, 1.25]), numpy.array([0.658, 0.659, 0.661])]) # 4*pi*j_Hb/(ne*np)
-   
-   hr_grid = 1.0e-25 * hr_grid # erg cm3 s-1
-   # Linearly interpolate extinction law in 1/lam
-   if (temp < temp_grid[0] or temp > temp_grid[2]):   
-      print 'ouside temperature range!'
-      return 0
-   if (dens < dens_grid[0] or dens > dens_grid[2]):   
-      print 'ouside density range!'
-      return 0
-   
-   # Linearly interpolate density
-   hr_dns0 = lin_interp(hr_grid[0,:], dens_grid, dens)
-   hr_dns1 = lin_interp(hr_grid[1,:], dens_grid, dens)
-   hr_dns2 = lin_interp(hr_grid[2,:], dens_grid, dens)
-   
-   # Linearly interpolate temperature
-   hr_dns_grid = numpy.array([hr_dns0, hr_dns1, hr_dns2])
-   hr_tmp = lin_interp(hr_dns_grid, temp_grid, temp)
-   
-   return hr_tmp
-
 def he_i_emissivity_smits(temp, dens, line):
    """
     NAME:
@@ -343,6 +293,104 @@ def hb_eff_rec_coef(temp, dens):
    hr_dns_grid = numpy.array([hr_dns0, hr_dns1, hr_dns2])
    hr_tmp = lin_interp(hr_dns_grid, temp_grid, temp)
    
+   return hr_tmp
+
+def h_i_tot_rec_coef_sh(temp, dens, case_name=None):
+   """
+    NAME:
+        h_i_tot_rec_coef_sh
+    PURPOSE:
+        return total hydrogen recombination coefficient
+        given electron temperature and density
+        Storey & Hummer, MNRAS, 272, 41S, 1995
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        hb_eff = h_i_tot_rec_coef_sh(temp, dens)
+   
+    INPUTS:
+        temp -     electron temperature in K
+        dens -     electron density in cm-3
+    RETURN:  Hydrogen Beta Balmer emissivity (Case B)
+   
+    REVISION HISTORY:
+        Storey & Hummer, MNRAS, 272, 41S, 1995
+        1995MNRAS.272...41S
+        Python code by A. Danehkar, 31/08/2012
+   """
+   case_num = 0
+   if (case_name is not None):   
+      _expr = case_name
+      if _expr == 'A':   
+         case_num = 1
+      elif _expr == 'B':   
+         case_num = 0
+      else:
+         raise RuntimeError('no match found for expression')
+   else:   
+      case_num = 0
+   
+   if case_num == 1:   
+      # Case A
+      dens_grid = numpy.array([1.e2, 1.e3, 1.e4, 1.e5, 1.e6, 1.e7, 1.e8, 1.e9, 1.e10])
+      temp_grid = numpy.array([5.e2, 1.e3, 3.e3, 5.e3, 7.5e3, 1.e4, 1.25e4, 1.5e4, 2.e4, 3.e4])
+      # alpha_hb_eff ; cm3 s-1
+      hr_grid = numpy.array([numpy.array([3.251e-12, 3.351e-12, 3.536e-12, 3.880e-12, 4.552e-12, 5.943e-12, 9.129e-12, 1.769e-11, 4.694e-11]), numpy.array([2.038e-12, 2.069e-12, 2.125e-12, 2.229e-12, 2.424e-12, 2.802e-12, 3.575e-12, 5.308e-12, 9.817e-12]), numpy.array([9.690e-13, 9.735e-13, 9.819e-13, 9.973e-13, 1.026e-12, 1.079e-12, 1.179e-12, 1.374e-12, 1.778e-12]), numpy.array([6.809e-13, 6.827e-13, 6.861e-13, 6.923e-13, 7.038e-13, 7.252e-13, 7.651e-13, 8.406e-13, 9.890e-13]), numpy.array([5.120e-13, 5.128e-13, 5.145e-13, 5.174e-13, 5.230e-13, 5.333e-13, 5.524e-13, 5.883e-13, 6.569e-13]), numpy.array([4.169e-13, 4.174e-13, 4.183e-13, 4.201e-13, 4.234e-13, 4.294e-13, 4.408e-13, 4.619e-13, 5.018e-13]), numpy.array([3.547e-13, 3.550e-13, 3.557e-13, 3.568e-13, 3.590e-13, 3.630e-13, 3.705e-13, 3.844e-13, 4.107e-13]), numpy.array([3.104e-13, 3.106e-13, 3.111e-13, 3.119e-13, 3.134e-13, 3.163e-13, 3.216e-13, 3.315e-13, 3.501e-13]), numpy.array([2.507e-13, 2.509e-13, 2.511e-13, 2.516e-13, 2.525e-13, 2.541e-13, 2.572e-13, 2.630e-13, 2.737e-13]), numpy.array([1.843e-13, 1.844e-13, 1.845e-13, 1.847e-13, 1.851e-13, 1.858e-13, 1.872e-13, 1.898e-13, 1.947e-13])])
+      
+      # Linearly interpolate extinction law in 1/lam
+      if (temp < temp_grid[0] or temp > temp_grid[9]):   
+         print 'ouside temperature range!'
+         return 0
+      if (dens < dens_grid[0] or dens > dens_grid[8]):   
+         print 'ouside density range!'
+         return 0
+      
+      # Linearly interpolate density
+      hr_dns0 = lin_interp(hr_grid[0,:], dens_grid, dens)
+      hr_dns1 = lin_interp(hr_grid[1,:], dens_grid, dens)
+      hr_dns2 = lin_interp(hr_grid[2,:], dens_grid, dens)
+      hr_dns3 = lin_interp(hr_grid[3,:], dens_grid, dens)
+      hr_dns4 = lin_interp(hr_grid[4,:], dens_grid, dens)
+      hr_dns5 = lin_interp(hr_grid[5,:], dens_grid, dens)
+      hr_dns6 = lin_interp(hr_grid[6,:], dens_grid, dens)
+      hr_dns7 = lin_interp(hr_grid[7,:], dens_grid, dens)
+      hr_dns8 = lin_interp(hr_grid[8,:], dens_grid, dens)
+      hr_dns9 = lin_interp(hr_grid[9,:], dens_grid, dens)
+      
+      
+      # Linearly interpolate temperature
+      hr_dns_grid = numpy.array([hr_dns0, hr_dns1, hr_dns2, hr_dns3, hr_dns4, hr_dns5, hr_dns6, hr_dns7, hr_dns8, hr_dns9])
+      hr_tmp = lin_interp(hr_dns_grid, temp_grid, temp)
+   else:   
+      # Case B
+      dens_grid = numpy.array([1.e2, 1.e3, 1.e4, 1.e5, 1.e6, 1.e7, 1.e8, 1.e9, 1.e10, 1.e11, 1.e12, 1.e13, 1.e14])
+      temp_grid = numpy.array([5.e2, 1.e3, 3.e3, 5.e3, 7.5e3, 1.e4, 1.25e4, 1.5e4, 2.e4, 3.e4])
+      # alpha_hb_eff ; cm3 s-1
+      hr_grid = numpy.array([numpy.array([2.493e-12, 2.573e-12, 2.720e-12, 2.998e-12, 3.542e-12, 4.681e-12, 7.330e-12, 1.462e-11, 4.044e-11, 1.700e-10, 1.119e-09, 9.959e-09, 9.756e-08]), numpy.array([1.512e-12, 1.535e-12, 1.579e-12, 1.658e-12, 1.810e-12, 2.106e-12, 2.717e-12, 4.111e-12, 7.823e-12, 2.037e-11, 7.981e-11, 4.937e-10, 4.266e-09]), numpy.array([6.708e-13, 6.740e-13, 6.798e-13, 6.907e-13, 7.109e-13, 7.486e-13, 8.204e-13, 9.615e-13, 1.257e-12, 1.941e-12, 3.811e-12, 1.040e-11, 4.325e-11]), numpy.array([4.522e-13, 4.534e-13, 4.556e-13, 4.597e-13, 4.674e-13, 4.816e-13, 5.083e-13, 5.592e-13, 6.601e-13, 8.726e-13, 1.371e-12, 2.755e-12, 7.792e-12]), numpy.array([3.273e-13, 3.278e-13, 3.288e-13, 3.306e-13, 3.341e-13, 3.404e-13, 3.524e-13, 3.749e-13, 4.181e-13, 5.047e-13, 6.908e-13, 1.138e-12, 2.453e-12]), numpy.array([2.585e-13, 2.588e-13, 2.594e-13, 2.604e-13, 2.623e-13, 2.658e-13, 2.724e-13, 2.848e-13, 3.083e-13, 3.541e-13, 4.477e-13, 6.551e-13, 1.200e-12]), numpy.array([2.144e-13, 2.147e-13, 2.149e-13, 2.156e-13, 2.167e-13, 2.190e-13, 2.230e-13, 2.307e-13, 2.452e-13, 2.728e-13, 3.276e-13, 4.426e-13, 7.303e-13]), numpy.array([1.836e-13, 1.837e-13, 1.839e-13, 1.843e-13, 1.851e-13, 1.866e-13, 1.893e-13, 1.944e-13, 2.040e-13, 2.221e-13, 2.571e-13, 3.278e-13, 5.036e-13]), numpy.array([1.428e-13, 1.429e-13, 1.430e-13, 1.432e-13, 1.436e-13, 1.444e-13, 1.458e-13, 1.484e-13, 1.532e-13, 1.621e-13, 1.788e-13, 2.106e-13, 2.959e-13]), numpy.array([9.911e-14, 9.913e-14, 9.917e-14, 9.924e-14, 9.937e-14, 9.962e-14, 1.001e-13, 1.009e-13, 1.025e-13, 1.054e-13, 1.103e-13, 1.190e-13, 1.528e-13])])
+      
+      # Linearly interpolate extinction law in 1/lam
+      if (temp < temp_grid[0] or temp > temp_grid[9]):   
+         print 'ouside temperature range!'
+         return 0
+      if (dens < dens_grid[0] or dens > dens_grid[12]):   
+         print 'ouside density range!'
+         return 0
+      
+      # Linearly interpolate density
+      hr_dns0 = lin_interp(hr_grid[0,:], dens_grid, dens)
+      hr_dns1 = lin_interp(hr_grid[1,:], dens_grid, dens)
+      hr_dns2 = lin_interp(hr_grid[2,:], dens_grid, dens)
+      hr_dns3 = lin_interp(hr_grid[3,:], dens_grid, dens)
+      hr_dns4 = lin_interp(hr_grid[4,:], dens_grid, dens)
+      hr_dns5 = lin_interp(hr_grid[5,:], dens_grid, dens)
+      hr_dns6 = lin_interp(hr_grid[6,:], dens_grid, dens)
+      hr_dns7 = lin_interp(hr_grid[7,:], dens_grid, dens)
+      hr_dns8 = lin_interp(hr_grid[8,:], dens_grid, dens)
+      hr_dns9 = lin_interp(hr_grid[9,:], dens_grid, dens)
+      
+      # Linearly interpolate temperature
+      hr_dns_grid = numpy.array([hr_dns0, hr_dns1, hr_dns2, hr_dns3, hr_dns4, hr_dns5, hr_dns6, hr_dns7, hr_dns8, hr_dns9])
+      hr_tmp = lin_interp(hr_dns_grid, temp_grid, temp)
    return hr_tmp
 
 def lin_interp(vv, xx, xout):
