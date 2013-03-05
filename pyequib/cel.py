@@ -63,3 +63,49 @@ def equib_cfd(x, xx, npt, ndim, hmh, d):
    
    return (x, xx, npt, ndim, hmh, d)
 
+def equib_cfy(x, y, xx, yy, npt, ndim, hmh, d):
+   """
+   NAME:
+       equib_cfy
+   PURPOSE:
+  
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       (x, y, xx, yy, npt, ndim, hmh, d) = equib_cfy(x, y, xx, yy, npt, ndim, hmh, d)
+  
+   INPUTS:
+       X -     XX parameter
+       Y -     GH parameter
+       XX -    Y parameter
+       YY -    NPT parameter
+       NPT -   IOPT parameter
+       NDIM -  NDIM parameter
+       HMH -   NDIMT3 parameter
+       D -     HMH parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #NPT= long(0)
+   #NDIM= long(0)
+   
+   j = numpy.int32(0)
+   #;XX=dblarr(NDIM+1)
+   #YY=dblarr(NDIM+1)
+   #HMH=dblarr(NDIM+1,NDIM+1)
+   #D=dblarr(NDIM+1)
+   #X= double(0)
+   #Y= double(0)
+   tt = numpy.float64(0)
+   if (x < xx[1]):   
+      y = yy[1]
+   if (x > xx[npt]):   
+      y = yy[npt]
+   tt = 0.0
+   for j in range(1, (npt)+(1)):
+      tt = tt + d[j] * yy[j]
+   y = tt
+   
+   return (x, y, xx, yy, npt, ndim, hmh, d)
+
+
