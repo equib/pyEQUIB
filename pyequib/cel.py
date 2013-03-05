@@ -108,4 +108,54 @@ def equib_cfy(x, y, xx, yy, npt, ndim, hmh, d):
    
    return (x, y, xx, yy, npt, ndim, hmh, d)
 
+def equib_deriv(xy, d, x, n, ndim):
+   """
+   NAME:
+       equib_deriv
+   PURPOSE:
+       Calculate the first derivative of the lagrangian interpolator
+       of a function F, tabulated at the N points XY(I), I=1 to N.
+       The derivative is given as the coefficients of F(I), I=1 to N,
+       in the array D(I), I=1 to N.
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       equib_deriv, XY, D, X, N, NDIM
+  
+   INPUTS:
+       XY -     XX parameter
+       D -      D parameter
+       X -      X parameter
+       N -      N parameter
+       NDIM -   NDIM parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #N= long(0)
+   #NDIM= long(0)
+   
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   k = numpy.int32(0)
+   #XY=dblarr(NDIM+1)
+   #D=dblarr(NDIM+1)
+   #X=double(0)
+   p1 = numpy.float64(0)
+   p2 = numpy.float64(0)
+   s = numpy.float64(0)
+   
+   for i in range(1, (n)+(1)):
+      p1 = 1.
+      s = 0.
+      for j in range(1, (n)+(1)):
+         if (j != i):   
+            p1 = p1 * (xy[i] - xy[j])
+            p2 = 1.
+            for k in range(1, (n)+(1)):
+               if ((k != i) and (k != j)):   
+                  p2 = p2 * (x - xy[k])
+            s = s + p2
+      d[i] = s / p1
+   
+   return (xy, d, x, n, ndim)
 
