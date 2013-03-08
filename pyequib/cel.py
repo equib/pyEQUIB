@@ -159,6 +159,60 @@ def equib_deriv(xy, d, x, n, ndim):
    
    return (xy, d, x, n, ndim)
 
+def equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3):
+   """
+   NAME:
+       equib_ghgen
+   PURPOSE:
+  
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       (gh, xx, npt, iopt, ndim, ndimt3) = equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3)
+  
+   INPUTS:
+       GH -     GH parameter
+       XX -     XX parameter
+       NPT -    NPT parameter
+       IOPT -   IOPT parameter
+       NDIM -   NDIM parameter
+       NDIMT3 - NDIMT3 parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #NPT= long(0)
+   #IOPT= long(0)
+   #NDIM= long(0)
+   #NDIMT3= long(0)
+   
+   indx = numpy.int32(0)
+   nptm = numpy.int32(0)
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   ip = numpy.int32(0)
+   jp = numpy.int32(0)
+   ik = numpy.int32(0)
+   #XX=dblarr(NDIM+1)
+   #GH=dblarr(NDIMT3+1)
+   indx = 0
+   nptm = npt - 1
+   for i in range(2, (nptm)+(1)):
+      ip = i - 1
+      for j in range(1, 4):
+         jp = ip + j - 2
+         if ((jp >= 1) and (jp <= nptm - 1)):   
+            indx = indx + 1
+            if (j == 2):   
+               gh[indx] = 2 * (xx[i + 1] - xx[i - 1])
+            else:   
+               ik = i + (j - 1) / 2
+               gh[indx] = xx[ik] - xx[ik - 1]
+   if (iopt >= 1):   
+      gh[1] = gh[1] - (xx[2] - xx[1]) / 2.
+      gh[indx] = gh[indx] - (xx[npt] - xx[npt - 1]) / 2.
+   
+   return (gh, xx, npt, iopt, ndim, ndimt3)
+
 def equib_elu(gh, n, ndim):
    """
    NAME:
