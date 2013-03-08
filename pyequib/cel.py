@@ -159,3 +159,43 @@ def equib_deriv(xy, d, x, n, ndim):
    
    return (xy, d, x, n, ndim)
 
+def equib_elu(gh, n, ndim):
+   """
+   NAME:
+       equib_elu
+   PURPOSE:
+  
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       (gh, n, ndim) = equib_elu(gh, n, ndim)
+  
+   INPUTS:
+       GH -     GH parameter
+       N -      N parameter
+       NDIM -   NDIM parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #N= long(0)
+   #NDIM= long(0)
+   
+   indx = numpy.int32(0)
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   jp = numpy.int32(0)
+   #GH=dblarr(NDIM+1)
+   indx = 0
+   for i in range(1, (n)+(1)):
+      for j in range(1, 4):
+         jp = i + j - 2
+         if ((jp >= 1) and (jp <= n)):   
+            indx = indx + 1
+            if (i > 1):   
+               if (j == 1):   
+                  gh[indx] = gh[indx] / gh[indx - 2]
+               if (j == 2):   
+                  gh[indx] = gh[indx] - gh[indx - 1] * gh[indx - 2]
+   
+   return (gh, n, ndim)
+
