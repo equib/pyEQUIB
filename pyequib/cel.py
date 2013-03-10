@@ -352,6 +352,46 @@ def equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3):
    
    return (gh, xx, npt, iopt, ndim, ndimt3)
 
+def equib_lured(a, n, nr):
+   """
+   NAME:
+       equib_lured
+   PURPOSE:
+  
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       equib_lured, A, N, NR
+  
+   INPUTS:
+       A -     A parameter
+       N -     N parameter
+       NR -     NR parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   # N= long(0)
+   # NR= long(0)
+   
+   nm1 = numpy.int32(0)
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   k = numpy.int32(0)
+   ip1 = numpy.int32(0)
+   #A=dblarr(NR+1,NR+1)
+   fact = numpy.float64(0)
+   if (n == 1):   
+      return (a, n, nr)
+   nm1 = n - 1
+   for i in range(1, (nm1)+(1)):
+      ip1 = i + 1
+      for k in range(ip1, (n)+(1)):
+         fact = a[k,i] / a[i,i]
+         for j in range(ip1, (n)+(1)):
+            a[k,j] = a[k,j] - a[i,j] * fact
+   
+   return (a, n, nr)
+
 def equib_elu(gh, n, ndim):
    """
    NAME:
