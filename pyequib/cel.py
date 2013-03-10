@@ -352,6 +352,35 @@ def equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3):
    
    return (gh, xx, npt, iopt, ndim, ndimt3)
 
+def equib_luslv(a, b, n, m):
+   """
+   NAME:
+       equib_luslv
+   PURPOSE:
+       Solving linear equations
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       equib_luslv, A, B, N, M
+  
+   INPUTS:
+       A -     A parameter
+       B -     B parameter
+       N -     N parameter
+       M -     M parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #M= long(0)
+   #N= long(0)
+   #A=dblarr(M+1,M+1)
+   #B=dblarr(M+1)
+   
+   (a, n, m)=equib_lured(a, n, m)
+   (a, b, n, m)=equib_reslv(a, b, n, m)
+   
+   return (a, b, n, m)
+
 def equib_lured(a, n, nr):
    """
    NAME:
