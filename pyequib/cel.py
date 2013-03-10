@@ -421,6 +421,54 @@ def equib_lured(a, n, nr):
    
    return (a, n, nr)
 
+def equib_reslv(a, b, n, nr):
+   """
+   NAME:
+       equib_reslv
+   PURPOSE:
+       Resolve A with B
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       equib_reslv, A, B, N, NR
+  
+   INPUTS:
+       A -     A parameter
+       B -     B parameter
+       N -     N parameter
+       NR -    NR parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #N= long(0)
+   #NR= long(0)
+   
+   nm1 = numpy.int32(0)
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   k = numpy.int32(0)
+   l = numpy.int32(0)
+   ip1 = numpy.int32(0)
+   #A=dblarr(NR+1,NR+1)
+   #B=dblarr(NR+1)
+   if (n == 1):   
+      b[n] = b[n] / a[n,n]
+      return (a, b, n, nr)
+   nm1 = n - 1
+   for i in range(1, (nm1)+(1)):
+      ip1 = i + 1
+      for j in range(ip1, (n)+(1)):
+         b[j] = b[j] - b[i] * a[j,i] / a[i,i]
+   b[n] = b[n] / a[n,n]
+   for i in range(1, (nm1)+(1)):
+      k = n - i
+      l = k + 1
+      for j in range(l, (n)+(1)):
+         b[k] = b[k] - b[j] * a[k,j]
+      b[k] = b[k] / a[k,k]
+   
+   return (a, b, n, nr)
+
 def equib_elu(gh, n, ndim):
    """
    NAME:
