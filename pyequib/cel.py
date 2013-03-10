@@ -159,6 +159,145 @@ def equib_deriv(xy, d, x, n, ndim):
    
    return (xy, d, x, n, ndim)
 
+def equib_hgen(xx, gh, y, npt, iopt, ndim, ndimt3, hmh):
+   """
+   NAME:
+       equib_hgen
+   PURPOSE:
+       Cubic spline interpolation
+       The equation for the second derivatives at internal points
+       is of the form G*YPP=B, where G has been evaluated and LU
+       decomposed.
+       this routine writes B=HMH*Y and then solves YPP=G**(-1)*HMH*Y,
+       =HMH*Y.
+       Three options are provided for boundary conditions-
+       IOPT = 0  YPP=0 at end points
+       IOPT = 1  YP=0  at end points
+       IOPT = 2  YP at end points from lagarnge interpolant of a set of
+       internal points.
+  
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       (xx, gh, y, npt, iopt, ndim, ndimt3, hmh) = equib_hgen(xx, gh, y, npt, iopt, ndim, ndimt3, hmh)
+  
+   INPUTS:
+       XX -     XX parameter
+       GH -     GH parameter
+       Y -      Y parameter
+       NPT -    NPT parameter
+       IOPT -   IOPT parameter
+       NDIM -   NDIM parameter
+       NDIMT3 - NDIMT3 parameter
+       HMH -    HMH parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #NPT= long(0)
+   #IOPT= long(0)
+   #NDIM= long(0)
+   #NDIMT3= long(0)
+   
+   ndim3 = numpy.int32(0)
+   nip = numpy.int32(0)
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   k = numpy.int32(0)
+   npm = numpy.int32(0)
+   indx = numpy.int32(0)
+   #XX=dblarr(NDIM+1)
+   #GH=dblarr(NDIMT3+1)
+   #Y=dblarr(NDIM+1)
+   #HMH=dblarr(NDIM+1,NDIM+1)
+   xy = numpy.zeros(5 + 1)
+   d = numpy.zeros(5 + 1)
+   c = numpy.zeros((2 + 1,5 + 1))
+   a0 = numpy.float64(0)
+   an1 = numpy.float64(0)
+   h1 = numpy.float64(0)
+   h2 = numpy.float64(0)
+   # Case of derivative boundary condition, with
+   if (iopt == 2):   
+      # derivatives from NIP-point Lagrange at
+      ndim3 = 5
+      # internal points
+      nip = 3
+      for j in range(1, 3):
+         for i in range(1, (nip)+(1)):
+            k = (npt - nip) * (j - 1)
+            xy[i] = xx[k + i]
+         k = 1 + (npt - 1) * (j - 1)
+         (xy, d, xx[k], nip, ndim3)=equib_deriv(xy, d, xx[k], nip, ndim3)
+         for i in range(1, (nip)+(1)):
+            c[j,i] = d[i]
+   # Set up matrix equation G*YPP=HMH*Y
+   a0 = xx[2] - xx[1]
+   an1 = xx[npt] - xx[npt - 1]
+   npm = npt - 2
+   for i in range(1, (npm)+(1)):
+      h1 = 6. / (xx[i + 1] - xx[i])
+      h2 = 6. / (xx[i + 2] - xx[i + 1])
+      for j in range(1, (npt)+(1)):
+         hmh[i,j] = 0.
+         if (j == i):   
+            hmh[i,j] = h1
+         if (j == i + 2):   
+            hmh[i,j] = h2
+         if (j == i + 1):   
+            hmh[i,j] = -h1 - h2
+   #Correct matrix for case of
+   if ((iopt == 1) or (iopt == 2)):   
+      # derivative boundary conditions
+      hmh[1,1] = hmh[1,1] + 3 / a0
+      hmh[1,2] = hmh[1,2] - 3 / a0
+      hmh[npm,npt - 1] = hmh[npm,npt - 1] - 3 / an1
+      hmh[npm,npt] = hmh[npm,npt] + 3 / an1
+   if (iopt == 2):   
+      for j in range(1, (nip)+(1)):
+         hmh[1,j] = hmh[1,j] + 3 * c[1,j]
+         k = npt + j - nip
+         hmh[npm,k] = hmh[npm,k] - 3 * c[2,j]
+   #for I=1,NPM do begin
+   #endfor
+   # Solve matrix equation with results in the form
+   for i in range(1, (npt)+(1)):
+   # YPP=HMH*Y. matrix g has been LU decomposed
+      y[1] = hmh[1,i]
+      indx = 0
+      for j in range(2, (npm)+(1)):
+         indx = indx + 3
+         y[j] = hmh[j,i] - gh[indx] * y[j - 1]
+      indx = indx + 1
+      y[npm] = y[npm] / gh[indx]
+      for j in range(2, (npm)+(1)):
+         k = npm - j + 1
+         indx = indx - 3
+         y[k] = (y[k] - gh[indx + 1] * y[k + 1]) / gh[indx]
+      for j in range(1, (npm)+(1)):
+         hmh[j + 1,i] = y[j]
+      #Insert values for second derivative at end
+      hmh[1,i] = 0.
+      # points: first and last rows of the matrix
+      hmh[npt,i] = 0.
+   # Case of derivative boundary conditions
+   if (iopt > 0):   
+      for j in range(1, (npt)+(1)):
+         hmh[1,j] = -0.5 * hmh[2,j]
+         hmh[npt,j] = -0.5 * hmh[npt - 1,j]
+      hmh[1,1] = hmh[1,1] - 3 / (a0 * a0)
+      hmh[1,2] = hmh[1,2] + 3 / (a0 * a0)
+      hmh[npt,npt - 1] = hmh[npt,npt - 1] + 3 / (an1 * an1)
+      hmh[npt,npt] = hmh[npt,npt] - 3 / (an1 * an1)
+   if (iopt == 2):   
+      for j in range(1, (nip)+(1)):
+         hmh[1,j] = hmh[1,j] - 3 * c[1,j] / a0
+         k = npt + j - nip
+         hmh[npt,k] = hmh[npt,k] + 3 * c[2,j] / an1
+   #for I=1,NPT do begin
+   #endfor
+   
+   return (xx, gh, y, npt, iopt, ndim, ndimt3, hmh)
+
 def equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3):
    """
    NAME:
