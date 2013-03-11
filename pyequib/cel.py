@@ -509,6 +509,46 @@ def equib_elu(gh, n, ndim):
    
    return (gh, n, ndim)
 
+def equib_splmat(xx, npt, iopt, ndim, ndimt3, hmh):
+   """
+   NAME:
+       equib_splmat
+   PURPOSE:
+  
+   EXPLANATION:
+  
+   CALLING SEQUENCE:
+       equib_splmat, XX, NPT, IOPT, NDIM, NDIMT3, HMH
+  
+   INPUTS:
+       XX -     XX parameter
+       NPT -    NPT parameter
+       IOPT -   IOPT parameter
+       NDIM -   NDIM parameter
+       NDIMT3 - NDIMT3 parameter
+       HMH -    HMH parameter
+   REVISION HISTORY:
+       Converted from FORTRAN EQUIB to Python, 15/09/2013
+   """
+   #NDIM= long(0)
+   #NDIMT3= long(0)
+   #NPT= long(0)
+   #IOPT= long(0)
+   #NPM= long(0)
+   
+   nelem = numpy.int32(0)
+   #XX=dblarr(NDIM)
+   gh = numpy.zeros(ndimt3 + 1)
+   y = numpy.zeros(ndim + 1)
+   # HMH=dblarr(NDIM+1,NDIM+1)
+   npm = npt - 2
+   (gh, xx, npt, iopt, ndim, ndimt3)=equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3)
+   nelem = 3 * npm - 2
+   (gh, npm, ndimt3)=equib_elu(gh, npm, ndimt3)
+   (xx, gh, y, npt, iopt, ndim, ndimt3, hmh)=equib_hgen(xx, gh, y, npt, iopt, ndim, ndimt3, hmh)
+   
+   return (xx, npt, iopt, ndim, ndimt3, hmh)
+
 def equib_sign(a, b):
    """
    NAME:
