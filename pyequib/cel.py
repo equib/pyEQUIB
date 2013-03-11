@@ -509,3 +509,24 @@ def equib_elu(gh, n, ndim):
    
    return (gh, n, ndim)
 
+def equib_sign(a, b):
+   """
+   NAME:
+       equib_sign
+   PURPOSE:
+   
+   EXPLANATION:
+   
+   CALLING SEQUENCE:
+       ret= equib_sign(A, B)
+   
+   INPUTS:
+       A -     A parameter
+       B -     B parameter
+   RETURN:  value
+   """
+   if b < 0:   
+      return -abs(a)
+   else:   
+      return abs(a)
+
