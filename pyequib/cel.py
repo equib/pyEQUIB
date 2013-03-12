@@ -570,3 +570,43 @@ def equib_sign(a, b):
    else:   
       return abs(a)
 
+def equib_str2int(str1):
+    """Converts the list of string of miles into a list of integers of miles"""
+    try:
+        integer = int(str1)
+        return integer
+    except ValueError:
+        print "here"
+        sys.exit("Please try again and enter a list of integers.")
+
+def strsplit(s, delim, escapech='/'):
+    ret = []
+    current = []
+    itr = iter(s)
+    for ch in itr:
+        if ch == escapech:
+            try:
+                # skip the next character; it has been escaped!
+                current.append('')
+                current.append(next(itr))
+            except StopIteration:
+                pass
+        elif ch == delim:
+            # split! (add current to the list and reset it)
+            ret.append(''.join(current))
+            current = []
+        else:
+            current.append(ch)
+    ret.append(''.join(current))
+    return ret
+
+def strtrim(s):
+    if s.endswith(" "): s = s[:-1]
+    if s.startswith(" "): s = s[1:]
+    return s
+    
+def getmodelpath(): 
+	path = os.path.dirname(__file__)
+	#path = path + '/'
+	return path
+
