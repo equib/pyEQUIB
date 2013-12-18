@@ -8,6 +8,30 @@ import numpy, os
 import array, math
 from scipy import interpolate
 
+def gamma4471(temp, dens):
+   """
+    NAME:
+        gamma4471
+    PURPOSE:
+        determine the value of Log10 (gamm(HeI4471))
+        = Log10( 4*Pai*j(HeI 4471)/N(He+)Ne) at temperature Te and density Ne
+        Smits D. P., 1996, MNRAS, 278, 6
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        gamm4471_theory = gamma4471(temp,dens)
+   
+    INPUTS:
+        temp -     electron temperature in K
+        dens -     electron density in cm-3
+    RETURN:  Log10 (gamm(HeI4471))
+   
+    REVISION HISTORY:
+        Python code by A. Danehkar, 31/08/2012
+   """
+   ems4471 = he_i_emissivity_smits(temp, dens, 4)
+   return math.log10(ems4471)
+
 def h_balmer_line_ratios(temp, dens, line):
    """
     NAME:
