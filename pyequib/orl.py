@@ -32,6 +32,30 @@ def gamma4471(temp, dens):
    ems4471 = he_i_emissivity_smits(temp, dens, 4)
    return math.log10(ems4471)
 
+def gamma5876(temp, dens):
+   """
+    NAME:
+        gamma5876
+    PURPOSE:
+        determine the value of Log10 (gamm(HeI5876))
+        = Log10( 4*Pai*j(HeI 5876)/N(He+)Ne) at temperature Te and density Ne
+        Smits D. P., 1996, MNRAS, 278, 68
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        gamm5876_theory = gamm5876(temp,dens)
+   
+    INPUTS:
+        temp -     electron temperature in K
+        dens -     electron density in cm-3
+    RETURN:  Log10 (gamm(HeI5876))
+   
+    REVISION HISTORY:
+        Python code by A. Danehkar, 31/08/2012
+   """
+   ems5876 = he_i_emissivity_smits(temp, dens, 6)
+   return math.log10(ems5876)
+
 def h_balmer_line_ratios(temp, dens, line):
    """
     NAME:
