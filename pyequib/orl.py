@@ -139,6 +139,7 @@ def get_aeff_hb(temp, dens):
    
    return (aeff_hb, em_hb)
 
+
 def h_balmer_line_ratios(temp, dens, line):
    """
     NAME:

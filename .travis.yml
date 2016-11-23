@@ -1,0 +1,25 @@
+language: python
+
+sudo: required
+before_install:
+  - sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
+
+python:
+  - 2.6
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+
+install:
+  - pip install --quiet coveralls
+  - pip install --quiet nose
+  - pip install --quiet coverage
+  - pip install --quiet scipy
+  - python setup.py install
+
+script: 
+  - nosetests --with-coverage --cover-package=pyequib
+
+after_success:
+  - coveralls

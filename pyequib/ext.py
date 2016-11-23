@@ -2,6 +2,12 @@
 This module contains functions for extinction corrections using different laws
 """
 
+# A. Danehkar
+#
+# Version 0.1, 15/08/2016
+# First Release
+#
+
 import numpy, os
 import array, math
 from scipy import interpolate
@@ -144,6 +150,8 @@ def redlaw(wavelength, ext_law=None, rv=None, fmlaw=None):
       fl = redlaw_ccm(wavelength, rv=rv)
    elif _expr == 'JBK':  
       fl = redlaw_jbk(wavelegth)
+   elif _expr == 'FM':   
+      fl = redlaw_fm(wavelength, fmlaw=fmlaw, rv=rv)
    elif _expr == 'SMC':   
       fl = redlaw_smc(wavelength)
    elif _expr == 'LMC':   
@@ -435,6 +443,126 @@ def redlaw_jbk(wave):
       else:
          extl=val
    return extl
+
+def redlaw_fm(wave, fmlaw=None, rv=None):
+   """
+   NAME:
+       redlaw_fm
+   PURPOSE:
+      reddening law function for Small Magellanic Cloud
+   
+   EXPLANATION:
+   
+   CALLING SEQUENCE:
+       fl = redlaw_smc(wave)
+   
+   INPUTS:
+       wave[] -  wavelength of emission line, Angstroms
+   RETURN: extl[] -  extinction evaluation array
+   
+   REVISION HISTORY:
+       Based on Formulae by Fitzpatrick 1999, PASP, 11, 63
+       1999PASP..111...63F, Fitzpatrick & Massa 1990,
+       ApJS, 72, 163, 1990ApJS...72..163F
+       Adopted from NASA IDL Library & PyAstronomy
+       Revised in Python code by A. Danehkar, 30/12/2016
+   """
+   
+   # Tabulated inverse wavelengths in microns:
+   if hasattr(wave, "__len__"):
+     npts = len(wave)
+     extl = numpy.zeros(npts)
+   else:
+     npts = 1
+     extl = numpy.int32(0)
+   if (rv is not None):   
+      r_v = rv
+   else:   
+      r_v = 3.1
+   x0 = 4.596
+   gamma1 = 0.99
+   c3 = 3.23
+   c4 = 0.41
+   c2 = -0.824 + 4.717 / r_v
+   c1 = 2.030 - 3.007 * c2
+   if (fmlaw is not None):   
+      if fmlaw == 'LMC2':   
+         x0 = 4.626
+         gamma1 = 1.05
+         c4 = 0.42
+         c3 = 1.92
+         c2 = 1.31
+         c1 = -2.16
+      else:   
+         if fmlaw == 'AVGLMC':   
+            x0 = 4.596
+            gamma1 = 0.91
+            c4 = 0.64
+            c3 = 2.73
+            c2 = 1.11
+            c1 = -1.28
+         else:   
+            x0 = 4.596
+            gamma1 = 0.99
+            c3 = 3.23
+            c4 = 0.41
+            c2 = -0.824 + 4.717 / r_v
+            c1 = 2.030 - 3.007 * c2
+   for pix in range(0, (npts - 1)+(1)):
+   # Convert input wavelength to inverse microns
+      if hasattr(wave, "__len__"):
+         wavel=wave[pix]
+      else:
+         wavel=wave
+      x = 10000.e+0 / wavel
+      curve = x * 0.
+      
+      # Compute UV portion of A(lambda)/E(B-V) curve using FM fitting function and
+      # R-dependent coefficients
+      xcutuv = numpy.array([10000.0/2700.0])
+      xspluv = 10000.0/numpy.array([2700.0,2600.0])
+      
+      iuv = numpy.where(x >= xcutuv)[0]
+      n_uv = len(iuv)
+      iopir = numpy.where(x <= xcutuv)[0]
+      nopir = len(iopir)
+      if (n_uv > 0):   
+         xuv = numpy.concatenate((xspluv,x[iuv]))
+      else:   
+         xuv = xspluv
+      
+      yuv = c1 + c2 * xuv
+      yuv = yuv + c3 * xuv ** 2 / ((xuv ** 2 - x0 ** 2) ** 2 + (xuv * gamma1) ** 2)
+      yuv = yuv + c4 * (0.5392 * ((numpy.maximum(xuv, 5.9)) - 5.9) ** 2 + 0.05644 * ((numpy.maximum(xuv, 5.9)) - 5.9) ** 3)
+      yuv = yuv + r_v
+      yspluv = yuv[0:2]                  # save spline points
+      
+      if (n_uv > 0):   
+         curve[iuv] = yuv[2:]      # remove spline points
+      
+      # Compute optical portion of A(lambda)/E(B-V) curve
+      # using cubic spline anchored in UV, optical, and IR
+      xsplopir = numpy.concatenate(([0],10000.0/numpy.array([26500.0,12200.0,6000.0,5470.0,4670.0,4110.0])))
+      ysplir   = numpy.array([0.0,0.26469,0.82925])*r_v/3.1 
+      ysplop   = numpy.array((numpy.polyval([-4.22809e-01, 1.00270, 2.13572e-04][::-1],r_v), 
+            numpy.polyval([-5.13540e-02, 1.00216, -7.35778e-05][::-1],r_v), 
+            numpy.polyval([ 7.00127e-01, 1.00184, -3.32598e-05][::-1],r_v), 
+            numpy.polyval([ 1.19456, 1.01707, -5.46959e-03, 7.97809e-04, -4.45636e-05][::-1],r_v) ))
+      
+      ysplopir = numpy.concatenate((ysplir, ysplop))
+      
+      if (nopir > 0):   
+         tck = interpolate.splrep(numpy.concatenate((xsplopir,xspluv)),numpy.concatenate((ysplopir,yspluv)),s=0)
+         if hasattr(extl, "__len__"):
+            curve[iopir] = interpolate.splev(x[iopir], tck)
+         else:
+            curve = interpolate.splev(x, tck)
+      if hasattr(extl, "__len__"):
+         extl[pix] = curve
+      else:
+         extl=curve
+   return (extl / 3.63) - 1.0
+
 
 def redlaw_smc(wave):
    """
