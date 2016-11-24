@@ -1,0 +1,5 @@
+# .coveragerc
+[report]
+omit =
+  */__init__.py
+  */orl.py
