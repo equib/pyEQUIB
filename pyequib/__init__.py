@@ -17,5 +17,6 @@ except:
     log_.warn('Cannot find Numpy version {0}, report the bug'.format(numpy_version), calling='pyEQUIB')
     
 from pyequib import ext
-
+from pyequib import cel
+from pyequib import orl
 
