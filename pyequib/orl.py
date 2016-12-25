@@ -112,32 +112,35 @@ def gamma6678(temp, dens):
    ems6678 = he_i_emissivity_smits(temp, dens, 7)
    return math.log10(ems6678)
    
-def get_aeff_hb(temp, dens):
+def hb_ems_aeff(temp, dens):
    """
     NAME:
-        get_aeff_hb
+        hb_ems_aeff
     PURPOSE:
         determine the value of Aeff and emissivity of H_beta
-        Storey P. J., Hummer D. G., 1995, MNRAS, 272, 41
+        Table 4.4 in D. E. Osterbrock & G. J. Ferland, 
+        Astrophysics of Gaseius Nebulae and
+        Active Galactic Nuclei, 2nd Ed., 2006
     EXPLANATION:
    
     CALLING SEQUENCE:
-        get_aeff_hb, temp, dens, aeff_hb, em_hb
+        [ems, aeff]=hb_ems_aeff(temp, dens)
    
     INPUTS:
         temp  - electron temperature in K
         dens  - electron density in cm-3
-        aeff_hb - effective recombination coefficient of H_beta
-        em_hb   - emissivity of H_beta
+    OUTPUTS:
+        {aeff:double(0.0), ems:double(0.0)}
+        hbeta.aeff - effective recombination coefficient of H_beta
+        hbeta.ems   - emissivity of H_beta
    
     REVISION HISTORY:
         Python code by A. Danehkar, 10/05/2013
    """
-   aeff_hb = hb_eff_rec_coef(temp, dens)
-   logem = math.log10(aeff_hb) - 11.38871 # = log10(hc/lambda in cgs)
-   em_hb = 10.0 ** logem
-   
-   return (aeff_hb, em_hb)
+   aeff = hb_eff_rec_coef(temp, dens)
+   logems = math.log10(hbeta.aeff/double(4861.33/1.98648e-8))
+   ems = 10.0 ** logems
+   return (ems, aeff)
 
 
 def h_balmer_line_ratios(temp, dens, line):
