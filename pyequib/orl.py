@@ -199,10 +199,10 @@ def h_balmer_line_ratios(temp, dens, line):
    
    # Linearly interpolate extinction law in 1/lam
    if (temp < temp_grid[0] or temp > temp_grid[2]):   
-      print 'ouside temperature range!'
+      print('outside temperature range!')
       return 0
    if (dens < dens_grid[0] or dens > dens_grid[2]):   
-      print 'ouside density range!'
+      print('outside density range!')
       return 0
    
    # Linearly interpolate density
@@ -250,10 +250,10 @@ def hb_eff_rec_coef(temp, dens):
    hr_grid = 1.0e-14 * hr_grid # cm3 s-1
    # Linearly interpolate extinction law in 1/lam
    if (temp < temp_grid[0] or temp > temp_grid[2]):   
-      print 'ouside temperature range!'
+      print('outside temperature range!')
       return 0
    if (dens < dens_grid[0] or dens > dens_grid[2]):   
-      print 'ouside density range!'
+      print('outside density range!')
       return 0
    
    # Linearly interpolate density
@@ -300,10 +300,10 @@ def hb_emissivity(temp, dens):
    hr_grid = 1.0e-25 * hr_grid # erg cm3 s-1
    # Linearly interpolate extinction law in 1/lam
    if (temp < temp_grid[0] or temp > temp_grid[2]):   
-      print 'ouside temperature range!'
+      print('outside temperature range!')
       return 0
    if (dens < dens_grid[0] or dens > dens_grid[2]):   
-      print 'ouside density range!'
+      print('outside density range!')
       return 0
    
    # Linearly interpolate density
@@ -413,10 +413,10 @@ def he_i_emissivity_smits(temp, dens, line):
    
    # Linearly interpolate extinction law in 1/lam
    if (temp < temp_grid[0] or temp > temp_grid[6]):   
-      print 'ouside temperature range!'
+      print('outside temperature range!')
       return 0
    if (dens < dens_grid[0] or dens > dens_grid[2]):   
-      print 'ouside density range!'
+      print('outside density range!')
       return 0
    
    # Linearly interpolate density
@@ -474,10 +474,10 @@ def h_i_tot_rec_coef_sh(temp, dens, case_name=None):
       
       # Linearly interpolate extinction law in 1/lam
       if (temp < temp_grid[0] or temp > temp_grid[9]):   
-         print 'ouside temperature range!'
+         print('outside temperature range!')
          return 0
       if (dens < dens_grid[0] or dens > dens_grid[8]):   
-         print 'ouside density range!'
+         print('outside density range!')
          return 0
       
       # Linearly interpolate density
@@ -505,10 +505,10 @@ def h_i_tot_rec_coef_sh(temp, dens, case_name=None):
       
       # Linearly interpolate extinction law in 1/lam
       if (temp < temp_grid[0] or temp > temp_grid[9]):   
-         print 'ouside temperature range!'
+         print('outside temperature range!')
          return 0
       if (dens < dens_grid[0] or dens > dens_grid[12]):   
-         print 'ouside density range!'
+         print('outside density range!')
          return 0
       
       # Linearly interpolate density

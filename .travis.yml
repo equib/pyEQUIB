@@ -5,9 +5,7 @@ before_install:
   - sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
 
 python:
-  - 2.6
   - 2.7
-  - 3.3
   - 3.4
   - 3.5
 

@@ -157,7 +157,7 @@ def redlaw(wavelength, ext_law=None, rv=None, fmlaw=None):
    elif _expr == 'LMC':   
       fl = redlaw_lmc(wavelength)
    else:   
-      print 'ext_law cannnot find'
+      print('ext_law cannnot find')
    
    return fl
 
@@ -281,7 +281,7 @@ def redlaw_gal2(wave):
       else:
          wavel=wave
       if (wavel < 1000.0):
-         print "redlaw_smc: Invalid wavelength"
+         print('redlaw_smc: Invalid wavelength')
       # Convert wavelength in angstroms to 1/microns
       x = 10000.e+0 / wavel
       x = min([x, 10.0])
@@ -337,7 +337,7 @@ def redlaw_ccm(wave, rv=None):
       else:
          wavel=wave
       if (wavel < 1000.0):   
-         print "redlaw_ccm: Invalid wavelength"
+         print('redlaw_ccm: Invalid wavelength')
       
       # Convert input wavelength to inverse microns
       x = 10000.e+0 / wavel
@@ -429,7 +429,7 @@ def redlaw_jbk(wave):
       else:
          wavel=wave
       if (wavel < 1000.0):   
-         print "redlaw_smc: Invalid wavelength"
+         print('redlaw_smc: Invalid wavelength')
       # Convert wavelength in angstroms to 1/microns
       x = 10000.e+0 / wavel
       x = min([x, 10.0])
@@ -606,7 +606,7 @@ def redlaw_smc(wave):
       else:
          wavel=wave
       if (wavel < 1000.0):   
-         print "redlaw_smc: Invalid wavelength"
+         print('redlaw_smc: Invalid wavelength')
       # Convert wavelength in angstroms to 1/microns
       x = 10000.e+0 / wavel
       x = min([x, 10.0])
@@ -665,7 +665,7 @@ def redlaw_lmc(wave):
       else:
          wavel=wave
       if (wavel < 1000.0):   
-         print "redlaw_lmc: Invalid wavelength"
+         print('redlaw_lmc: Invalid wavelength')
       
       # Convert input wavelength to inverse microns
       x = 10000.e+0 / wavel
