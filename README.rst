@@ -2,10 +2,14 @@
 pyEQUIB
 =======
 
-.. image:: https://badge.fury.io/py/pyequib.svg
-    :target: https://badge.fury.io/py/pyequib
-    :alt: PyPI version
+.. image:: https://img.shields.io/pypi/v/pyequib.svg?style=flat
+    :target: https://pypi.python.org/pypi/pyequib/
+    :alt: PyPI Version
 
+.. image:: https://img.shields.io/pypi/dm/pyequib.svg?style=flatt
+    :target: https://pypi.python.org/pypi/pyequib/
+    :alt: PyPI Download
+    
 .. image:: https://travis-ci.org/equib/pyEQUIB.svg?branch=master
     :target: https://travis-ci.org/equib/pyEQUIB
     :alt: Build Status
@@ -26,8 +30,8 @@ pyEQUIB
     :target: https://github.com/equib/pyEQUIB/blob/master/LICENSE
     :alt: GitHub license
 
-.. image:: https://img.shields.io/badge/python-2.6%2C%202.7%2C%203.3%2C%203.4%2C%203.5-blue.svg
-    :alt: Support Python versions 2.6, 2.7, 3.3, 3.4 and 3.5
+.. image:: https://img.shields.io/badge/python-2.7%2C%203.4%2C%203.5-blue.svg
+    :alt: Support Python versions 2.7, 3.4 and 3.5
 
 Description
 ============
