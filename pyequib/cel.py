@@ -3,49 +3,71 @@ This module contains functions for plasma diagnostics and abundance analysis
 from collisionally excited lines (CELs)
 """
 
+# A. Danehkar
+#
+# Version 0.1, 15/08/2016
+# First Release
+#
+
 import numpy, os
 import array, math
+from scipy import interpolate
 
-def calc_temp_dens(ion, levu, levl, inratio, diagtype, fixedq):
+def calc_emissivity(temperature=None, density=None, ion=None, levels=None):
    """
     NAME:
-        calc_temp_dens
+        calc_emissivity
     PURPOSE:
-        determine electron density or temperature from given
-        flux intensity ratio for specified ion with upper level(s)
-        lower level(s) by solving atomic level populations and
-        line emissivities in statistical equilibrium
-        for a fixed electron density or temperature.
+        calculate line emissivities for specified ion with level(s) by
+        solving atomic level populations and in statistical equilibrium
+        for given electron density and temperature.
    
     EXPLANATION:
    
     CALLING SEQUENCE:
-        import pyequib
-        ion='sii'
-        levu='1,2,1,3/'
-        levl='1,5/'
-        diagtype='T'
-        dens = 2550.0
-        niiTratio=10.753
-        temp=pyequib.cel.calc_temp_dens(ion, levu, levl, niiTratio, diagtype, dens)
-        print temp
+        path='proEQUIB/atomic-data/'
+        set_atomic_data_path, path
+        
+        ion='oiii'
+        temperature=double(10000.0)
+        density=double(5000.0)
+        levels5007='3,4/'
+        
+        emiss5007=calc_emissivity(temperature=temperature, density=density, 
+                                  ion=ion, levels=levels5007)
+        print, emiss5007
    
     INPUTS:
-        ion -       ion name e.g. 'sii', 'nii'
-        levu -      upper level(s) e.g '1,2/', '1,2,1,3/'
-        levl -      lower level(s) e.g '1,2/', '1,2,1,3/'
-        inratio -   flux intensity ratio
-        diagtype -  diagnostics type
-                    'd' or 'D' for electron density
-                    't' or 'T' for electron temperature
-        fixedq -    fixed quantity
-                    electron density when diagtype ='t' or 'T'
-                    electron temperature when diagtype ='d' or 'D'
-    RETURN:  density or temperature
-                    electron density when diagtype ='d' or 'D'
-                    electron temperature when diagtype ='t' or 'T'
+        temperature   -     electron temperature
+        density       -     electron density
+        atomic_levels -     level(s) e.g '1,2/', '1,2,1,3/'
+        elj_data      -     energy levels (Ej) data
+        omij_data     -     collision strengths (omega_ij) data
+        aij_data      -     transition probabilities (Aij) data
+   
+    RETURN:  ionic abundance
+   
     REVISION HISTORY:
-        Converted from FORTRAN to Python code by A. Danehkar, 15/09/2013
+        Converted from FORTRAN to IDL code by A. Danehkar, 15/09/2013
+        Replaced str2int with strnumber, A. Danehkar, 20/10/2016
+        Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE), A. Danehkar, 20/10/2016
+        Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION, A. Danehkar, 20/10/2016
+        Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL, A. Danehkar, 15/11/2016
+        Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP, A. Danehkar, 19/11/2016
+        Made a new function calc_populations() for solving atomic
+          level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature(), A. Danehkar, 20/11/2016
+        Made a new function calc_emissivity() for calculating
+                         line emissivities and separated it
+                         from calc_abundance(), A. Danehkar, 21/11/2016
+        Integration with AtomNeb, now uses atomic data input elj_data,
+                         omij_data, aij_data, A. Danehkar, 10/03/2017
+        Cleaned the function, and remove unused varibales
+              new function calc_emissivity(), A. Danehkar, 12/06/2017
    
     FORTRAN EQUIB HISTORY (F77/F90):
     1981-05-03 I.D.Howarth  Version 1
@@ -71,545 +93,372 @@ def calc_temp_dens(ion, levu, levl, inratio, diagtype, fixedq):
                             and the 0 0 0 data end is excluded for these c
                             The A values have a different format for IBIG=
     2006       B.Ercolano   Converted to F90
-    2009-05    R.Wesson     Converted to F90, inputs from cmd line, version 
-                            written purely to do diagnostics.
    """
+   global atomic_data_path
    
-   #global atomic_data_path
-   
-   ndim1=numpy.int32(35)
-   ndim2=numpy.int32(150)
-   # NDIM1T3 should be at least 3*NDIM1
-   ndim1t3=numpy.int32(105)
-   # Maximum no. of Ne increments
-   maxnd=numpy.int32(100)
+   h_planck = 6.62606957e-27 # erg s
+   c_speed = 2.99792458e10 # cm/s 
    
    gx = numpy.int32(0)
-   g=(ndim2 + 1)*[numpy.int32(0)]
    id1=(2 + 1)*[numpy.int32(0)]
    jd=(2 + 1)*[numpy.int32(0)]
-   wava = numpy.zeros(ndim2 + 1)
-   
-   itrana = numpy.zeros((2 + 1, ndim2 + 1))
-   itranb = numpy.zeros((2 + 1, ndim2 + 1))
-   itranc = numpy.zeros((2 + 1, ndim2 + 1))
-   loop = numpy.int32(0)
-   
-   n = numpy.zeros(ndim2 + 1)
-   tnij = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   fintij = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   wava = numpy.zeros(ndim2 + 1)
-   wavb = numpy.zeros(ndim2 + 1)
-   wavc = numpy.zeros(ndim2 + 1)
-   cs = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   qeff = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   qq = numpy.zeros(ndim1 + 1)
-   qom =  numpy.zeros((ndim1 + 1,ndim2 + 1,ndim2 + 1))
-   a = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   e = numpy.zeros(ndim2 + 1)
-   t = numpy.zeros(ndim1 + 1)
-   roott = numpy.zeros(ndim1 + 1)
-   x = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   y = numpy.zeros(ndim2 + 1)
-   x2 = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   xkeep = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   y2 = numpy.zeros(ndim2 + 1)
-   ykeep = numpy.zeros(ndim2 + 1)
-   hmh = numpy.zeros((ndim1 + 1,ndim1 + 1))
-   d = numpy.zeros(ndim1 + 1)
-   valtest = numpy.zeros(3 + 1)
-   label1 = (ndim2 + 1)*['']
    
    i = numpy.int32(0)
-   i1 = numpy.int32(0)
-   i2 = numpy.int32(0)
    j = numpy.int32(0)
    k = numpy.int32(0)
    l = numpy.int32(0)
-   kk = numpy.int32(0)
-   ll = numpy.int32(0)
-   jt = numpy.int32(0)
-   jjd = numpy.int32(0)
-   ionl = numpy.int32(0)
    nlines = numpy.int32(0)
-   nlev = numpy.int32(0)
-   ntemp = numpy.int32(0)
+   level_num = numpy.int32(0)
+   temp_num = numpy.int32(0)
    ibig = numpy.int32(0)
    irats = numpy.int32(0)
    ntra = numpy.int32(0)
    itemp = numpy.int32(0)
    in1 = numpy.int32(0)
-   nlev1 = numpy.int32(0)
    kp1 = numpy.int32(0)
-   int1 = numpy.int32(0)
-   ind = numpy.int32(0)
-   iopt = numpy.int32(0)
    it = numpy.int32(0)
-   im1 = numpy.int32(0)
-   jm1 = numpy.int32(0)
    ip1 = numpy.int32(0)
-   iapr = numpy.int32(0)
-   ibpr = numpy.int32(0)
-   icpr = numpy.int32(0)
    ikt = numpy.int32(0)
-   ia = numpy.int32(0)
-   ib = numpy.int32(0)
    ic = numpy.int32(0)
-   ia1 = numpy.int32(0)
-   ia2 = numpy.int32(0)
-   ib1 = numpy.int32(0)
-   ib2 = numpy.int32(0)
    ic1 = numpy.int32(0)
    ic2 = numpy.int32(0)
    
-   tempi = numpy.float64(0)
-   tinc = numpy.float64(0)
-   densi = numpy.float64(0)
-   dinc = numpy.float64(0)
-   dens = numpy.float64(0)
-   dlogd = numpy.float64(0)
-   temp = numpy.float64(0)
-   tlogt = numpy.float64(0)
-   temp2 = numpy.float64(0)
-   dd = numpy.float64(0)
-   deltek = numpy.float64(0)
-   expe = numpy.float64(0)
-   value = numpy.float64(0)
-   sumn = numpy.float64(0)
-   ttt = numpy.float64(0)
-   ttp = numpy.float64(0)
-   ahb = numpy.float64(0)
+   #dens = numpy.float64(0)
+   #temp = numpy.float64(0)
+   
    eji = numpy.float64(0)
    wav = numpy.float64(0)
-   rlint = numpy.float64(0)
-   fint = numpy.float64(0)
-   suma = numpy.float64(0)
-   sumb = numpy.float64(0)
-   sumc = numpy.float64(0)
+   
    qx = numpy.float64(0)
    ax = numpy.float64(0)
    ex = numpy.float64(0)
-   frat = numpy.float64(0)
-   dee = numpy.float64(0)
    ltext = ''#
    
-   result1 = numpy.float64(0)
+   abund =  numpy.float64(0)
    
    i = numpy.int32(0)
    j = numpy.int32(0)
    k = numpy.int32(0)
    ip1 = numpy.int32(0)
-   #A=dblarr(NR,NR)
-   #FACT=double(0)
    
-   itrana[:,:] = 0
-   itranb[:,:] = 0
+   levels_str = strsplit(levels, ',',escapech='/')
+   
+   levels_num = len(levels_str)
+   levels_num = int(levels_num/2)
+   itranc = numpy.zeros((2 + 1, levels_num + 1))
    itranc[:,:] = 0
-   
-   levu_str = strsplit(levu, ',',escapech='/')
-   levl_str = strsplit(levl, ',',escapech='/')
-   
-   levu_num = len(levu_str)
-   levl_num = len(levl_str)
-   
-   levu_i = int(0)
-   for i in range(1, 151):
-      itrana[1][i] = equib_str2int(levu_str[levu_i])
-      itrana[2][i] = equib_str2int(levu_str[levu_i + 1])
-      levu_i = levu_i + 2
-      if levu_i >= levu_num:   
+   levels_i = int(0)
+   for i in range(1, levels_num+1):
+      itranc[1][i] = equib_str2int(levels_str[levels_i])
+      itranc[2][i] = equib_str2int(levels_str[levels_i + 1])
+      levels_i = levels_i + 2
+      if levels_i >= levels_num:   
          break
-   
-   levl_i = int(0)
-   for i in range(1, 151):
-      itranb[1][i] = equib_str2int(levl_str[levl_i])
-      itranb[2][i] = equib_str2int(levl_str[levl_i + 1])
-      levl_i = levl_i + 2
-      if levl_i >= levl_num:   
-         break#
-   
-   #READ(levu,*) ((ITRANA(LL,KK),LL=1,2),KK=1,150)
-   #READ(levl,*) ((ITRANB(LL,KK),LL=1,2),KK=1,150)
-   
    ion1 = strtrim(ion)
    #atomic_filename = atomic_data_path + '/' + ion1 + '.dat'
    modelpath=getmodelpath()
    atomic_filename = modelpath+'/atomic-data/' + ion1 + '.dat'
    fp = open(atomic_filename, 'r')
    line = fp.readline()
-   tempval  = map(int, line.split())
+   tempval  = list(map(int, line.split()))
    nlines=tempval[0]
    for i in range(1, (nlines)+(1)):
       line = fp.readline()
-   # Read no. of levels (max=NDIM2) NLEV,
+   # Read no. of levels (max=NDIM2) level_num,
    line = fp.readline()
-   tempval  = map(int, line.split()) 
-   nlev=tempval[0]
-   ntemp=tempval[1]
-   # no. of Te (max=NDIM1) NTEMP and the
-   for i in range(1, (nlev)+(1)):
+   tempval  = list(map(int, line.split()))
+   level_num=tempval[0]
+   temp_num=tempval[1]
+   
+   glj = numpy.zeros(level_num+1)
+   
+   nlj = numpy.zeros(level_num)
+   omij = numpy.zeros((temp_num+1, level_num+1, level_num+1))
+   aij = numpy.zeros((level_num + 1, level_num + 1))
+   elj = numpy.zeros(level_num+1)
+   temp_list = numpy.zeros(temp_num+1)
+   
+   label1 = (level_num + 1)*['']
+   
+   glj[:] = 0
+   # no. of Te (max=NDIM1) temp_num and the
+   for i in range(1, (level_num)+(1)):
    # input format (cf Readme)
       ltext = fp.readline()
       label1[i] = ltext
    # be
    ibig = 0
    # Read in Te's where coll. strengths are tabulated
-   for i in range(1, (ntemp)+(1)):
+   for i in range(1, (temp_num)+(1)):
       ddtemp = numpy.float64(0)
       line = fp.readline()
-      tempval= map(float, line.split()) 
+      tempval= list(map(float, line.split()))
       ddtemp=tempval[0]
-      t[i] = ddtemp
-      t[i] = math.log10(t[i])
-      roott[i] = math.sqrt(t[i])
+      temp_list[i] = ddtemp
+      temp_list[i] = math.log10(temp_list[i])
    # If IRATS=0, what tabulated are collision strengths
    line = fp.readline()
-   tempval= map(int, line.split()) 
+   tempval= list(map(int, line.split())) 
    irats=tempval[0]
    # Else Coll. rates = tabulated values * 10 ** IRATS
    
    if (ibig == 0):   
       qx = 1.0
-      while (qx != 0.e0):
-         lontemp1 = numpy.int32(0)
-         lontemp2 = numpy.int32(0)
-         ddtemp = numpy.float64(0)
-         line = fp.readline()
-         tempval= map(float, line.split()) 
-         lontemp1=tempval[0]
-         lontemp2=tempval[1]
-         ddtemp=tempval[2]
-         id1[2] = lontemp1
-         jd[2] = lontemp2
-         qx = ddtemp
-         if qx == 0:   
-            break
-         if (id1[2] == 0):   
-            id1[2] = id1[1]
-            k = int(k + 1)
-         else:   
-            id1[1] = id1[2]
-            k = int(1)
-         if (jd[2] == 0):   
-            jd[2] = jd[1]
-         else:   
-            jd[1] = jd[2]
-         i = int(id1[2])
-         j = int(jd[2])
-         qom[k,i,j] = qx
+   while (qx != 0.e0):
+      lontemp1 = numpy.int32(0)
+      lontemp2 = numpy.int32(0)
+      ddtemp = numpy.float64(0)
+      line = fp.readline()
+      tempval= list(map(float, line.split()))
+      lontemp1=tempval[0]
+      lontemp2=tempval[1]
+      ddtemp=tempval[2]
+      id1[2] = lontemp1
+      jd[2] = lontemp2
+      qx = ddtemp
+      if qx == 0:   
+         break
+      if (id1[2] == 0):   
+         id1[2] = id1[1]
+         k = int(k + 1)
+      else:   
+         id1[1] = id1[2]
+         k = int(1)
+      if (jd[2] == 0):   
+         jd[2] = jd[1]
+      else:   
+         jd[1] = jd[2]
+      i = int(id1[2])
+      j = int(jd[2])
+      omij[k,i,j] = qx
    
    if ((ibig == 1) or (ibig == 2)):  
-		line = fp.readline()
-		tempval= map(float, line.split()) 
-		ntra= tempval[0]
-		for in1 in range(1, (ntra)+(1)):
-			#readf(lun1, i, j, qom[j,i,1:(ntemp)+1])
-			line = fp.readline()
-			tempval= map(float, line.split()) 
-			i= tempval[0]
-			j= tempval[1]
-			qom[1,i,j]= tempval[2]
-			#READ(1,*) I,J,(QOM(ITEMP,I,J),ITEMP=1,NTEMP)
+       line = fp.readline()
+       tempval= list(map(float, line.split()))
+       ntra= tempval[0]
+       for in1 in range(1, (ntra)+(1)):
+           #readf(lun1, i, j, qom[j,i,1:(temp_num)+1])
+           line = fp.readline()
+           tempval= list(map(float, line.split()))
+           i= tempval[0]
+           j= tempval[1]
+           omij[1,i,j]= tempval[2]
+           #READ(1,*) I,J,(QOM(ITEMP,I,J),ITEMP=1,temp_num)
    # Read transition probabilities
-   nlev1 = nlev - 1
+   level_num1 = level_num - 1
    if (ibig == 1):   
-		line = fp.readline()
-		tempval= map(float, line.split()) 
-		i= tempval[0]
-		j= tempval[1]
-		a[j,i]= tempval[2]
-		#readf(lun1, i, j, a[i,j])#,L=K+1,NLEV),K=1,NLEV1
-		#READ(1,7000) ((I,J,A(J,I),L=K+1,NLEV),K=1,NLEV1)
+       line = fp.readline()
+       tempval= list(map(float, line.split()))
+       i= tempval[0]
+       j= tempval[1]
+       aij[j,i]= tempval[2]
+       #readf(lun1, i, j, a[i,j])#,L=K+1,level_num),K=1,level_num1
+       #READ(1,7000) ((I,J,A(J,I),L=K+1,level_num),K=1,level_num1)
    else:   
-      for k in range(1, (nlev1)+(1)):
-         kp1 = k + 1
-         for l in range(kp1, (nlev)+(1)):
-				line = fp.readline()
-				tempval= map(float, line.split()) 
-				i= int(tempval[0])
-				j= int(tempval[1])
-				ax= tempval[2]
-				a[j,i] = ax
+     for k in range(1, (level_num1)+(1)):
+        kp1 = k + 1
+        for l in range(kp1, (level_num)+(1)):
+               line = fp.readline()
+               tempval= list(map(float, line.split()))
+               i= int(tempval[0])
+               j= int(tempval[1])
+               ax= tempval[2]
+               aij[j,i] = ax
    # Read statistical weights, energy levels (cm-1)
-   for j in range(1, (nlev)+(1)):
-		line = fp.readline()
-		tempval= map(float, line.split()) 
-		i= int(tempval[0])
-		gx= int(tempval[1])
-		ex= tempval[2]
-		g[i] = gx
-		e[i] = ex
-   
+   for j in range(1, (level_num)+(1)):
+       line = fp.readline()
+       tempval= list(map(float, line.split()))
+       i= int(tempval[0])
+       gx= int(tempval[1])
+       ex= tempval[2]
+       glj[i] = gx
+       elj[i] = ex
    fp.close()
    
-   itranc[:,:] = 0
+   if ((temperature <= 0.e0) or (density <= 0.e0)):  
+	   print('temperature = ', temperature, ', density = ', density) 
+	   return 0
    
-   # newbit
-   # set up T and D loops depending on input.
-   # Read in Te and Ne where the line
-   # ratio is to be calculated
-   
-   #*****LOOP STARTS HERE*************************
-   for loop in range(1, 10):
-      if ((diagtype == 't') or (diagtype == 'T')):   
-         if (loop == 1):   
-            tempi = 5000.0
-         else:   
-            tempi = valtest[1]
-         int1 = 4
-         tinc = (15000.0) / ((int1 - 1) ** (loop))
-         densi = fixedq
-         dinc = 0
-         ind = 1
-         # ALLOCATE(RESULTS(3,int1))
-         results = numpy.zeros((3 + 1,int1 + 1))
-      else:   
-         if (loop == 1):   
-            densi = 0.0
-         else:   
-            densi = valtest[2]
-         ind = 4
-         dinc = (100000.0) / ((ind - 1) ** (loop))
-         
-         tempi = fixedq
-         tinc = 0
-         int1 = 1
-         
-         #allocate(results(3,IND))
-         results =  numpy.zeros((3 + 1,ind + 1))
-      if (densi <= 0):   
-         densi = 1
-      if (tempi < 5000):   
-         tempi = 5000 # add
-      # Start of Te loop
-      for jt in range(1, (int1)+(1)):
-         temp = tempi + (jt - 1) * tinc
-         # Start of Ne loop=
-         for jjd in range(1, (ind)+(1)):
-            dens = densi + (jjd - 1) * dinc
-            # IF(DENSI.LT.30.D0) THEN
-            # DENS=10.D0**DENS
-            # ENDIF
-            if ((temp <= 0.e0) or (dens <= 0.e0)):   
-               print 'Temp = ', temp, ', Dens = ', dens
-               return 0
-            dlogd = math.log10(dens)
-            tlogt = math.log10(temp)
-            temp2 = math.sqrt(temp)
-            # Form matrices
-            x[:,:] = numpy.float64(0)
-            cs[:,:] = numpy.float64(0)
-            qeff[:,:] = numpy.float64(0)
-            tnij[:,:] = numpy.float64(0)
-            y[:] = numpy.float64(0)
-            
-            iopt = 0
-            if (ntemp == 1):   
-               print 'Coll. strengths available for 1 Te only - assuming const'
-            else:   
-               if (ntemp == 2):   
-                  print 'Coll. strengths available for 2 Te only - linear interp'
-               else:   
-                  (t, ntemp, iopt, ndim1, ndim1t3, hmh)=equib_splmat(t, ntemp, iopt, ndim1, ndim1t3, hmh)
-                  (tlogt, t, ntemp, ndim1, hmh, d)=equib_cfd(tlogt, t, ntemp, ndim1, hmh, d)
-            for i in range(2, (nlev)+(1)):
-               for j in range(i, (nlev)+(1)):
-               #Negative!
-                  deltek = (e[i - 1] - e[j]) * 1.4388463e0
-                  expe = math.exp(deltek / temp)
-                  for it in range(1, (ntemp)+(1)):
-                  
-                     if (irats == 0.e+00):   
-                        qq[it] = qom[it,i - 1,j]
-                     else:   
-                        #Take out the exp. depend.
-                        qq[it] = qom[it,i - 1,j] / expe
-                        # before interpolation
-                     
-                  
-                  if (ntemp == 1):   
-                     dd = qq[1]
-                  else:   
-                     
-                     if (ntemp == 2):   
-                        dd = qq[1] + (qq[2] - qq[1]) / (t[2] - t[1]) * (tlogt - t[1])
-                     else:   
-                        (tlogt, dd, t, qq, ntemp, ndim1, hmh, d)=equib_cfy(tlogt, dd, t, qq, ntemp, ndim1, hmh, d)
-                  if (irats == 0.e+00):   
-                     cs[i - 1,j] = dd
-                  else:   
-                     cs[i - 1,j] = dd * expe
-                  
-                  if (irats == 0.e+00):   
-                     qeff[i - 1,j] = 8.63e-06 * cs[i - 1,j] * expe / (g[i - 1] * temp2)
-                     qeff[j,i - 1] = 8.63e-06 * cs[i - 1,j] / (g[j] * temp2)
-                  else:   
-                     qeff[i - 1,j] = cs[i - 1,j] * 10. ** irats
-                     # Be careful
-                     qeff[j,i - 1] = g[i - 1] * qeff[i - 1,j] / (expe * g[j])
-                     # G integer!
-            for i in range(2, (nlev)+(1)):
-               for j in range(1, (nlev)+(1)):
-                  if (j != i):   
-                     x[i,j] = x[i,j] + dens * qeff[j,i]
-                     x[i,i] = x[i,i] - dens * qeff[i,j]
-                     if (j > i):   
-                        x[i,j] = x[i,j] + a[j,i]
-                     else:   
-                        x[i,i] = x[i,i] - a[i,j]
-            for i in range(2, (nlev)+(1)):
-               im1 = i - 1
-               value = 0.e0 - x[i,1]
-               y[im1] = value
-               y2[im1] = value
-               ykeep[im1] = value
-               for j in range(2, (nlev)+(1)):
-                  jm1 = j - 1
-                  value = x[i,j]
-                  x[im1,jm1] = value
-                  x2[im1,jm1] = value
-                  xkeep[im1,jm1] = value
-            # Solve matrices for populations
-            (x, y, nlev1, ndim2)=equib_luslv(x, y, nlev1, ndim2)
-            for i in range(nlev, 1, -1):
-               n[i] = y[i - 1]
-            sumn = 1.e0
-            for i in range(2, (nlev)+(1)):
-               sumn = sumn + n[i]
-            for i in range(2, (nlev)+(1)):
-               n[i] = n[i] / sumn
-            n[1] = 1.e0 / sumn
-            # Output data
-            ttt = temp * 1.0e-4
-            ttp = ttt ** (-0.87e0)
-            # Eff. recombination coef. of Hb
-            ahb = 3.036e-14 * ttp
-            for i in range(1, (nlev1)+(1)):
-               ip1 = i + 1
-               for j in range(ip1, (nlev)+(1)):
-                  if (a[j,i] != 0.e0):   
-                     eji = e[j] - e[i]
-                     wav = 1.e8 / eji
-                     rlint = a[j,i] * eji
-                     rlint = rlint * n[j]
-                     tnij[i,j] = rlint
-                     fint = n[j] * a[j,i] * 4861.e0 / (dens * ahb * wav)
-                     fintij[i,j] = fint
-            # Search ITRANA, ITRANB & ITRANC for transitions & sum up
-            suma = 0.e0
-            sumb = 0.e0
-            sumc = 0.e0
-            iapr = 0
-            ibpr = 0
-            icpr = 0
-            for ikt in range(1, (ndim2)+(1)):
-				ia1 = int(itrana[1,ikt])
-				ia2 = int(itrana[2,ikt])
-				if ((ia1 != 0) and (ia2 != 0)):   
-					suma = suma + tnij[ia1,ia2]
-					iapr = iapr + 1
-				ib1 = int(itranb[1,ikt])
-				ib2 = int(itranb[2,ikt])
-				if ((ib1 != 0) and (ib2 != 0)):   
-					ibpr = ibpr + 1
-					sumb = sumb + tnij[ib1,ib2]
-               
-				ic1 = int(itranc[1,ikt])
-				ic2 = int(itranc[2,ikt])
-				if ((ic1 != 0) and (ic2 != 0)):   
-					icpr = icpr + 1
-					sumc = sumc + fintij[ic1,ic2]
-			
-            frat = suma / sumb
-            # sumc = 1. / sumc
-            # TDRAT(1,JJD)=DENS  !are these lines necessary,
-            # TDRAT(2,JJD)=FRAT  !TDRAT is now never used again?
-            # write(6,*),jd,suma,sumb,sumc,dens,frat
-            # WRITE(7,1017) TEMP, DENS, SUMC
-            # WRITE(8,1017) TEMP, DENS, FRAT, FRAT-inratio
-            if ((diagtype == 't') or (diagtype == 'T')):   
-               results[1,jt] = temp
-               results[2,jt] = dens
-               results[3,jt] = frat - inratio
-            else:   
-               results[1,jjd] = temp
-               results[2,jjd] = dens
-               results[3,jjd] = frat - inratio #End of the Ne loop
-         
-         for ia in range(1, (iapr)+(1)):
-            i1 = int(itrana[1,ia])
-            i2 = int(itrana[2,ia])
-            dee = e[i2] - e[i1]
-            wava[ia] = 1.e8 / dee
-         for ib in range(1, (ibpr)+(1)):
-            i1 = int(itranb[1,ib])
-            i2 = int(itranb[2,ib])
-            dee = e[i2] - e[i1]
-            wavb[ib] = 1.e8 / dee
-         for ic in range(1, (icpr)+(1)):
-            i1 = int(itranc[1,ic])
-            i2 = int(itranc[2,ic])
-            dee = e[i2] - e[i1]
-            wavc[ic] = 1.e8 / dee
-         # End of the Te loop
-      # here, find the value in RESULTS which is closest to zero
-      # sort values in results to find two lowest values
-      
-      if ((diagtype == 'D') or (diagtype == 'd')):   
-         int1 = ind
-      
-      # loop through array and find out where the sign changes.
-      
-      #    for I=1,int1 do begin
-      #      if (sign(results[3,I],results[3,1]) ne results[3,I]) then begin
-      #when this condition is fulfilled, the values in the array are now a different sign to the first value in the array
-      #        valtest[*] = results[*,I-1] ; return the value before the sign change so that the next loop starts at a sensible value
-      #        return, 0
-      #      endif
-      for i in range(2, (int1)+(1)):
-         test = 0
-         if (equib_sign(results[3,i], results[3,1]) != results[3,i]):   
-            #when this condition is fulfilled, the values in the array are now a different sign to the first value in the array
-            valtest[:] = results[:,i - 1] # return the value before the sign change so that the next loop starts at a sensible value
-            test = 1
-            break
-      
-      if ((test == 0) and (loop < 9)):    #test fails if no change of sign
-         #this kicks in then, and checks if it should be upper or lower limit
-         if (abs(results[3,1])) < (abs(results[3,int1])):   
-            valtest[:] = results[:,1]
-         else:   
-            if (abs(results[3,int1]) < abs(results[3,1])):   
-               valtest[:] = results[:,int1 - 1]
-            else:   
-               print 'Valtest failed'
-               return 0
-      else:   
-         if ((test == 0) and (loop == 9)):    #test fails if no change of sign
-            # this kicks in then, and checks if it should be upper or lower limit
-            if (abs(results[3,1]) < abs(results[3,int1])):   
-               valtest[:] = results[:,1]
-            else:   
-               if (abs(results[3,int1]) < abs(results[3,1])):   
-                  valtest[:] = results[:,int1]
-               else:   
-                  print 'Valtest failed'
-                  return 0
-      
-      #LOOP = LOOP + 1
-      # DEALLOCATE(RESULTS) ; thanks Bruce!
-   # ********LOOP WOULD END HERE**********************
-   
-   if ((diagtype == 'D') or (diagtype == 'd')):   
-      result1 = valtest[2]
-      # print*,valtest(2)
-   else:   
-      result1 = valtest[1]
-   # result=1.0d+0
-   # print*,result
-   return result1
+   nlj = calc_populations(temperature=temperature, density=density, temp_list=temp_list, omij=omij, aij=aij, elj=elj, glj=glj, level_num=level_num, temp_num=temp_num, irats=irats)
+   emissivity_all = numpy.float64(0)
+   for ikt in range(1, (levels_num)+(1)):
+      i = int(itranc[1,ikt])
+      j = int(itranc[2,ikt])
+      emissivity_line = numpy.float64(0)
+      if (aij[j,i] != 0.e0):   
+         eji = elj[j] - elj[i]
+         wav = 1.e8 / eji
+         emissivity_line = nlj[j] * aij[j,i] * h_planck * c_speed * 1.e8 / (wav * density)
+         emissivity_all = emissivity_all + emissivity_line
+   return emissivity_all
 
-def calc_abundance(ion, levels, tempi, densi, iobs):
+def calc_populations(temperature=None, density=None, temp_list=None, omij=None, aij=None, elj=None, glj=None, level_num=None, temp_num=None, irats=None):
+   """
+    NAME:
+        calc_populations
+    PURPOSE:
+        solve atomic level populations in statistical equilibrium
+        for given electron temperature and density.
+   
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        Nlj=calc_populations(temperature=temperature, density=density, temp_list=temp_list, 
+                             omij=omij, aij=aij, elj=elj, glj=glj, level_num=level_num, 
+                             temp_num=temp_num, irats=irats)
+   
+    INPUTS:
+        temperature -     electron temperature
+        density -     electron density
+        temp_list -   temperature intervals (array)
+        Omij - Collision Strengths (Omega_ij)
+        Aij - Transition Probabilities (A_ij)
+        Elj - Energy Levels (E_j)
+        Glj - Ground Levels (G_j)
+        level_num -Number of levels
+        temp_num - Number of temperature intervals
+        IRATS - Else Coll. rates = tabulated values * 10 ** IRATS
+    RETURN:  N_j (array): atomic level populations
+   
+    REVISION HISTORY:
+        Converted from FORTRAN to IDL code by A. Danehkar, 15/09/2013
+        Replaced str2int with strnumber, A. Danehkar, 20/10/2016
+        Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE), A. Danehkar, 20/10/2016
+        Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION, A. Danehkar, 20/10/2016
+        Replaced LA_LINEAR_EQUATION (not work in GDL) with IDL function
+                                LUDC & LUSOL, A. Danehkar, 15/11/2016
+        Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP, A. Danehkar, 19/11/2016
+        Make a new function calc_populations() and separated from
+          calc_abundance(), calc_density() and calc_temperature(), A. Danehkar, 20/11/2016
+   
+    FORTRAN EQUIB HISTORY (F77/F90):
+    1981-05-03 I.D.Howarth  Version 1
+    1981-05-05 I.D.Howarth  Minibug fixed!
+    1981-05-07 I.D.Howarth  Now takes collision rates or strengths
+    1981-08-03 S.Adams      Interpolates collision strengths
+    1981-08-07 S.Adams      Input method changed
+    1984-11-19 R.E.S.Clegg  SA files entombed in scratch disk. Logical
+                            filenames given to SA's data files.
+    1995-08    D.P.Ruffle   Changed input file format. Increased matrices.
+    1996-02    X.W.Liu      Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting
+    1996-06    C.J.Pritchet Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=
+    2006       B.Ercolano   Converted to F90
+   """
+   
+   dd = numpy.float64(0)
+   i = numpy.int32(0)
+   j = numpy.int32(0)
+   k = numpy.int32(0)
+   im1 = numpy.int32(0)
+   jm1 = numpy.int32(0)
+   deltek = numpy.float64(0)
+   expe = numpy.float64(0)
+   pop_sum = numpy.float64(0)
+   value = numpy.float64(0)
+   
+   cs =  numpy.zeros((level_num + 1, level_num + 1))
+   qq = numpy.zeros(temp_num + 1)
+   qeff = numpy.zeros((level_num + 1, level_num + 1))
+   x = numpy.zeros((level_num + 1, level_num + 1))
+   y = numpy.zeros(level_num + 1)
+   nlj = numpy.zeros(level_num+1)
+   
+   x[:,:] = 0
+   cs[:,:] = 0
+   qeff[:,:] = 0
+   y[:] = 0
+   
+   level_num1 = level_num - 1
+   
+   tlogt = math.log10(temperature)
+   temp2 = math.sqrt(temperature)
+   
+   #IOPT=0
+   if (temp_num == 1):   
+      print('Coll. strengths available for 1 Te only - assuming const')
+   else:   
+      if (temp_num == 2):   
+         print('Coll. strengths available for 2 Te only - linear interp')
+   
+   for i in range(2, (level_num)+(1)):
+      for j in range(i, (level_num)+(1)):
+      #Negative!
+         deltek = (elj[i - 1] - elj[j]) * 1.4388463e0
+         expe = math.exp(deltek / temperature)
+         for it in range(1, (temp_num)+(1)):
+            if (irats == 0.e+00):   
+               qq[it] = omij[it,i - 1,j]
+            else:   
+               #Take out the exp. depend.
+               qq[it] = omij[it,i - 1,j] / expe
+               # before interpolation
+         if (temp_num == 1):   
+            dd = qq[1]
+         else:   
+            if (temp_num == 2):   
+               dd = qq[1] + (qq[2] - qq[1]) / (temp_list[2] - temp_list[1]) * (tlogt - temp_list[1])
+            else:   
+               interpfunc = interpolate.interp1d(temp_list[1:temp_num+1],qq[1:temp_num+1], kind='cubic')
+               dd=interpfunc(tlogt)
+         if (irats == 0.e+00):   
+            cs[i - 1,j] = dd
+         else:   
+            cs[i - 1,j] = dd * expe
+         if (irats == 0.e+00):   
+            qeff[i - 1,j] = 8.63e-06 * cs[i - 1,j] * expe / (glj[i - 1] * temp2)
+            qeff[j,i - 1] = 8.63e-06 * cs[i - 1,j] / (glj[j] * temp2)
+         else:   
+            qeff[i - 1,j] = cs[i - 1,j] * 10. ** irats
+            # Be careful
+            qeff[j,i - 1] = glj[i - 1] * qeff[i - 1,j] / (expe * glj[j])
+            # G integer!
+   for i in range(2, (level_num)+(1)):
+      for j in range(1, (level_num)+(1)):
+         if (j != i):   
+            x[i,j] = x[i,j] + density * qeff[j,i]
+            x[i,i] = x[i,i] - density * qeff[i,j]
+            if (j > i):   
+               x[i,j] = x[i,j] + aij[j,i]
+            else:   
+               x[i,i] = x[i,i] - aij[i,j]
+   for i in range(2, (level_num)+(1)):
+      im1 = i - 1
+      value = 0.e0 - x[i,1]
+      y[im1] = value
+      for j in range(2, (level_num)+(1)):
+         jm1 = j - 1
+         value = x[i,j]
+         x[im1,jm1] = value
+   # Solve matrices for populations
+   # YY=la_linear_equation(transpose(X[1:level_num1,1:level_num1]), Y[1:level_num1]); not work in GDL
+   yy = numpy.linalg.solve(x[1:level_num1+1,1:level_num1+1],y[1:level_num1+1])
+   y[1:level_num1+1]=yy[0:level_num1]
+   for i in range(level_num, 1, -1):
+      nlj[i] = y[i - 1]
+   pop_sum = 1.e0
+   for i in range(2, (level_num)+(1)):
+      pop_sum = pop_sum + nlj[i]
+   for i in range(2, (level_num)+(1)):
+      nlj[i] = nlj[i] / pop_sum
+   nlj[1] = 1.e0 / pop_sum
+   return nlj
+   
+def calc_abundance(temperature=None, density=None, line_flux=None, ion=None, atomic_levels=None):
    """
     NAME:
         calc_abundance
@@ -623,14 +472,18 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
     EXPLANATION:
    
     CALLING SEQUENCE:
-        import pyequib
+        path='proEQUIB/atomic-data/'
+        set_atomic_data_path, path
+   
         ion='oiii'
-        tempi=10000.0
-        densi=5000.0
+        temperature=double(10000.0)
+        density=double(5000.0)
         levels5007='3,4/'
-        iobs5007=1200.0
-        Abb5007=pyequib.cel.calc_abundance(ion, levels5007, tempi, densi, iobs5007)
-        print Abb5007
+        iobs5007=double(1200.0)
+        Abb5007=double(0.0)
+        Abb5007=calc_abundance(temperature=temperature, density=density, 
+                              line_flux=iobs5007, ion=ion, atomic_levels=levels5007)
+        print, Abb5007
    
     INPUTS:
         ion -       ion name e.g. 'oii', 'oiii'
@@ -641,7 +494,24 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
     RETURN:  ionic abundance
    
     REVISION HISTORY:
-        Converted from FORTRAN to Python code by A. Danehkar, 15/09/2013
+        Converted from FORTRAN to IDL code by A. Danehkar, 15/09/2013
+        Replaced str2int with strnumber,      A. Danehkar, 20/10/2016
+        Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE), A. Danehkar, 20/10/2016
+        Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION, A. Danehkar, 20/10/2016
+        Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL, A. Danehkar, 15/11/2016
+        Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP, A. Danehkar, 19/11/2016
+        Made a new function calc_populations() for solving atomic
+          level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature(), A. Danehkar, 20/11/2016
+        Made a new function calc_emissivity() for calculating
+                         line emissivities and separated it
+                         from calc_abundance(), A. Danehkar, 21/11/2016
+        Cleaned the function, and remove unused varibales
+               new function calc_abundance(), A. Danehkar, 12/06/2017
    
     FORTRAN EQUIB HISTORY (F77/F90):
     1981-05-03 I.D.Howarth  Version 1
@@ -667,55 +537,104 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
                             and the 0 0 0 data end is excluded for these c
                             The A values have a different format for IBIG=
     2006       B.Ercolano   Converted to F90
-    2009-05    R.Wesson     Converted to F90. Version written only for
-                            calculating ionic abundances. Takes arguments
-                            from the command line.
    """
    
-   #global atomic_data_path
+   ahb = numpy.float64(0)
    
-   ndim1=numpy.int32(35)
-   ndim2=numpy.int32(150)
-   # NDIM1T3 should be at least 3*NDIM1
-   ndim1t3=numpy.int32(105)
-   # Maximum no. of Ne increments
-   maxnd=numpy.int32(100)
+   h_planck = 6.62606957e-27 # erg s
+   c_speed = 2.99792458e10 # cm/s 
+   
+   if ((temperature <= 0.e0) or (density <= 0.e0)):   
+      print('Temperature = ', temperature, ', Density = ', density)
+      return 0
+   
+   # Eff. recombination coef. of Hb
+   t4 = temperature * 1.0e-4
+   ahb = 3.036e-14 * t4 ** (-0.87e0) # Brocklehurt 1971; Aller (1984), Physics of Thermal Gaseous Nebulae, p. 76
+   wavhb = 4861.33e0 #4861.D0
+   emissivity_hbeta = ahb * h_planck * c_speed * 1.e8 / wavhb # N(H+) * N(e-) (erg/s) 
+   # emissivity_Hbeta=1.387D-25*T4^(-0.983D0)* 10.D0^(-0.0424D0/T4) ;  Brocklehurst (1971); Aller (1984)
+   
+   emissivity_all = numpy.float64(0)
+   emissivity_all = calc_emissivity(temperature=temperature, density=density, ion=ion, levels=atomic_levels)
+   
+   abund = (emissivity_hbeta / emissivity_all) * (line_flux / 100.0)
+   return abund
+
+def calc_density(line_flux_ratio=None, temperature=None, ion=None, upper_levels=None, lower_levels=None):
+   """
+    NAME:
+        calc_density
+    PURPOSE:
+        determine electron density from given
+        flux intensity ratio for specified ion with upper level(s)
+        lower level(s) by solving atomic level populations and
+        line emissivities in statistical equilibrium
+        for given electron temperature.
+    
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        import pyequib
+        ion='sii'
+        upper_levels='1,2/'
+        lower_levels='1,3/'
+        temperature = 7000.0
+        siiNratio=1.50
+        density=calc_density(line_flux_ratio=siiNratio, density=density, $
+                                     ion = ion, upper_levels=upper_levels, lower_levels=lower_levels)
+        print(density)
+    INPUTS:
+        line_flux_ratio  -     flux intensity ratio
+        temperature      -     electron temperature
+        ion -       ion name e.g. 'sii', 'nii'
+        upper_levels -      upper level(s) e.g '1,2/', '1,2,1,3/'
+        lower_levels -      lower level(s) e.g '1,2/', '1,2,1,3/'
+    RETURN:  electron density
+    
+    REVISION HISTORY:
+        Converted from FORTRAN to Python code by A. Danehkar, 15/09/2013
+        Replaced CFY, SPLMAT, and CFD with
+              Python scipy.interpolate.interp1d, A. Danehkar, 20/10/2016
+        Replaced LUSLV with Python numpy.linalg.solve, A. Danehkar, 20/10/2016
+        Cleaning the function, and remove unused varibales
+                     new function calc_density(), A. Danehkar, 12/06/2017
+                           
+    FORTRAN EQUIB HISTORY (F77/F90):
+    1981-05-03 I.D.Howarth  Version 1
+    1981-05-05 I.D.Howarth  Minibug fixed!
+    1981-05-07 I.D.Howarth  Now takes collision rates or strengths
+    1981-08-03 S.Adams      Interpolates collision strengths
+    1981-08-07 S.Adams      Input method changed
+    1984-11-19 R.E.S.Clegg  SA files entombed in scratch disk. Logical
+                            filenames given to SA's data files.
+    1995-08    D.P.Ruffle   Changed input file format. Increased matrices.
+    1996-02    X.W.Liu      Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting
+    1996-06    C.J.Pritchet Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=
+    2006       B.Ercolano   Converted to F90
+   """
+   h_planck = 6.62606957e-27 # erg s
+   c_speed = 2.99792458e10 # cm/s 
    
    gx = numpy.int32(0)
-   g=(ndim2 + 1)*[numpy.int32(0)]
    id1=(2 + 1)*[numpy.int32(0)]
    jd=(2 + 1)*[numpy.int32(0)]
-   itrana = numpy.zeros((2 + 1, ndim2 + 1))
-   itranb = numpy.zeros((2 + 1, ndim2 + 1))
-   itranc = numpy.zeros((2 + 1, ndim2 + 1))
-   loop = numpy.int32(0)
    
-   n = numpy.zeros(ndim2 + 1)
-   tdrat = numpy.zeros((2 + 1, maxnd + 1))
-   tnij = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   fintij = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   wava = numpy.zeros(ndim2 + 1)
-   wavb = numpy.zeros(ndim2 + 1)
-   wavc = numpy.zeros(ndim2 + 1)
-   cs = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   qeff = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   qq = numpy.zeros(ndim1 + 1)
-   qom =  numpy.zeros((ndim1 + 1,ndim2 + 1,ndim2 + 1))
-   a = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   e = numpy.zeros(ndim2 + 1)
-   t = numpy.zeros(ndim1 + 1)
-   roott = numpy.zeros(ndim1 + 1)
-   x = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   y = numpy.zeros(ndim2 + 1)
-   x2 = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   xkeep = numpy.zeros((ndim2 + 1,ndim2 + 1))
-   y2 = numpy.zeros(ndim2 + 1)
-   ykeep = numpy.zeros(ndim2 + 1)
-   hmh = numpy.zeros((ndim1 + 1,ndim1 + 1))
-   d = numpy.zeros(ndim1 + 1)
-   valtest = numpy.zeros(3 + 1)
+   iteration = numpy.int32(0)
    
-   label1 = (ndim2 + 1)*['']
+   check_value = numpy.zeros(3 + 1)
    
    i = numpy.int32(0)
    i1 = numpy.int32(0)
@@ -724,7 +643,6 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
    k = numpy.int32(0)
    l = numpy.int32(0)
    kk = numpy.int32(0)
-   ll = numpy.int32(0)
    jt = numpy.int32(0)
    jjd = numpy.int32(0)
    ionl = numpy.int32(0)
@@ -747,42 +665,28 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
    ip1 = numpy.int32(0)
    iapr = numpy.int32(0)
    ibpr = numpy.int32(0)
-   icpr = numpy.int32(0)
    ikt = numpy.int32(0)
    ia = numpy.int32(0)
    ib = numpy.int32(0)
-   ic = numpy.int32(0)
    ia1 = numpy.int32(0)
    ia2 = numpy.int32(0)
    ib1 = numpy.int32(0)
    ib2 = numpy.int32(0)
-   ic1 = numpy.int32(0)
-   ic2 = numpy.int32(0)
    
-   #tempi = numpy.float64(0)
+   tempi = numpy.float64(0)
    tinc = numpy.float64(0)
-   #densi = numpy.float64(0)
+   densi = numpy.float64(0)
    dinc = numpy.float64(0)
    dens = numpy.float64(0)
    dlogd = numpy.float64(0)
-   temp = numpy.float64(0)
    tlogt = numpy.float64(0)
    temp2 = numpy.float64(0)
    dd = numpy.float64(0)
    deltek = numpy.float64(0)
    expe = numpy.float64(0)
    value = numpy.float64(0)
-   sumn = numpy.float64(0)
-   ttt = numpy.float64(0)
-   ttp = numpy.float64(0)
-   ahb = numpy.float64(0)
    eji = numpy.float64(0)
    wav = numpy.float64(0)
-   rlint = numpy.float64(0)
-   fint = numpy.float64(0)
-   suma = numpy.float64(0)
-   sumb = numpy.float64(0)
-   sumc = numpy.float64(0)
    qx = numpy.float64(0)
    ax = numpy.float64(0)
    ex = numpy.float64(0)
@@ -790,38 +694,38 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
    dee = numpy.float64(0)
    ltext = ''#
    
-   abund = numpy.float64(0)
+   result1 = numpy.float64(0)
    
    i = numpy.int32(0)
    j = numpy.int32(0)
    k = numpy.int32(0)
    ip1 = numpy.int32(0)
-   #A=dblarr(NR,NR)
-   #FACT=double(0)
    
-   # g[:] = 0
+   upper_levels_str = strsplit(upper_levels, ',',escapech='/')
+   lower_levels_str = strsplit(lower_levels, ',',escapech='/')
+   
+   upper_levels_num = len(upper_levels_str)
+   lower_levels_num = len(lower_levels_str)
+   
+   itrana = numpy.zeros((2 + 1, upper_levels_num + 1))
+   itranb = numpy.zeros((2 + 1, lower_levels_num + 1))
    itrana[:,:] = 0
    itranb[:,:] = 0
-   itranc[:,:] = 0
-   
-   levels_str = strsplit(levels, ',',escapech='/')
-   
-   levels_num = len(levels_str)
-
-   levels_i = int(0)
-   for i in range(1, 151):
-      itranc[1][i] = equib_str2int(levels_str[levels_i])
-      itranc[2][i] = equib_str2int(levels_str[levels_i + 1])
-      levels_i = levels_i + 2
-      if levels_i >= levels_num:   
+   upper_levels_i = int(0)
+   for i in range(1, upper_levels_num + 1):
+      itrana[1][i] = equib_str2int(upper_levels_str[upper_levels_i])
+      itrana[2][i] = equib_str2int(upper_levels_str[upper_levels_i + 1])
+      upper_levels_i = upper_levels_i + 2
+      if upper_levels_i >= upper_levels_num:   
          break
    
-   #read(levels,*) ((ITRANC(LL,KK),LL=1,2),KK=1,150)
-   
-   tinc = 0
-   dinc = 0
-   int1 = 1
-   ind = 1
+   lower_levels_i = int(0)
+   for i in range(1, lower_levels_num+1):
+      itranb[1][i] = equib_str2int(lower_levels_str[lower_levels_i])
+      itranb[2][i] = equib_str2int(lower_levels_str[lower_levels_i + 1])
+      lower_levels_i = lower_levels_i + 2
+      if lower_levels_i >= lower_levels_num:   
+         break#
    
    ion1 = strtrim(ion)
    #atomic_filename = atomic_data_path + '/' + ion1 + '.dat'
@@ -829,15 +733,31 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
    atomic_filename = modelpath+'/atomic-data/' + ion1 + '.dat'
    fp = open(atomic_filename, 'r')
    line = fp.readline()
-   tempval  = map(int, line.split())
+   tempval  = list(map(int, line.split()))
    nlines=tempval[0]
    for i in range(1, (nlines)+(1)):
       line = fp.readline()
    # Read no. of levels (max=NDIM2) NLEV,
    line = fp.readline()
-   tempval  = map(int, line.split()) 
+   tempval  = list(map(int, line.split()))
    nlev=tempval[0]
    ntemp=tempval[1]
+   
+   glj = numpy.zeros(nlev+1)
+   
+   nlj = numpy.zeros(nlev+1)
+   wava = numpy.zeros(nlev + 1)
+   wavb = numpy.zeros(nlev + 1)
+   omij = numpy.zeros((ntemp+1, nlev+1, nlev+1))
+   aij = numpy.zeros((nlev + 1, nlev + 1))
+   elj = numpy.zeros(nlev+1)
+   telist = numpy.zeros(ntemp+1)
+   
+   label1 = (nlev + 1)*['']
+   
+   label1 = (nlev + 1)*['']
+   
+   glj[:] = 0
    # no. of Te (max=NDIM1) NTEMP and the
    for i in range(1, (nlev)+(1)):
    # input format (cf Readme)
@@ -849,14 +769,13 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
    for i in range(1, (ntemp)+(1)):
       ddtemp = numpy.float64(0)
       line = fp.readline()
-      tempval= map(float, line.split()) 
+      tempval= list(map(float, line.split())) 
       ddtemp=tempval[0]
-      t[i] = ddtemp
-      t[i] = math.log10(t[i])
-      roott[i] = math.sqrt(t[i])
+      telist[i] = ddtemp
+      telist[i] = math.log10(telist[i])
    # If IRATS=0, what tabulated are collision strengths
    line = fp.readline()
-   tempval= map(int, line.split()) 
+   tempval= list(map(int, line.split()))
    irats=tempval[0]
    # Else Coll. rates = tabulated values * 10 ** IRATS
    
@@ -867,7 +786,7 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
          lontemp2 = numpy.int32(0)
          ddtemp = numpy.float64(0)
          line = fp.readline()
-         tempval= map(float, line.split()) 
+         tempval= list(map(float, line.split()))
          lontemp1=tempval[0]
          lontemp2=tempval[1]
          ddtemp=tempval[2]
@@ -888,767 +807,555 @@ def calc_abundance(ion, levels, tempi, densi, iobs):
             jd[1] = jd[2]
          i = int(id1[2])
          j = int(jd[2])
-         qom[k,i,j] = qx
+         omij[k,i,j] = qx
    
    if ((ibig == 1) or (ibig == 2)):  
-		line = fp.readline()
-		tempval= map(float, line.split()) 
-		ntra= tempval[0]
-		for in1 in range(1, (ntra)+(1)):
-			#readf(lun1, i, j, qom[j,i,1:(ntemp)+1])
-			line = fp.readline()
-			tempval= map(float, line.split()) 
-			i= tempval[0]
-			j= tempval[1]
-			qom[1,i,j]= tempval[2]
-			#READ(1,*) I,J,(QOM(ITEMP,I,J),ITEMP=1,NTEMP)
+      line = fp.readline()
+      tempval= list(map(float, line.split()))
+      ntra= tempval[0]
+      for in1 in range(1, (ntra)+(1)):
+          line = fp.readline() 
+          #readf(lun1, i, j, qom[j,i,1:(ntemp)+1])
+          tempval= list(map(float, line.split()))
+          i= tempval[0]
+          j= tempval[1]
+          omij[1,i,j]= tempval[2]
+          #READ(1,*) I,J,(QOM(ITEMP,I,J),ITEMP=1,NTEMP)
    # Read transition probabilities
    nlev1 = nlev - 1
    if (ibig == 1):   
-		line = fp.readline()
-		tempval= map(float, line.split()) 
-		i= tempval[0]
-		j= tempval[1]
-		a[j,i]= tempval[2]
-		#readf(lun1, i, j, a[i,j])#,L=K+1,NLEV),K=1,NLEV1
-		#READ(1,7000) ((I,J,A(J,I),L=K+1,NLEV),K=1,NLEV1)
+      line = fp.readline()
+      tempval= list(map(float, line.split()))
+      i= tempval[0]
+      j= tempval[1]
+      aij[j,i]= tempval[2]
+      #readf(lun1, i, j, a[i,j])#,L=K+1,NLEV),K=1,NLEV1
+      #READ(1,7000) ((I,J,A(J,I),L=K+1,NLEV),K=1,NLEV1)
    else:   
       for k in range(1, (nlev1)+(1)):
          kp1 = k + 1
          for l in range(kp1, (nlev)+(1)):
-				line = fp.readline()
-				tempval= map(float, line.split()) 
-				i= int(tempval[0])
-				j= int(tempval[1])
-				ax= tempval[2]
-				a[j,i] = ax
+             line = fp.readline()
+             tempval= list(map(float, line.split()))
+             i= int(tempval[0])
+             j= int(tempval[1])
+             ax= tempval[2]
+             aij[j,i] = ax
    # Read statistical weights, energy levels (cm-1)
    for j in range(1, (nlev)+(1)):
-		line = fp.readline()
-		tempval= map(float, line.split()) 
-		i= int(tempval[0])
-		gx= int(tempval[1])
-		ex= tempval[2]
-		g[i] = gx
-		e[i] = ex
+        line = fp.readline()
+        tempval= list(map(float, line.split()))
+        i= int(tempval[0])
+        gx= int(tempval[1])
+        ex= tempval[2]
+        glj[i] = gx
+        elj[i] = ex
    
    fp.close()
    
-   # Get levels for ratio
-   # 150 large enough
-   
-   # Read in Te and Ne where the line
-   # ratio is to be calculated
-   
-   # Start of Te loop
-   for jt in range(1, (int1)+(1)):
+   #set temperature iterations
+   #****************************
+   for iteration in range(1, 10):
+      if (iteration == 1):   
+         densi = 0.0
+      else:   
+         densi = check_value[2]
+      ind = 4
+      dinc = (100000.0) / ((ind - 1) ** (iteration))
+      tempi = temperature
+      tinc = 0
+      int1 = 1
+      results =  numpy.zeros((3 + 1,ind + 1))
+      if (densi <= 0):   
+         densi = 1
+      if (tempi < 5000):   
+         tempi = 5000 
+      # Start of density iteration=
+      for jt in range(1, (int1)+(1)):
          temp = tempi + (jt - 1) * tinc
-         # Start of Ne loop=
+         # Start of density iteration=
          for jjd in range(1, (ind)+(1)):
             dens = densi + (jjd - 1) * dinc
             # IF(DENSI.LT.30.D0) THEN
             # DENS=10.D0**DENS
             # ENDIF
             if ((temp <= 0.e0) or (dens <= 0.e0)):   
-               print 'Temp = ', temp, ', Dens = ', dens
+               print('Temp = ', temp, ', Dens = ', dens)
                return 0
-            dlogd = math.log10(dens)
-            tlogt = math.log10(temp)
-            temp2 = math.sqrt(temp)
-            # Form matrices
-            x[:,:] = numpy.float64(0)
-            cs[:,:] = numpy.float64(0)
-            qeff[:,:] = numpy.float64(0)
-            tnij[:,:] = numpy.float64(0)
-            y[:] = numpy.float64(0)
-            
-            iopt = 0
-            if (ntemp == 1):   
-               print 'Coll. strengths available for 1 Te only - assuming const'
-            else:   
-               if (ntemp == 2):   
-                  print 'Coll. strengths available for 2 Te only - linear interp'
-               else:   
-                  (t, ntemp, iopt, ndim1, ndim1t3, hmh)=equib_splmat(t, ntemp, iopt, ndim1, ndim1t3, hmh)
-                  (tlogt, t, ntemp, ndim1, hmh, d)=equib_cfd(tlogt, t, ntemp, ndim1, hmh, d)
-            for i in range(2, (nlev)+(1)):
-               for j in range(i, (nlev)+(1)):
-               #Negative!
-                  deltek = (e[i - 1] - e[j]) * 1.4388463e0
-                  expe = math.exp(deltek / temp)
-                  for it in range(1, (ntemp)+(1)):
-                  
-                     if (irats == 0.e+00):   
-                        qq[it] = qom[it,i - 1,j]
-                     else:   
-                        #Take out the exp. depend.
-                        qq[it] = qom[it,i - 1,j] / expe
-                        # before interpolation
-                     
-                  
-                  if (ntemp == 1):   
-                     dd = qq[1]
-                  else:   
-                     
-                     if (ntemp == 2):   
-                        dd = qq[1] + (qq[2] - qq[1]) / (t[2] - t[1]) * (tlogt - t[1])
-                     else:   
-                        (tlogt, dd, t, qq, ntemp, ndim1, hmh, d)=equib_cfy(tlogt, dd, t, qq, ntemp, ndim1, hmh, d)
-                  if (irats == 0.e+00):   
-                     cs[i - 1,j] = dd
-                  else:   
-                     cs[i - 1,j] = dd * expe
-                  
-                  if (irats == 0.e+00):   
-                     qeff[i - 1,j] = 8.63e-06 * cs[i - 1,j] * expe / (g[i - 1] * temp2)
-                     qeff[j,i - 1] = 8.63e-06 * cs[i - 1,j] / (g[j] * temp2)
-                  else:   
-                     qeff[i - 1,j] = cs[i - 1,j] * 10. ** irats
-                     # Be careful
-                     qeff[j,i - 1] = g[i - 1] * qeff[i - 1,j] / (expe * g[j])
-                     # G integer!
-            for i in range(2, (nlev)+(1)):
-               for j in range(1, (nlev)+(1)):
-                  if (j != i):   
-                     x[i,j] = x[i,j] + dens * qeff[j,i]
-                     x[i,i] = x[i,i] - dens * qeff[i,j]
-                     if (j > i):   
-                        x[i,j] = x[i,j] + a[j,i]
-                     else:   
-                        x[i,i] = x[i,i] - a[i,j]
-            for i in range(2, (nlev)+(1)):
-               im1 = i - 1
-               value = 0.e0 - x[i,1]
-               y[im1] = value
-               y2[im1] = value
-               ykeep[im1] = value
-               for j in range(2, (nlev)+(1)):
-                  jm1 = j - 1
-                  value = x[i,j]
-                  x[im1,jm1] = value
-                  x2[im1,jm1] = value
-                  xkeep[im1,jm1] = value
-            # Solve matrices for populations
-            (x, y, nlev1, ndim2)=equib_luslv(x, y, nlev1, ndim2)
-            for i in range(nlev, 1, -1):
-               n[i] = y[i - 1]
-            sumn = 1.e0
-            for i in range(2, (nlev)+(1)):
-               sumn = sumn + n[i]
-            for i in range(2, (nlev)+(1)):
-               n[i] = n[i] / sumn
-            n[1] = 1.e0 / sumn
-            # Output data
-            ttt = temp * 1.0e-4
-            ttp = ttt ** (-0.87e0)
-            # Eff. recombination coef. of Hb
-            ahb = 3.036e-14 * ttp
-            for i in range(1, (nlev1)+(1)):
-               ip1 = i + 1
-               for j in range(ip1, (nlev)+(1)):
-                  if (a[j,i] != 0.e0):   
-                     eji = e[j] - e[i]
-                     wav = 1.e8 / eji
-                     rlint = a[j,i] * eji
-                     rlint = rlint * n[j]
-                     tnij[i,j] = rlint
-                     fint = n[j] * a[j,i] * 4861.e0 / (dens * ahb * wav)
-                     fintij[i,j] = fint
-            # Search ITRANA, ITRANB & ITRANC for transitions & sum up
+            nlj = calc_populations(temperature=temp, density=dens, temp_list=telist, omij=omij, aij=aij, elj=elj, glj=glj, level_num=nlev, temp_num=ntemp, irats=irats)
+            # Search ITRANA & ITRANB  for transitions & sum up
             suma = 0.e0
             sumb = 0.e0
-            sumc = 0.e0
             iapr = 0
             ibpr = 0
-            icpr = 0
-            for ikt in range(1, (ndim2)+(1)):
-				ia1 = int(itrana[1,ikt])
-				ia2 = int(itrana[2,ikt])
-				if ((ia1 != 0) and (ia2 != 0)):   
-					suma = suma + tnij[ia1,ia2]
-					iapr = iapr + 1
-				ib1 = int(itranb[1,ikt])
-				ib2 = int(itranb[2,ikt])
-				if ((ib1 != 0) and (ib2 != 0)):   
-					ibpr = ibpr + 1
-					sumb = sumb + tnij[ib1,ib2]
-               
-				ic1 = int(itranc[1,ikt])
-				ic2 = int(itranc[2,ikt])
-				if ((ic1 != 0) and (ic2 != 0)):   
-					icpr = icpr + 1
-					sumc = sumc + fintij[ic1,ic2]
-			
-            # frat = suma / sumb
-            sumc = 1. / sumc
-            tdrat[1,jjd]=dens  # are these lines necessary,
-            tdrat[2,jjd]=frat  # TDRAT is now never used again?
-            abund = sumc*iobs/100.0
-            # End of the Ne loop
+            for ikt in range(1, (upper_levels_num)+(1)):
+                i = int(itrana[1,ikt])
+                j = int(itrana[2,ikt])
+                if (aij[j,i] != 0.e0):  
+                    eji = elj[j] - elj[i]
+                    wav = 1.e8 / eji
+                    suma = suma + nlj[j] * aij[j,i] * h_planck * c_speed * 1.e8 / wav
+            for ikt in range(1, (lower_levels_num)+(1)):
+                i = int(itranb[1,ikt])
+                j = int(itranb[2,ikt])
+                if (aij[j,i] != 0.e0):  
+                    eji = elj[j] - elj[i]
+                    wav = 1.e8 / eji
+                    sumb = sumb + nlj[j] * aij[j,i] * h_planck * c_speed * 1.e8 / wav
+            frat = suma / sumb
+              
+            results[1,jjd] = temp
+            results[2,jjd] = dens
+            results[3,jjd] = frat - line_flux_ratio #End of the density iteration
          
-   for ia in range(1, (iapr)+(1)):
-		i1 = int(itrana[1,ia])
-		i2 = int(itrana[2,ia])
-		dee = e[i2] - e[i1]
-		wava[ia] = 1.e8 / dee
-   for ib in range(1, (ibpr)+(1)):
-		i1 = int(itranb[1,ib])
-		i2 = int(itranb[2,ib])
-		dee = e[i2] - e[i1]
-		wavb[ib] = 1.e8 / dee
-   for ic in range(1, (icpr)+(1)):
-		i1 = int(itranc[1,ic])
-		i2 = int(itranc[2,ic])
-		dee = e[i2] - e[i1]
-		wavc[ic] = 1.e8 / dee
-   # End of the Te loop
-   # here, find the value in RESULTS which is closest to zero
-   # sort values in results to find two lowest values
-   
-   return abund
-   
-def equib_luslv(a, b, n, m):
-   """
-   NAME:
-       equib_luslv
-   PURPOSE:
-       Solving linear equations
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       equib_luslv, A, B, N, M
-  
-   INPUTS:
-       A -     A parameter
-       B -     B parameter
-       N -     N parameter
-       M -     M parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #M= long(0)
-   #N= long(0)
-   #A=dblarr(M+1,M+1)
-   #B=dblarr(M+1)
-   
-   (a, n, m)=equib_lured(a, n, m)
-   (a, b, n, m)=equib_reslv(a, b, n, m)
-   
-   return (a, b, n, m)
-   
-def equib_lured(a, n, nr):
-   """
-   NAME:
-       equib_lured
-   PURPOSE:
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       equib_lured, A, N, NR
-  
-   INPUTS:
-       A -     A parameter
-       N -     N parameter
-       NR -     NR parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   # N= long(0)
-   # NR= long(0)
-   
-   nm1 = numpy.int32(0)
-   i = numpy.int32(0)
-   j = numpy.int32(0)
-   k = numpy.int32(0)
-   ip1 = numpy.int32(0)
-   #A=dblarr(NR+1,NR+1)
-   fact = numpy.float64(0)
-   if (n == 1):   
-      return (a, n, nr)
-   nm1 = n - 1
-   for i in range(1, (nm1)+(1)):
-      ip1 = i + 1
-      for k in range(ip1, (n)+(1)):
-         fact = a[k,i] / a[i,i]
-         for j in range(ip1, (n)+(1)):
-            a[k,j] = a[k,j] - a[i,j] * fact
-   
-   return (a, n, nr)
+         for ia in range(1, (upper_levels_num)+(1)):
+            i1 = int(itrana[1,ia])
+            i2 = int(itrana[2,ia])
+            if (aij[i2,i1] != 0.e0):  
+               dee = elj[i2] - elj[i1]
+               wava[ia] = 1.e8 / dee
+         for ib in range(1, (lower_levels_num)+(1)):
+            i1 = int(itranb[1,ib])
+            i2 = int(itranb[2,ib])
+            if (aij[i2,i1] != 0.e0):  
+               dee = elj[i2] - elj[i1]
+               wavb[ib] = 1.e8 / dee
+         # End of the temperature iteration
+      
+      int1 = ind
+      
+      # iteration through array and find out where the sign changes.
+      
+      for i in range(2, (int1)+(1)):
+         check = 0
+         if (equib_sign(results[3,i], results[3,1]) != results[3,i]):   
+            #if this condition, the values have a different sign
+            check_value[:] = results[:,i - 1] # the value before the sign change returned
+            check = 1
+            break
+      
+      if ((check == 0) and (iteration < 9)):    #check if there is any change of sign,
+         #and checks if it should be upper or lower limit
+         if (abs(results[3,1])) < (abs(results[3,int1])):   
+            check_value[:] = results[:,1]
+         else:   
+            if (abs(results[3,int1]) < abs(results[3,1])):   
+               check_value[:] = results[:,int1 - 1]
+            else:   
+               print('check_value is wrong')
+               return 0
+      else:   
+         if ((check == 0) and (iteration == 9)):    #check if no change of sign,
+            # and checks if it should be upper or lower limit
+            if (abs(results[3,1]) < abs(results[3,int1])):   
+               check_value[:] = results[:,1]
+            else:   
+               if (abs(results[3,int1]) < abs(results[3,1])):   
+                  check_value[:] = results[:,int1]
+               else:   
+                  print('check_value is wrong')
+                  return 0
+   # end of iterations
+   # ****************************  
+   result1 = check_value[2]
+   return result1
 
-def equib_reslv(a, b, n, nr):
+def calc_temperature(line_flux_ratio=None, density=None, ion=None, upper_levels=None, lower_levels=None):
    """
-   NAME:
-       equib_reslv
-   PURPOSE:
-       Resolve A with B
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       equib_reslv, A, B, N, NR
-  
-   INPUTS:
-       A -     A parameter
-       B -     B parameter
-       N -     N parameter
-       NR -    NR parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #N= long(0)
-   #NR= long(0)
+    NAME:
+        calc_temperature
+    PURPOSE:
+        determine electron temperature from given
+        flux intensity ratio for specified ion with upper level(s)
+        lower level(s) by solving atomic level populations and
+        line emissivities in statistical equilibrium
+        for given electron density.
    
-   nm1 = numpy.int32(0)
+    EXPLANATION:
+   
+    CALLING SEQUENCE:
+        import pyequib
+        ion='s_ii'
+        upper_levels='1,2,1,3/'
+        lower_levels='1,5/'
+        density = 2550.0
+        siiTratio=10.753
+        temperature=calc_temperature(line_flux_ratio=siiTratio, density=density, $
+                                     ion = ion, upper_levels=upper_levels, lower_levels=lower_levels)
+        print(temperature)
+   
+    INPUTS:
+        line_flux_ratio  -     flux intensity ratio
+        density          -     electron density
+        ion -       ion name e.g. 'sii', 'nii'
+        upper_levels -      upper level(s) e.g '1,2/', '1,2,1,3/'
+        lower_levels -      lower level(s) e.g '1,2/', '1,2,1,3/'
+    RETURN:  electron temperature
+    
+    REVISION HISTORY:
+        Converted from FORTRAN to Python code by A. Danehkar, 15/09/2013
+        Replaced CFY, SPLMAT, and CFD with
+              Python scipy.interpolate.interp1d, A. Danehkar, 20/10/2016
+        Replaced LUSLV with Python numpy.linalg.solve, A. Danehkar, 20/10/2016
+        Cleaning the function, and remove unused varibales
+                     new function cal_temperature(), A. Danehkar, 12/06/2017
+   
+    FORTRAN EQUIB HISTORY (F77/F90):
+    1981-05-03 I.D.Howarth  Version 1
+    1981-05-05 I.D.Howarth  Minibug fixed!
+    1981-05-07 I.D.Howarth  Now takes collision rates or strengths
+    1981-08-03 S.Adams      Interpolates collision strengths
+    1981-08-07 S.Adams      Input method changed
+    1984-11-19 R.E.S.Clegg  SA files entombed in scratch disk. Logical
+                            filenames given to SA's data files.
+    1995-08    D.P.Ruffle   Changed input file format. Increased matrices.
+    1996-02    X.W.Liu      Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting
+    1996-06    C.J.Pritchet Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=
+    2006       B.Ercolano   Converted to F90
+   """
+   h_planck = 6.62606957e-27 # erg s
+   c_speed = 2.99792458e10 # cm/s 
+   
+   gx = numpy.int32(0)
+   id1=(2 + 1)*[numpy.int32(0)]
+   jd=(2 + 1)*[numpy.int32(0)]
+   
+   iteration = numpy.int32(0)
+   
+   check_value = numpy.zeros(3 + 1)
+   
    i = numpy.int32(0)
+   i1 = numpy.int32(0)
+   i2 = numpy.int32(0)
    j = numpy.int32(0)
    k = numpy.int32(0)
    l = numpy.int32(0)
+   kk = numpy.int32(0)
+   jt = numpy.int32(0)
+   jjd = numpy.int32(0)
+   ionl = numpy.int32(0)
+   nlines = numpy.int32(0)
+   nlev = numpy.int32(0)
+   ntemp = numpy.int32(0)
+   ibig = numpy.int32(0)
+   irats = numpy.int32(0)
+   ntra = numpy.int32(0)
+   itemp = numpy.int32(0)
+   in1 = numpy.int32(0)
+   nlev1 = numpy.int32(0)
+   kp1 = numpy.int32(0)
+   int1 = numpy.int32(0)
+   ind = numpy.int32(0)
+   iopt = numpy.int32(0)
+   it = numpy.int32(0)
+   im1 = numpy.int32(0)
+   jm1 = numpy.int32(0)
    ip1 = numpy.int32(0)
-   #A=dblarr(NR+1,NR+1)
-   #B=dblarr(NR+1)
-   if (n == 1):   
-      b[n] = b[n] / a[n,n]
-      return (a, b, n, nr)
-   nm1 = n - 1
-   for i in range(1, (nm1)+(1)):
-      ip1 = i + 1
-      for j in range(ip1, (n)+(1)):
-         b[j] = b[j] - b[i] * a[j,i] / a[i,i]
-   b[n] = b[n] / a[n,n]
-   for i in range(1, (nm1)+(1)):
-      k = n - i
-      l = k + 1
-      for j in range(l, (n)+(1)):
-         b[k] = b[k] - b[j] * a[k,j]
-      b[k] = b[k] / a[k,k]
+   iapr = numpy.int32(0)
+   ibpr = numpy.int32(0)
+   ikt = numpy.int32(0)
+   ia = numpy.int32(0)
+   ib = numpy.int32(0)
+   ia1 = numpy.int32(0)
+   ia2 = numpy.int32(0)
+   ib1 = numpy.int32(0)
+   ib2 = numpy.int32(0)
    
-   return (a, b, n, nr)
-
-def equib_splmat(xx, npt, iopt, ndim, ndimt3, hmh):
-   """
-   NAME:
-       equib_splmat
-   PURPOSE:
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       equib_splmat, XX, NPT, IOPT, NDIM, NDIMT3, HMH
-  
-   INPUTS:
-       XX -     XX parameter
-       NPT -    NPT parameter
-       IOPT -   IOPT parameter
-       NDIM -   NDIM parameter
-       NDIMT3 - NDIMT3 parameter
-       HMH -    HMH parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #NDIM= long(0)
-   #NDIMT3= long(0)
-   #NPT= long(0)
-   #IOPT= long(0)
-   #NPM= long(0)
+   tempi = numpy.float64(0)
+   tinc = numpy.float64(0)
+   densi = numpy.float64(0)
+   dinc = numpy.float64(0)
+   dlogd = numpy.float64(0)
+   temp = numpy.float64(0)
+   tlogt = numpy.float64(0)
+   temp2 = numpy.float64(0)
+   dd = numpy.float64(0)
+   deltek = numpy.float64(0)
+   expe = numpy.float64(0)
+   value = numpy.float64(0)
+   eji = numpy.float64(0)
+   wav = numpy.float64(0)
+   qx = numpy.float64(0)
+   ax = numpy.float64(0)
+   ex = numpy.float64(0)
+   frat = numpy.float64(0)
+   dee = numpy.float64(0)
+   ltext = ''#
    
-   nelem = numpy.int32(0)
-   #XX=dblarr(NDIM)
-   gh = numpy.zeros(ndimt3 + 1)
-   y = numpy.zeros(ndim + 1)
-   # HMH=dblarr(NDIM+1,NDIM+1)
-   npm = npt - 2
-   (gh, xx, npt, iopt, ndim, ndimt3)=equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3)
-   nelem = 3 * npm - 2
-   (gh, npm, ndimt3)=equib_elu(gh, npm, ndimt3)
-   (xx, gh, y, npt, iopt, ndim, ndimt3, hmh)=equib_hgen(xx, gh, y, npt, iopt, ndim, ndimt3, hmh)
-   
-   return (xx, npt, iopt, ndim, ndimt3, hmh)
-
-def equib_deriv(xy, d, x, n, ndim):
-   """
-   NAME:
-       equib_deriv
-   PURPOSE:
-       Calculate the first derivative of the lagrangian interpolator
-       of a function F, tabulated at the N points XY(I), I=1 to N.
-       The derivative is given as the coefficients of F(I), I=1 to N,
-       in the array D(I), I=1 to N.
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       equib_deriv, XY, D, X, N, NDIM
-  
-   INPUTS:
-       XY -     XX parameter
-       D -      D parameter
-       X -      X parameter
-       N -      N parameter
-       NDIM -   NDIM parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #N= long(0)
-   #NDIM= long(0)
+   result1 = numpy.float64(0)
    
    i = numpy.int32(0)
    j = numpy.int32(0)
    k = numpy.int32(0)
-   #XY=dblarr(NDIM+1)
-   #D=dblarr(NDIM+1)
-   #X=double(0)
-   p1 = numpy.float64(0)
-   p2 = numpy.float64(0)
-   s = numpy.float64(0)
+   ip1 = numpy.int32(0)
    
-   for i in range(1, (n)+(1)):
-      p1 = 1.
-      s = 0.
-      for j in range(1, (n)+(1)):
-         if (j != i):   
-            p1 = p1 * (xy[i] - xy[j])
-            p2 = 1.
-            for k in range(1, (n)+(1)):
-               if ((k != i) and (k != j)):   
-                  p2 = p2 * (x - xy[k])
-            s = s + p2
-      d[i] = s / p1
+   upper_levels_str = strsplit(upper_levels, ',',escapech='/')
+   lower_levels_str = strsplit(lower_levels, ',',escapech='/')
    
-   return (xy, d, x, n, ndim)
-
-def equib_hgen(xx, gh, y, npt, iopt, ndim, ndimt3, hmh):
-   """
-   NAME:
-       equib_hgen
-   PURPOSE:
-       Cubic spline interpolation
-       The equation for the second derivatives at internal points
-       is of the form G*YPP=B, where G has been evaluated and LU
-       decomposed.
-       this routine writes B=HMH*Y and then solves YPP=G**(-1)*HMH*Y,
-       =HMH*Y.
-       Three options are provided for boundary conditions-
-       IOPT = 0  YPP=0 at end points
-       IOPT = 1  YP=0  at end points
-       IOPT = 2  YP at end points from lagarnge interpolant of a set of
-       internal points.
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       (xx, gh, y, npt, iopt, ndim, ndimt3, hmh) = equib_hgen(xx, gh, y, npt, iopt, ndim, ndimt3, hmh)
-  
-   INPUTS:
-       XX -     XX parameter
-       GH -     GH parameter
-       Y -      Y parameter
-       NPT -    NPT parameter
-       IOPT -   IOPT parameter
-       NDIM -   NDIM parameter
-       NDIMT3 - NDIMT3 parameter
-       HMH -    HMH parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #NPT= long(0)
-   #IOPT= long(0)
-   #NDIM= long(0)
-   #NDIMT3= long(0)
+   upper_levels_num = len(upper_levels_str)
+   lower_levels_num = len(lower_levels_str)
    
-   ndim3 = numpy.int32(0)
-   nip = numpy.int32(0)
-   i = numpy.int32(0)
-   j = numpy.int32(0)
-   k = numpy.int32(0)
-   npm = numpy.int32(0)
-   indx = numpy.int32(0)
-   #XX=dblarr(NDIM+1)
-   #GH=dblarr(NDIMT3+1)
-   #Y=dblarr(NDIM+1)
-   #HMH=dblarr(NDIM+1,NDIM+1)
-   xy = numpy.zeros(5 + 1)
-   d = numpy.zeros(5 + 1)
-   c = numpy.zeros((2 + 1,5 + 1))
-   a0 = numpy.float64(0)
-   an1 = numpy.float64(0)
-   h1 = numpy.float64(0)
-   h2 = numpy.float64(0)
-   # Case of derivative boundary condition, with
-   if (iopt == 2):   
-      # derivatives from NIP-point Lagrange at
-      ndim3 = 5
-      # internal points
-      nip = 3
-      for j in range(1, 3):
-         for i in range(1, (nip)+(1)):
-            k = (npt - nip) * (j - 1)
-            xy[i] = xx[k + i]
-         k = 1 + (npt - 1) * (j - 1)
-         (xy, d, xx[k], nip, ndim3)=equib_deriv(xy, d, xx[k], nip, ndim3)
-         for i in range(1, (nip)+(1)):
-            c[j,i] = d[i]
-   # Set up matrix equation G*YPP=HMH*Y
-   a0 = xx[2] - xx[1]
-   an1 = xx[npt] - xx[npt - 1]
-   npm = npt - 2
-   for i in range(1, (npm)+(1)):
-      h1 = 6. / (xx[i + 1] - xx[i])
-      h2 = 6. / (xx[i + 2] - xx[i + 1])
-      for j in range(1, (npt)+(1)):
-         hmh[i,j] = 0.
-         if (j == i):   
-            hmh[i,j] = h1
-         if (j == i + 2):   
-            hmh[i,j] = h2
-         if (j == i + 1):   
-            hmh[i,j] = -h1 - h2
-   #Correct matrix for case of
-   if ((iopt == 1) or (iopt == 2)):   
-      # derivative boundary conditions
-      hmh[1,1] = hmh[1,1] + 3 / a0
-      hmh[1,2] = hmh[1,2] - 3 / a0
-      hmh[npm,npt - 1] = hmh[npm,npt - 1] - 3 / an1
-      hmh[npm,npt] = hmh[npm,npt] + 3 / an1
-   if (iopt == 2):   
-      for j in range(1, (nip)+(1)):
-         hmh[1,j] = hmh[1,j] + 3 * c[1,j]
-         k = npt + j - nip
-         hmh[npm,k] = hmh[npm,k] - 3 * c[2,j]
-   #for I=1,NPM do begin
-   #endfor
-   # Solve matrix equation with results in the form
-   for i in range(1, (npt)+(1)):
-   # YPP=HMH*Y. matrix g has been LU decomposed
-      y[1] = hmh[1,i]
-      indx = 0
-      for j in range(2, (npm)+(1)):
-         indx = indx + 3
-         y[j] = hmh[j,i] - gh[indx] * y[j - 1]
-      indx = indx + 1
-      y[npm] = y[npm] / gh[indx]
-      for j in range(2, (npm)+(1)):
-         k = npm - j + 1
-         indx = indx - 3
-         y[k] = (y[k] - gh[indx + 1] * y[k + 1]) / gh[indx]
-      for j in range(1, (npm)+(1)):
-         hmh[j + 1,i] = y[j]
-      #Insert values for second derivative at end
-      hmh[1,i] = 0.
-      # points: first and last rows of the matrix
-      hmh[npt,i] = 0.
-   # Case of derivative boundary conditions
-   if (iopt > 0):   
-      for j in range(1, (npt)+(1)):
-         hmh[1,j] = -0.5 * hmh[2,j]
-         hmh[npt,j] = -0.5 * hmh[npt - 1,j]
-      hmh[1,1] = hmh[1,1] - 3 / (a0 * a0)
-      hmh[1,2] = hmh[1,2] + 3 / (a0 * a0)
-      hmh[npt,npt - 1] = hmh[npt,npt - 1] + 3 / (an1 * an1)
-      hmh[npt,npt] = hmh[npt,npt] - 3 / (an1 * an1)
-   if (iopt == 2):   
-      for j in range(1, (nip)+(1)):
-         hmh[1,j] = hmh[1,j] - 3 * c[1,j] / a0
-         k = npt + j - nip
-         hmh[npt,k] = hmh[npt,k] + 3 * c[2,j] / an1
-   #for I=1,NPT do begin
-   #endfor
+   itrana = numpy.zeros((2 + 1, upper_levels_num + 1))
+   itranb = numpy.zeros((2 + 1, lower_levels_num + 1))
+   itrana[:,:] = 0
+   itranb[:,:] = 0
+   upper_levels_i = int(0)
+   for i in range(1, upper_levels_num + 1):
+      itrana[1][i] = equib_str2int(upper_levels_str[upper_levels_i])
+      itrana[2][i] = equib_str2int(upper_levels_str[upper_levels_i + 1])
+      upper_levels_i = upper_levels_i + 2
+      if upper_levels_i >= upper_levels_num:   
+         break
    
-   return (xx, gh, y, npt, iopt, ndim, ndimt3, hmh)
-
-def equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3):
-   """
-   NAME:
-       equib_ghgen
-   PURPOSE:
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       (gh, xx, npt, iopt, ndim, ndimt3) = equib_ghgen(gh, xx, npt, iopt, ndim, ndimt3)
-  
-   INPUTS:
-       GH -     GH parameter
-       XX -     XX parameter
-       NPT -    NPT parameter
-       IOPT -   IOPT parameter
-       NDIM -   NDIM parameter
-       NDIMT3 - NDIMT3 parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #NPT= long(0)
-   #IOPT= long(0)
-   #NDIM= long(0)
-   #NDIMT3= long(0)
+   lower_levels_i = int(0)
+   for i in range(1, lower_levels_num+1):
+      itranb[1][i] = equib_str2int(lower_levels_str[lower_levels_i])
+      itranb[2][i] = equib_str2int(lower_levels_str[lower_levels_i + 1])
+      lower_levels_i = lower_levels_i + 2
+      if lower_levels_i >= lower_levels_num:   
+         break#
    
-   indx = numpy.int32(0)
-   nptm = numpy.int32(0)
-   i = numpy.int32(0)
-   j = numpy.int32(0)
-   ip = numpy.int32(0)
-   jp = numpy.int32(0)
-   ik = numpy.int32(0)
-   #XX=dblarr(NDIM+1)
-   #GH=dblarr(NDIMT3+1)
-   indx = 0
-   nptm = npt - 1
-   for i in range(2, (nptm)+(1)):
-      ip = i - 1
-      for j in range(1, 4):
-         jp = ip + j - 2
-         if ((jp >= 1) and (jp <= nptm - 1)):   
-            indx = indx + 1
-            if (j == 2):   
-               gh[indx] = 2 * (xx[i + 1] - xx[i - 1])
+   ion1 = strtrim(ion)
+   #atomic_filename = atomic_data_path + '/' + ion1 + '.dat'
+   modelpath=getmodelpath()
+   atomic_filename = modelpath+'/atomic-data/' + ion1 + '.dat'
+   fp = open(atomic_filename, 'r')
+   line = fp.readline()
+   tempval  = list(map(int, line.split()))
+   nlines=tempval[0]
+   for i in range(1, (nlines)+(1)):
+      line = fp.readline()
+   # Read no. of levels (max=NDIM2) NLEV,
+   line = fp.readline()
+   tempval  = list(map(int, line.split()))
+   nlev=tempval[0]
+   ntemp=tempval[1]
+   
+   glj = numpy.zeros(nlev+1)
+   
+   nlj = numpy.zeros(nlev+1)
+   wava = numpy.zeros(nlev + 1)
+   wavb = numpy.zeros(nlev + 1)
+   omij = numpy.zeros((ntemp+1, nlev+1, nlev+1))
+   aij = numpy.zeros((nlev + 1, nlev + 1))
+   elj = numpy.zeros(nlev+1)
+   telist = numpy.zeros(ntemp+1)
+   
+   label1 = (nlev + 1)*['']
+   
+   label1 = (nlev + 1)*['']
+   
+   glj[:] = 0
+   # no. of Te (max=NDIM1) NTEMP and the
+   for i in range(1, (nlev)+(1)):
+   # input format (cf Readme)
+      ltext = fp.readline()
+      label1[i] = ltext
+   # be
+   ibig = 0
+   # Read in Te's where coll. strengths are tabulated
+   for i in range(1, (ntemp)+(1)):
+      ddtemp = numpy.float64(0)
+      line = fp.readline()
+      tempval= list(map(float, line.split())) 
+      ddtemp=tempval[0]
+      telist[i] = ddtemp
+      telist[i] = math.log10(telist[i])
+   # If IRATS=0, what tabulated are collision strengths
+   line = fp.readline()
+   tempval= list(map(int, line.split()))
+   irats=tempval[0]
+   # Else Coll. rates = tabulated values * 10 ** IRATS
+   
+   if (ibig == 0):   
+      qx = 1.0
+      while (qx != 0.e0):
+         lontemp1 = numpy.int32(0)
+         lontemp2 = numpy.int32(0)
+         ddtemp = numpy.float64(0)
+         line = fp.readline()
+         tempval= list(map(float, line.split()))
+         lontemp1=tempval[0]
+         lontemp2=tempval[1]
+         ddtemp=tempval[2]
+         id1[2] = lontemp1
+         jd[2] = lontemp2
+         qx = ddtemp
+         if qx == 0:   
+            break
+         if (id1[2] == 0):   
+            id1[2] = id1[1]
+            k = int(k + 1)
+         else:   
+            id1[1] = id1[2]
+            k = int(1)
+         if (jd[2] == 0):   
+            jd[2] = jd[1]
+         else:   
+            jd[1] = jd[2]
+         i = int(id1[2])
+         j = int(jd[2])
+         omij[k,i,j] = qx
+   
+   if ((ibig == 1) or (ibig == 2)):  
+      line = fp.readline()
+      tempval= list(map(float, line.split()))
+      ntra= tempval[0]
+      for in1 in range(1, (ntra)+(1)):
+          line = fp.readline() 
+          #readf(lun1, i, j, qom[j,i,1:(ntemp)+1])
+          tempval= list(map(float, line.split()))
+          i= tempval[0]
+          j= tempval[1]
+          omij[1,i,j]= tempval[2]
+          #READ(1,*) I,J,(QOM(ITEMP,I,J),ITEMP=1,NTEMP)
+   # Read transition probabilities
+   nlev1 = nlev - 1
+   if (ibig == 1):   
+      line = fp.readline()
+      tempval= list(map(float, line.split()))
+      i= tempval[0]
+      j= tempval[1]
+      aij[j,i]= tempval[2]
+      #readf(lun1, i, j, a[i,j])#,L=K+1,NLEV),K=1,NLEV1
+      #READ(1,7000) ((I,J,A(J,I),L=K+1,NLEV),K=1,NLEV1)
+   else:   
+      for k in range(1, (nlev1)+(1)):
+         kp1 = k + 1
+         for l in range(kp1, (nlev)+(1)):
+             line = fp.readline()
+             tempval= list(map(float, line.split()))
+             i= int(tempval[0])
+             j= int(tempval[1])
+             ax= tempval[2]
+             aij[j,i] = ax
+   # Read statistical weights, energy levels (cm-1)
+   for j in range(1, (nlev)+(1)):
+        line = fp.readline()
+        tempval= list(map(float, line.split()))
+        i= int(tempval[0])
+        gx= int(tempval[1])
+        ex= tempval[2]
+        glj[i] = gx
+        elj[i] = ex
+   
+   fp.close()
+   
+   #set temperature iterations
+   #****************************
+   for iteration in range(1, 10):
+      if (iteration == 1):   
+         tempi = 5000.0
+      else:   
+         tempi = check_value[1]
+      int1 = 4
+      tinc = (15000.0) / ((int1 - 1) ** (iteration))
+      densi = density
+      dinc = 0
+      ind = 1
+      results = numpy.zeros((3 + 1,int1 + 1))
+      if (densi <= 0):   
+         densi = 1
+      if (tempi < 5000):   
+         tempi = 5000 
+      # Start of density iteration=
+      for jt in range(1, (int1)+(1)):
+         temp = tempi + (jt - 1) * tinc
+         # Start of density iteration=
+         for jjd in range(1, (ind)+(1)):
+            dens = densi + (jjd - 1) * dinc
+            # IF(DENSI.LT.30.D0) THEN
+            # DENS=10.D0**DENS
+            # ENDIF
+            if ((temp <= 0.e0) or (dens <= 0.e0)):   
+               print('Temp = ', temp, ', Dens = ', dens)
+               return 0
+            nlj = calc_populations(temperature=temp, density=dens, temp_list=telist, omij=omij, aij=aij, elj=elj, glj=glj, level_num=nlev, temp_num=ntemp, irats=irats)
+            # Search ITRANA & ITRANB  for transitions & sum up
+            suma = 0.e0
+            sumb = 0.e0
+            iapr = 0
+            ibpr = 0
+            for ikt in range(1, (upper_levels_num)+(1)):
+                i = int(itrana[1,ikt])
+                j = int(itrana[2,ikt])
+                if (aij[j,i] != 0.e0):  
+                    eji = elj[j] - elj[i]
+                    wav = 1.e8 / eji
+                    suma = suma + nlj[j] * aij[j,i] * h_planck * c_speed * 1.e8 / wav
+            for ikt in range(1, (lower_levels_num)+(1)):
+                i = int(itranb[1,ikt])
+                j = int(itranb[2,ikt])
+                if (aij[j,i] != 0.e0):  
+                    eji = elj[j] - elj[i]
+                    wav = 1.e8 / eji
+                    sumb = sumb + nlj[j] * aij[j,i] * h_planck * c_speed * 1.e8 / wav
+            frat = suma / sumb
+            
+            results[1,jt] = temp
+            results[2,jt] = dens
+            results[3,jt] = frat - line_flux_ratio
+         
+         for ia in range(1, (upper_levels_num)+(1)):
+            i1 = int(itrana[1,ia])
+            i2 = int(itrana[2,ia])
+            if (aij[i2,i1] != 0.e0):  
+               dee = elj[i2] - elj[i1]
+               wava[ia] = 1.e8 / dee
+         for ib in range(1, (lower_levels_num)+(1)):
+            i1 = int(itranb[1,ib])
+            i2 = int(itranb[2,ib])
+            if (aij[i2,i1] != 0.e0):  
+               dee = elj[i2] - elj[i1]
+               wavb[ib] = 1.e8 / dee
+         # End of the temperature iteration
+      #  iteration and detect the sign change.
+      
+      for i in range(2, (int1)+(1)):
+         check = 0
+         if (equib_sign(results[3,i], results[3,1]) != results[3,i]):   
+            #if this condition, the values have a different sign
+            check_value[:] = results[:,i - 1] # the value before the sign change returned
+            check = 1
+            break
+      
+      if ((check == 0) and (iteration < 9)):    #check if there is any change of sign,
+         #and checks if it should be upper or lower limit
+         if (abs(results[3,1])) < (abs(results[3,int1])):   
+            check_value[:] = results[:,1]
+         else:   
+            if (abs(results[3,int1]) < abs(results[3,1])):   
+               check_value[:] = results[:,int1 - 1]
             else:   
-               ik = i + (j - 1) / 2
-               gh[indx] = xx[ik] - xx[ik - 1]
-   if (iopt >= 1):   
-      gh[1] = gh[1] - (xx[2] - xx[1]) / 2.
-      gh[indx] = gh[indx] - (xx[npt] - xx[npt - 1]) / 2.
-   
-   return (gh, xx, npt, iopt, ndim, ndimt3)
-
-def equib_elu(gh, n, ndim):
-   """
-   NAME:
-       equib_elu
-   PURPOSE:
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       (gh, n, ndim) = equib_elu(gh, n, ndim)
-  
-   INPUTS:
-       GH -     GH parameter
-       N -      N parameter
-       NDIM -   NDIM parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #N= long(0)
-   #NDIM= long(0)
-   
-   indx = numpy.int32(0)
-   i = numpy.int32(0)
-   j = numpy.int32(0)
-   jp = numpy.int32(0)
-   #GH=dblarr(NDIM+1)
-   indx = 0
-   for i in range(1, (n)+(1)):
-      for j in range(1, 4):
-         jp = i + j - 2
-         if ((jp >= 1) and (jp <= n)):   
-            indx = indx + 1
-            if (i > 1):   
-               if (j == 1):   
-                  gh[indx] = gh[indx] / gh[indx - 2]
-               if (j == 2):   
-                  gh[indx] = gh[indx] - gh[indx - 1] * gh[indx - 2]
-   
-   return (gh, n, ndim)
-
-def equib_cfy(x, y, xx, yy, npt, ndim, hmh, d):
-   """
-   NAME:
-       equib_cfy
-   PURPOSE:
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       (x, y, xx, yy, npt, ndim, hmh, d) = equib_cfy(x, y, xx, yy, npt, ndim, hmh, d)
-  
-   INPUTS:
-       X -     XX parameter
-       Y -     GH parameter
-       XX -    Y parameter
-       YY -    NPT parameter
-       NPT -   IOPT parameter
-       NDIM -  NDIM parameter
-       HMH -   NDIMT3 parameter
-       D -     HMH parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #NPT= long(0)
-   #NDIM= long(0)
-   
-   j = numpy.int32(0)
-   #;XX=dblarr(NDIM+1)
-   #YY=dblarr(NDIM+1)
-   #HMH=dblarr(NDIM+1,NDIM+1)
-   #D=dblarr(NDIM+1)
-   #X= double(0)
-   #Y= double(0)
-   tt = numpy.float64(0)
-   if (x < xx[1]):   
-      y = yy[1]
-   if (x > xx[npt]):   
-      y = yy[npt]
-   tt = 0.0
-   for j in range(1, (npt)+(1)):
-      tt = tt + d[j] * yy[j]
-   y = tt
-   
-   return (x, y, xx, yy, npt, ndim, hmh, d)
-
-def equib_cfd(x, xx, npt, ndim, hmh, d):
-   """
-   NAME:
-       equib_cfd
-   PURPOSE:
-  
-   EXPLANATION:
-  
-   CALLING SEQUENCE:
-       (x, xx, npt, ndim, hmh, d)=equib_cfd(x, xx, npt, ndim, hmh, d)
-  
-   INPUTS:
-       X -     X parameter
-       XX -    XX parameter
-       NPT -   NPT parameter
-       NDIM -  NDIM parameter
-       HMH -   HMH parameter
-       D -     D parameter
-   REVISION HISTORY:
-       Converted from FORTRAN EQUIB to Python, 15/09/2013
-   """
-   #NPT= long(0)
-   #NDIM= long(0)
-   nptm = numpy.int32(0)
-   i = numpy.int32(0)
-   j = numpy.int32(0)
-   #X= double(0)
-   #XX=dblarr(NDIM+1)
-   #HMH=dblarr(NDIM+1,NDIM+1)
-   #D=dblarr(NDIM+1)
-   x1 = numpy.float64(0)
-   x2 = numpy.float64(0)
-   a1 = numpy.float64(0)
-   a2 = numpy.float64(0)
-   hi = numpy.float64(0)
-   if (x < xx[1]):   
-      #print, XX[1]
-      return (x, xx, npt, ndim, hmh, d)
-   if (x > xx[npt]):   
-      #print, XX[NPT]
-      return (x, xx, npt, ndim, hmh, d)
-   nptm = npt - 1
-   for i in range(1, (nptm)+(1)):
-      if (x < xx[i + 1]):   
-         x1 = xx[i + 1] - x
-         x2 = x - xx[i]
-         hi = xx[i + 1] - xx[i]
-         a1 = x1 * (x1 * x1 / (6 * hi) - hi / 6)
-         a2 = x2 * (x2 * x2 / (6 * hi) - hi / 6)
-         for j in range(1, (npt)+(1)):
-            d[j] = a1 * hmh[i,j] + a2 * hmh[i + 1,j]
-         d[i] = d[i] + x1 / hi
-         d[i + 1] = d[i + 1] + x2 / hi
-         return (x, xx, npt, ndim, hmh, d)
-   
-   return (x, xx, npt, ndim, hmh, d)
+               print('check_value is wrong')
+               return 0
+      else:   
+         if ((check == 0) and (iteration == 9)):    #check if no change of sign,
+            # and checks if it should be upper or lower limit
+            if (abs(results[3,1]) < abs(results[3,int1])):   
+               check_value[:] = results[:,1]
+            else:   
+               if (abs(results[3,int1]) < abs(results[3,1])):   
+                  check_value[:] = results[:,int1]
+               else:   
+                  print('check_value is wrong')
+                  return 0
+   # end of iterations
+   # ****************************
+   result1 = check_value[1]
+   return result1
 
 def equib_sign(a, b):
    """
@@ -1677,7 +1384,7 @@ def equib_str2int(str1):
         integer = int(str1)
         return integer
     except ValueError:
-        print "here"
+        print("here")
         sys.exit("Please try again and enter a list of integers.")
 
 def strsplit(s, delim, escapech='/'):
@@ -1707,6 +1414,6 @@ def strtrim(s):
     return s
     
 def getmodelpath(): 
-	path = os.path.dirname(__file__)
-	#path = path + '/'
-	return path
+    path = os.path.dirname(__file__)
+    #path = path + '/'
+    return path
