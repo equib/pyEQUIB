@@ -7,9 +7,17 @@
 import pyequib
 
 ion='o_iii'
-tempi=10000.0
-densi=5000.0
+temperature=10000.0
+density=5000.0
 levels5007='3,4/'
 iobs5007=1200.0
-Abb5007=pyequib.cel.calc_abundance(ion, levels5007, tempi, densi, iobs5007)
+emis=pyequib.cel.calc_emissivity(temperature=temperature, density=density, ion=ion, levels=levels5007)
+print(emis)
+
+ion='o_iii'
+temperature=10000.0
+density=5000.0
+levels5007='3,4/'
+iobs5007=1200.0
+Abb5007=pyequib.cel.calc_abundance(temperature=temperature, density=density, line_flux=iobs5007, ion=ion, atomic_levels=levels5007)
 print(Abb5007)
