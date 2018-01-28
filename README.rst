@@ -5,10 +5,6 @@ pyEQUIB
 .. image:: https://img.shields.io/pypi/v/pyequib.svg?style=flat
     :target: https://pypi.python.org/pypi/pyequib/
     :alt: PyPI Version
-
-.. image:: https://img.shields.io/pypi/dm/pyequib.svg?style=flatt
-    :target: https://pypi.python.org/pypi/pyequib/
-    :alt: PyPI Download
     
 .. image:: https://travis-ci.org/equib/pyEQUIB.svg?branch=master
     :target: https://travis-ci.org/equib/pyEQUIB
