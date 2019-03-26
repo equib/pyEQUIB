@@ -22,7 +22,7 @@ pyEQUIB
     :target: http://mybinder.org/repo/equib/pyequib
     :alt: Binder
 
-.. image:: https://img.shields.io/aur/license/yaourt.svg
+.. image:: https://img.shields.io/badge/license-GPL-blue.svg
     :target: https://github.com/equib/pyEQUIB/blob/master/LICENSE
     :alt: GitHub license
 
