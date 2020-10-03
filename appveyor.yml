@@ -19,8 +19,8 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - pip install numpy scipy astropy nose
-  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy astropy nose"
+  - pip install numpy scipy atomneb nose
+  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy atomneb nose"
   - activate test-environment
   - pip install coverage
 
