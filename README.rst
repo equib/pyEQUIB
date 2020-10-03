@@ -52,7 +52,7 @@ Dependent Python Packages
     
 * To get this package with the AtomNeb FITS files, you can simply use ``git`` command as follows::
 
-        git clone https://github.com/equib/pyEQUIB
+        git clone --recursive https://github.com/equib/pyEQUIB
 
 To install the last version, all you should need to do is
 
