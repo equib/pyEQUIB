@@ -1,6 +1,8 @@
-T, He I, he_i, 5875.66, 4471.50
-T, He I, he_i, 6678.16, 4471.50
-T, He I, he_i, 6678.16, 5875.66
-T, He I, he_i, 7281.35, 4471.50
-T, He I, he_i, 7281.35, 5875.66
-T, He I, he_i, 7281.35, 6678.16
+T, C II, c_ii
+T, C III, c_iii
+T, O II, o_ii
+D, O II, o_ii
+T, N II, n_ii
+D, N II, n_ii
+T, N III, n_iii
+T, Ne II, ne_ii

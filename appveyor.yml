@@ -2,7 +2,7 @@ environment:
   matrix:
     - PYTHON_VERSION: 2.7
       MINICONDA: C:\Miniconda
-    - PYTHON_VERSION: 3.6
+    - PYTHON_VERSION: 3.8
       MINICONDA: C:\Miniconda3
       
 matrix:
@@ -19,8 +19,8 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - pip install numpy scipy nose
-  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy nose"
+  - pip install numpy scipy astropy nose
+  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy astropy nose"
   - activate test-environment
   - pip install coverage
 
