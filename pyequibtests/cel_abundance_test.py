@@ -13,8 +13,8 @@ import os
 import numpy as np
 
 # Locate datasets
-base_dir = '../externals/atomneb/'
-data_dir = os.path.join('atomic-data', 'chianti70')
+base_dir = os.getcwd()
+data_dir = os.path.join('externals', 'atomneb', 'atomic-data', 'chianti70')
 data_rc_dir = os.path.join('atomic-data-rc')
 atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
 atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')

@@ -18,8 +18,8 @@ import os
 import numpy as np
 
 # Locate datasets
-base_dir = '../externals/atomneb/'
-data_rc_dir = os.path.join('atomic-data-rc')
+base_dir = os.getcwd()
+data_rc_dir = os.path.join('externals', 'atomneb', 'atomic-data-rc')
 atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
 atom_rc_he_i_file = os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
 atom_rc_ppb91_file = os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
