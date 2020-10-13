@@ -14,11 +14,13 @@ platform:
     - x64
     
 install:
-  - "%PYTHON%/Scripts/pip.exe install numpy scipy atomneb nose"
-  - "%PYTHON%/Scripts/pip.exe install coverage"
+  - "set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - python -m pip install --upgrade pip
+  - pip install numpy scipy atomneb nose
+  - pip install coverage
 
 build_script:
-  - "%PYTHON%/Scripts/python.exe setup.py install"
+  - python setup.py install"
 
 test_script:
-  - "%PYTHON%/Scripts/nosetests"
+  - nosetests
