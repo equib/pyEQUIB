@@ -9,19 +9,23 @@ pyEQUIB Python Package
 .. image:: https://travis-ci.org/equib/pyEQUIB.svg?branch=master
     :target: https://travis-ci.org/equib/pyEQUIB
     :alt: Build Status
-
+    
 .. image:: https://ci.appveyor.com/api/projects/status/b3gw6vgf8s0vu8nv?svg=true
     :target: https://ci.appveyor.com/project/danehkar/pyequib
     :alt: Build Status
-
+    
 .. image:: https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?
     :target: https://coveralls.io/github/equib/pyEQUIB?branch=master
     :alt: Coverage Status
-
+    
 .. image:: https://img.shields.io/badge/license-GPL-blue.svg
     :target: https://github.com/equib/pyEQUIB/blob/master/LICENSE
     :alt: GitHub license
-
+    
+.. image:: https://img.shields.io/conda/vn/conda-forge/pyequib.svg
+    :target: https://anaconda.org/conda-forge/pyequib
+    :alt: Anaconda Cloud
+    
 .. image:: https://img.shields.io/badge/python-2.7%2C%203.8-blue.svg
     :alt: Support Python versions 2.7 and 3.8
 
@@ -66,6 +70,11 @@ To install the stable version, you can use the preferred installer program (pip)
 
     $ pip install pyequib
 
+or you can install it from the cross-platform package manager *conda*:
+
+.. code-block::
+
+    $ conda install -c conda-forge pyequib
 
 How to Use
 ==========
