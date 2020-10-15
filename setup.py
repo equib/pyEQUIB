@@ -26,7 +26,7 @@ with codecs.open('README.rst', 'r', 'utf-8') as fd:
           license='http://www.gnu.org/licenses/gpl.html',
           platforms=['any'],
           packages=['pyequib'],
-          package_data={'pyequib': ['*.txt', 'text/*.readme', 'atomic-data/*.dat', 'line-list/*.dat']},
+          #package_data={'pyequib': ['*.txt', 'text/*.readme', 'atomic-data/*.dat', 'line-list/*.dat']},
+          data_files = [("", ["LICENSE", "atomic-data/*.dat", "line-list/*.dat"])],
           install_requires=['numpy','scipy','atomneb'],
          )
-
