@@ -2991,7 +2991,10 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
       #an = [0.727, 0.726, 0.725, 0.726] # Case: A
       #an = [0.747,0.745,0.744,0.745] # Case: B
       #an = [0.769,0.767,0.766,0.766] # Case: C
-      an = np.array([o_ii_rc_data[5].a2, o_ii_rc_data[5].a4, o_ii_rc_data[5].a5, o_ii_rc_data[5].a6])
+      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[5]),
+                     np.float64(np.asarray(o_ii_rc_data.a4)[5]),
+                     np.float64(np.asarray(o_ii_rc_data.a5)[5]),
+                     np.float64(np.asarray(o_ii_rc_data.a6)[5])])
       if (log10ne <= 2):   
          a = an[0]
       else:   
