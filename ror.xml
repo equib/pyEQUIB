@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/" >
+<channel>
+  <title>ROR Sitemap for https://equib.github.io/pyEQUIB/</title>
+  <link>https://equib.github.io/pyEQUIB/</link>
+
+<item>
+     <link>https://equib.github.io/pyEQUIB/</link>
+     <title>pyEQUIB - Python Package for Plasma Diagnostics and Abundance Analysis</title>
+     <description>pyEQUIB - A collection of Python functions developed to do plasma diagnostics and abundance analysis - maintained by Ashkbiz Danehkar</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>0</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/</link>
+     <title>Welcome to pyEQUIB’s documentation! &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Welcome to pyEQUIB’s documentation! &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/user/readme.html</link>
+     <title>Introduction &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Introduction &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/user/installation.html</link>
+     <title>Installation &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Installation &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/user/usage.html</link>
+     <title>Usage &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Usage &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/user/reference.html</link>
+     <title>References &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>References &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/api/pyequib.main.html</link>
+     <title>pyequib.main package &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>pyequib.main package &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/genindex.html</link>
+     <title>Index &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Index &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/py-modindex.html</link>
+     <title>Python Module Index &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Python Module Index &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/search.html</link>
+     <title>Search &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Search &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://equib.github.io/pyEQUIB/doc/index.html</link>
+     <title>Welcome to pyEQUIB’s documentation! &amp;mdash; pyEQUIB 0.3.0 documentation</title>
+     <description>Welcome to pyEQUIB’s documentation! &amp;mdash; pyEQUIB 0.3.0 documentation</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>3</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+</channel>
+</rss>
+  

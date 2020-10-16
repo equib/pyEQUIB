@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://equib.github.io/pyEQUIB/</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/user/readme.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/user/installation.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/user/usage.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/user/reference.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/api/pyequib.main.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/genindex.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/py-modindex.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/search.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://equib.github.io/pyEQUIB/doc/index.html</loc>
+  <lastmod>2020-10-16T04:00:23+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>
