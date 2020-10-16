@@ -14,7 +14,7 @@ pyEQUIB Python Package
     :target: https://ci.appveyor.com/project/danehkar/pyequib
     :alt: Build Status
     
-.. image:: https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?
+.. image:: https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?branch=master
     :target: https://coveralls.io/github/equib/pyEQUIB?branch=master
     :alt: Coverage Status
     
