@@ -80,12 +80,12 @@ autodoc_mock_imports = ['numpy', 'atomneb', 'scipy']
 # a list of builtin themes.
 #
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-    html_theme_options = {
+#on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+#if not on_rtd:  # only import and set the theme if we're building docs locally
+import sphinx_rtd_theme
+html_theme = 'sphinx_rtd_theme'
+#html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme_options = {
        'canonical_url': '',
        #'analytics_id': 'UA-XXXXXXX-1',  #  Provided by Google in your dashboard
        #'logo_only': False,
@@ -101,8 +101,8 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
        'includehidden': True,
        'titles_only': False
        }
-else:
-   html_theme = 'alabaster'
+#else:
+#   html_theme = 'alabaster'
    
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
