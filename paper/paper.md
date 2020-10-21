@@ -9,7 +9,7 @@ tags:
 authors:
   - name: Ashkbiz Danehkar
     orcid: 0000-0003-4552-5997
-    affiliation: 1, 2, 3
+    affiliation: "1, 2, 3"
 affiliations:
  - name: Department of Physics and Astronomy, Macquarie University, Sydney, NSW 2109, Australia
    index: 1
@@ -17,7 +17,7 @@ affiliations:
    index: 2
  - name: Department of Astronomy, University of Michigan, 1085 S. University Avenue, Ann Arbor, MI 48109, USA 
    index: 3
-date: 20 October 2018
+date: 20 October 2020
 bibliography: paper.bib
 ---
 
