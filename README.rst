@@ -32,6 +32,14 @@ pyEQUIB Python Package
     
 .. image:: https://img.shields.io/badge/python-2.7%2C%203.8-blue.svg
     :alt: Support Python versions 2.7 and 3.8
+    
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4287576.svg
+    :target: https://doi.org/10.5281/zenodo.4287576
+    :alt: Zenodo
+    
+.. image:: http://joss.theoj.org/papers/10.21105/joss.02798/status.svg
+    :target: https://doi.org/10.21105/joss.02798
+    :alt: JOSS
 
 
 Description
@@ -906,8 +914,39 @@ For more information on how to use the API functions from the pyEQUIB libray, pl
 
 References
 ==========
+* Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **5**, 2798. doi:`10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_.
+
 * Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **3**, 899. doi:`10.21105/joss.00899 <https://doi.org/10.21105/joss.00899>`_  ads:`2018JOSS....3..899D <https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D>`_.
 
+
+Citation
+========
+
+Using **pyEQUIB** in a scholarly publication? Please cite this paper:
+
+.. code-block:: bibtex
+
+   @article{Danehkar2020,
+     author = {{Danehkar}, Ashkbiz},
+     title = {pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis},
+     journal = {Journal of Open Source Software},
+     volume = {5},
+     number = {55},
+     pages = {2798},
+     year = {2020},
+     doi = {10.21105/joss.02798}
+   }
+
+   @article{Danehkar2018,
+     author = {{Danehkar}, Ashkbiz},
+     title = {proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis},
+     journal = {Journal of Open Source Software},
+     volume = {3},
+     number = {32},
+     pages = {899},
+     year = {2018},
+     doi = {10.21105/joss.00899}
+   }
 
 Learn More
 ==========
