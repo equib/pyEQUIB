@@ -922,7 +922,7 @@ References
 Citation
 ========
 
-Using **pyEQUIB** in a scholarly publication? Please cite this paper:
+Using **pyEQUIB** in a scholarly publication? Please cite thess papers:
 
 .. code-block:: bibtex
 
@@ -957,4 +957,6 @@ Learn More
 **Issues & Ideas**  https://github.com/equib/pyEQUIB/issues
 **Conda-Forge**     https://anaconda.org/conda-forge/pyequib
 **PyPI**            https://pypi.org/project/pyequib/
+**DOI**             `10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_
+**Archive**         `10.5281/zenodo.4287576 <https://doi.org/10.5281/zenodo.4287576>`_
 ==================  =============================================
