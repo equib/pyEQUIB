@@ -9,21 +9,37 @@ pyEQUIB Python Package
 .. image:: https://travis-ci.org/equib/pyEQUIB.svg?branch=master
     :target: https://travis-ci.org/equib/pyEQUIB
     :alt: Build Status
-
+    
 .. image:: https://ci.appveyor.com/api/projects/status/b3gw6vgf8s0vu8nv?svg=true
     :target: https://ci.appveyor.com/project/danehkar/pyequib
     :alt: Build Status
-
-.. image:: https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?
+    
+.. image:: https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?branch=master
     :target: https://coveralls.io/github/equib/pyEQUIB?branch=master
     :alt: Coverage Status
-
+    
 .. image:: https://img.shields.io/badge/license-GPL-blue.svg
     :target: https://github.com/equib/pyEQUIB/blob/master/LICENSE
     :alt: GitHub license
-
+    
+.. image:: https://img.shields.io/conda/vn/conda-forge/pyequib.svg
+    :target: https://anaconda.org/conda-forge/pyequib
+    :alt: Anaconda Cloud
+    
+.. image:: https://readthedocs.org/projects/pyequib/badge/?version=latest
+    :target: https://pyequib.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+    
 .. image:: https://img.shields.io/badge/python-2.7%2C%203.8-blue.svg
     :alt: Support Python versions 2.7 and 3.8
+    
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4287576.svg
+    :target: https://doi.org/10.5281/zenodo.4287576
+    :alt: Zenodo
+    
+.. image:: http://joss.theoj.org/papers/10.21105/joss.02798/status.svg
+    :target: https://doi.org/10.21105/joss.02798
+    :alt: JOSS
 
 
 Description
@@ -66,6 +82,11 @@ To install the stable version, you can use the preferred installer program (pip)
 
     $ pip install pyequib
 
+or you can install it from the cross-platform package manager *conda*:
+
+.. code-block::
+
+    $ conda install -c conda-forge pyequib
 
 How to Use
 ==========
@@ -884,7 +905,6 @@ The Documentation of the Python functions provides in detail in the *API Documen
       
         dereddened flux(6563)      0.47847785
 
-
 Documentation
 =============
 
@@ -893,5 +913,49 @@ For more information on how to use the API functions from the pyEQUIB libray, pl
 
 References
 ==========
-* Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **3**, 899. doi:`10.21105/joss.00899 <https://doi.org/10.21105/joss.00899>`_  ads:`2018JOSS....3..899D <https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D>`_.
+* Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **5**, 2798. doi:`10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_ ads:`2020JOSS....5.2798D <https://ui.adsabs.harvard.edu/abs/2020JOSS....5.2798D>`_.
 
+* Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **3**, 899. doi:`10.21105/joss.00899 <https://doi.org/10.21105/joss.00899>`_ ads:`2018JOSS....3..899D <https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D>`_.
+
+
+Citation
+========
+
+Using **pyEQUIB** in a scholarly publication? Please cite thess papers:
+
+.. code-block:: bibtex
+
+   @article{Danehkar2020,
+     author = {{Danehkar}, Ashkbiz},
+     title = {pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis},
+     journal = {Journal of Open Source Software},
+     volume = {5},
+     number = {55},
+     pages = {2798},
+     year = {2020},
+     doi = {10.21105/joss.02798}
+   }
+
+   @article{Danehkar2018,
+     author = {{Danehkar}, Ashkbiz},
+     title = {proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis},
+     journal = {Journal of Open Source Software},
+     volume = {3},
+     number = {32},
+     pages = {899},
+     year = {2018},
+     doi = {10.21105/joss.00899}
+   }
+
+Learn More
+==========
+
+==================  =============================================
+**Documentation**   https://pyequib.readthedocs.io/
+**Repository**      https://github.com/equib/pyEQUIB
+**Issues & Ideas**  https://github.com/equib/pyEQUIB/issues
+**Conda-Forge**     https://anaconda.org/conda-forge/pyequib
+**PyPI**            https://pypi.org/project/pyequib/
+**DOI**             `10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_
+**Archive**         `10.5281/zenodo.4287576 <https://doi.org/10.5281/zenodo.4287576>`_
+==================  =============================================
