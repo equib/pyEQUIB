@@ -63,9 +63,9 @@ atom = 'ne'
 ion = 'iii' # Ne II
 ne_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
 
-h_i_aeff_data = h_i_rc_data.aeff
-he_i_aeff_data = he_i_rc_data.aeff
-he_ii_aeff_data = he_ii_rc_data.aeff
+h_i_aeff_data = h_i_rc_data['aeff'][0]
+he_i_aeff_data = he_i_rc_data['aeff'][0]
+he_ii_aeff_data = he_ii_rc_data['aeff'][0]
 
 temperature = np.float64(10000.0)
 density = np.float64(5000.0)
@@ -122,21 +122,16 @@ abund_c_iii = pyequib.calc_abund_c_iii_rl(temperature=temperature, density=densi
                                   h_i_aeff_data=h_i_aeff_data)
 print('N(C^3+)/N(H+):', abund_c_iii)
 
-#wavelength = 4442.02
-wavelength_list=np.asarray(n_ii_rc_data_br.wavelength)
-for i in range(0, len(wavelength_list)):
-	wavelength=wavelength_list[i]
-	emiss_n_ii = pyequib.calc_emiss_n_ii_rl(temperature=temperature, density=density,
-									wavelength=wavelength,
-									n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data)
-	print('N II Emissivity:', emiss_n_ii)
-
 wavelength = 4442.02
-n_ii_flux = 0.017
+emiss_n_ii = pyequib.calc_emiss_n_ii_rl(temperature=temperature, density=density,
+                                wavelength=wavelength,
+                                n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data)
+print('N II Emissivity:', emiss_n_ii)
+n_ii_4442_flux = 0.017
 abund_n_ii = pyequib.calc_abund_n_ii_rl(temperature=temperature, density=density,
-							wavelength=wavelength, line_flux=n_ii_flux,
-							n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
-							h_i_aeff_data=h_i_aeff_data)
+                                wavelength=wavelength, line_flux=n_ii_4442_flux,
+                                n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
+                                h_i_aeff_data=h_i_aeff_data)
 print('N(N^2+)/N(H+):', abund_n_ii)
 
 
@@ -150,22 +145,18 @@ abund_n_iii = pyequib.calc_abund_n_iii_rl(temperature=temperature, density=densi
                                   n_iii_rc_data=n_iii_rc_data, h_i_aeff_data=h_i_aeff_data)
 print('N(N^3+)/N(H+):', abund_n_iii)
 
-# wavelength = 4613.68
-wavelength_list=np.asarray(o_ii_rc_data_br.wavelength)
-for i in range(0, len(wavelength_list)):
-	wavelength=wavelength_list[i]
-	emiss_o_ii = pyequib.calc_emiss_o_ii_rl(temperature=temperature, density=density,
-									wavelength=wavelength,
-									o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data)
-	print('O II Emissivity:', emiss_o_ii)
 
 wavelength = 4613.68
-o_ii_flux = 0.009
+emiss_o_ii = pyequib.calc_emiss_o_ii_rl(temperature=temperature, density=density,
+                                wavelength=wavelength,
+                                o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data)
+print('O II Emissivity:', emiss_o_ii)
+o_ii_4614_flux = 0.009
 abund_o_ii = pyequib.calc_abund_o_ii_rl(temperature=temperature, density=density,
-								wavelength=wavelength, line_flux=o_ii_flux,
-								o_ii_rc_br=o_ii_rc_data_br,
-								o_ii_rc_data=o_ii_rc_data,
-								h_i_aeff_data=h_i_aeff_data)
+                                wavelength=wavelength, line_flux=o_ii_4614_flux,
+                                o_ii_rc_br=o_ii_rc_data_br,
+                                o_ii_rc_data=o_ii_rc_data,
+                                h_i_aeff_data=h_i_aeff_data)
 print('N(O^2+)/N(H+):', abund_o_ii)
 
 wavelength = 3777.14

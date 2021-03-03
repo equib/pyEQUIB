@@ -21,7 +21,6 @@ atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
 atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
 atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
 
-
 atom = 'h'
 ion = 'ii' # H I Rec
 hi_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
@@ -30,7 +29,7 @@ atom = 's'
 ion = 'ii'
 s_ii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
 s_ii_omij = atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-s_ii_aij = atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
+s_ii_aij = atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
 
 upper_levels = '1,2,1,3/'
 lower_levels = '1,5/'
@@ -62,6 +61,6 @@ print(omij_t)
 
 pyequib.print_ionic(temperature=temperature, density=density,
             elj_data=s_ii_elj, omij_data=s_ii_omij, aij_data=s_ii_aij,
-            h_i_aeff_data=hi_rc_data.aeff)
+            h_i_aeff_data=hi_rc_data['aeff'][0])
 
 # --- End MAIN program. ---------------

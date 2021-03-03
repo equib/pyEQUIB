@@ -41,12 +41,11 @@ emis = pyequib.calc_emissivity(temperature=temperature, density=density, atomic_
 print('Emissivity(O III 5007):', emis)
 
 abb5007 = pyequib.calc_abundance(temperature=temperature, density=density, line_flux=iobs5007, atomic_levels=levels5007,
-                         elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij, h_i_aeff_data=hi_rc_data.aeff)
+                         elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij, h_i_aeff_data=hi_rc_data['aeff'][0])
 print('N(O^2+)/N(H+):', abb5007)
 
 nlj = pyequib.calc_populations(temperature=temperature, density=density, elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij)
 print('Atomic Level Populations:', nlj)
-
 
 n_crit = pyequib.calc_crit_density(temperature=temperature, elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij)
 print('Critical Densities:', n_crit)
@@ -58,7 +57,8 @@ print(omij_t)
 
 pyequib.print_ionic(temperature=temperature, density=density,
             elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij,
-            h_i_aeff_data=hi_rc_data.aeff)
+            h_i_aeff_data=hi_rc_data['aeff'][0])
+
 #
 # --- End MAIN program. ---------------
 

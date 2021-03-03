@@ -63,9 +63,9 @@ atom = 'ne'
 ion = 'iii' # Ne II
 ne_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
 
-h_i_aeff_data = h_i_rc_data.aeff
-he_i_aeff_data = he_i_rc_data.aeff
-he_ii_aeff_data = he_ii_rc_data.aeff
+h_i_aeff_data = h_i_rc_data['aeff'][0]
+he_i_aeff_data = he_i_rc_data['aeff'][0]
+he_ii_aeff_data = he_ii_rc_data['aeff'][0]
 
 temperature = np.float64(10000.0)
 density = np.float64(5000.0)

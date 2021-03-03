@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-This module contains functions for Plasma Diagnostics and Abundance Analysis.
+This module contains functions for Plasma Diagnostics and Abundance Analysis
 """
 
 # A. Danehkar
@@ -45,118 +45,147 @@ def calc_temperature(line_flux_ratio=None, density=None,
         line emissivities in statistical equilibrium
         for given electron density.
 
+    :Returns:
+       type=double. This function returns the electron temperature.
+
+    :Keywords:
+        line_flux_ratio  :     in, required, type=float
+                               flux intensity ratio
+        density          :     in, required, type=float
+                               electron density
+        upper_levels     :     in, required, type=string,
+                               upper atomic level(s) e.g '1,2/', '1,2,1,3/'
+        lower_levels     :     in, required, type=string
+                               lower atomic level(s) e.g '1,2/', '1,2,1,3/'
+        elj_data         :     in, required, type=array/object
+                               energy levels (Ej) data
+        omij_data        :     in, required, type=array/object
+                               collision strengths (omega_ij) data
+        aij_data         :     in, required, type=array/object
+                               transition probabilities (Aij) data
+        low_temperature  :     in, optional, type=float
+                               lower temperature range
+        high_temperature  :     in, optional, type=float
+                               upper temperature range
+        num_temperature  :     in, optional, type=integer
+                               number of the iteration step
+        min_density      :     in, optional, type=float
+                               lower density range
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> atom='s'
-        >> ion='ii'
-        >> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
-        >> upper_levels='1,2,1,3/'
-        >> lower_levels='1,5/'
-        >> density = np.float64(2550)
-        >> line_flux_ratio=np.float64(10.753)
-        >> temperature=pyequib.calc_temperature(line_flux_ratio=line_flux_ratio, density=density,
-        >>                              upper_levels=upper_levels, lower_levels=lower_levels,
-        >>                              elj_data=s_ii_elj, omij_data=s_ii_omij,
-        >>                              aij_data=s_ii_aij)
-        >> print("Electron Temperature:", temperature)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> atom='s'
+        >>> ion='ii'
+        >>> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+        >>> upper_levels='1,2,1,3/'
+        >>> lower_levels='1,5/'
+        >>> density = np.float64(2550)
+        >>> line_flux_ratio=np.float64(10.753)
+        >>> temperature=pyequib.calc_temperature(line_flux_ratio=line_flux_ratio, density=density,
+        >>>                              upper_levels=upper_levels, lower_levels=lower_levels,
+        >>>                              elj_data=s_ii_elj, omij_data=s_ii_omij,
+        >>>                              aij_data=s_ii_aij)
+        >>> print("Electron Temperature:", temperature)
            Electron Temperature:       7920.2865
-           
-    :return: This function returns the electron temperature.
-    :rtype: float64
 
-    :param line_flux_ratio: flux intensity ratio
-    :type line_flux_ratio: float
+    :Categories:
+      Plasma Diagnostics, Collisionally Excited Lines
 
-    :param density: electron density
-    :type density: float     
+    :Dirs:
+     ./
+         Main routines
 
-    :param upper_levels: upper atomic level(s) e.g '1,2/', '1,2,1,3/'
-    :type upper_levels: str    
-                                 
-    :param lower_levels: lower atomic level(s) e.g '1,2/', '1,2,1,3/''
-    :type lower_levels: str    
-    
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
+    :Author:
+      Ashkbiz Danehkar
 
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object   
+    :Copyright:
+      This library is released under a GNU General Public License.
 
-    :param low_temperature: lower temperature range
-    :type low_temperature: float, optional
+    :Version:
+      0.3.0
 
-    :param high_temperature: upper temperature range
-    :type high_temperature: float, optional
-    
-    :param num_temperature: number of the iteration step
-    :type num_temperature: int, optional
+    :History:
+        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
 
-    :param min_density: lower density range
-    :type min_density: float, optional
+        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
 
+        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE).
+
+        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION.
+
+        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL.
+
+        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP.
+
+        20/11/2016, A. Danehkar, Made a new function calc_populations()
+          for solving atomic level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature().
+
+        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
+                         input elj_data, omij_data, aij_data.
+
+        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
+                           from calc_temperature().
+
+        27/02/2019, A. Danehkar, Fix a bug in the atomic level assumption, and
+                           use the simplified calc_populations() routine.
+
+        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
+
+        24/05/2019, A. Danehkar, Add the optional temperature range.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+
+    FORTRAN HISTORY:
+
+        03/05/1981, I.D.Howarth,  Version 1.
+
+        05/05/1981, I.D.Howarth,  Minibug fixed!
+
+        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
+
+        03/08/1981, S.Adams,      Interpolates collision strengths.
+
+        07/08/1981, S.Adams,      Input method changed.
+
+        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
+                                  filenames given to SA's data files.
+
+        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
+
+        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting.
+
+        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=.
+
+        2006, B.Ercolano,   Converted to F90.
    """
-   
-#    History:
-#        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
-#        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
-#        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
-#             IDL function INTERPOL( /SPLINE).
-#        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
-#                          LA_LINEAR_EQUATION.
-#        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
-#              with IDL function LUDC & LUSOL.
-#        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
-#                       SPL_INIT & SPL_INTERP.
-#        20/11/2016, A. Danehkar, Made a new function calc_populations()
-#          for solving atomic level populations and separated it from
-#          calc_abundance(), calc_density() and calc_temperature().
-#        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
-#                         input elj_data, omij_data, aij_data.
-#        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
-#                           from calc_temperature().
-#        27/02/2019, A. Danehkar, Fix a bug in the atomic level assumption, and
-#                           use the simplified calc_populations() routine.
-#        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
-#        24/05/2019, A. Danehkar, Add the optional temperature range.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-#    FORTRAN HISTORY:
-#        03/05/1981, I.D.Howarth,  Version 1.
-#        05/05/1981, I.D.Howarth,  Minibug fixed!
-#        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
-#        03/08/1981, S.Adams,      Interpolates collision strengths.
-#        07/08/1981, S.Adams,      Input method changed.
-#        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
-#                                  filenames given to SA's data files.
-#        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
-#        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
-#                            modified such that matrix sizes (i.e. maximum
-#                            of Te and maximum no of levels) can now be cha
-#                            by modifying the parameters NDIM1, NDIM2 and N
-#                            in the Main program. EASY!
-#                            Now takes collision rates as well.
-#                            All variables are declared explicitly
-#                            Generate two extra files (ionpop.lis and ionra
-#                            of plain stream format for plotting.
-#        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
-#                            Fixed readin bug for IBIG=2 case.
-#                            Now reads reformatted upsilons (easier to see
-#                            and the 0 0 0 data end is excluded for these c
-#                            The A values have a different format for IBIG=.
-#        2006, B.Ercolano,   Converted to F90.
-        
    #common share1, Atomic_Data_Path
    h_planck = 6.62606957e-27 # erg s
    c_speed = 2.99792458e10 # cm/s
@@ -228,7 +257,7 @@ def calc_temperature(line_flux_ratio=None, density=None,
    result1 = np.float64(0)
    
    level_num = len(elj_data)
-   t_num = len(omij_data.strength[0])
+   t_num = len(omij_data['strength'][0])
    omij_num = len(omij_data)
    
    wava = np.zeros(level_num + 1)
@@ -269,9 +298,9 @@ def calc_temperature(line_flux_ratio=None, density=None,
    irats = 0
    #level_max=max([max(ITRANA),max(ITRANB)]) ! mistake
    level_max = level_num
-   aij = np.asarray(aij_data.aij)
+   aij = aij_data['aij'][0]
    aij=aij.T
-   elj = np.asarray(elj_data.ej)
+   elj = elj_data['ej']
    # set temperature iterations
    # start of iterations
    # ****************************
@@ -383,118 +412,147 @@ def calc_density(line_flux_ratio=None, temperature=None,
         line emissivities in statistical equilibrium
         for given electron temperature.
 
+    :Returns:
+       type=double. This function returns the electron density.
+
+    :Keywords:
+        line_flux_ratio  :     in, required, type=float
+                               flux intensity ratio
+        temperature      :     in, required, type=float
+                               electron temperature
+        upper_levels     :     in, required, type=string
+                               upper atomic level(s) e.g '1,2/', '1,2,1,3/'
+        lower_levels     :     in, required, type=string
+                               lower atomic level(s) e.g '1,2/', '1,2,1,3/'
+        elj_data         :     in, required, type=array/object
+                               energy levels (Ej) data
+        omij_data        :     in, required, type=array/object
+                               collision strengths (omega_ij) data
+        aij_data         :     in, required, type=array/object
+                               transition probabilities (Aij) data
+        low_density      :     in, optional, type=float
+                               lower density range
+        high_density      :     in, optional, type=float
+                               upper density range
+        num_density      :     in, optional, type=integer
+                               number of the iteration step
+        min_temperature  :     in, optional, type=float
+                               minimum temperature
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> atom='s'
-        >> ion='ii'
-        >> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
-        >> upper_levels='1,2/'
-        >> lower_levels='1,3/'
-        >> temperature=np.float64(7000.0)#
-        >> line_flux_ratio=np.float64(1.506)#
-        >> density=pyequib.calc_density(line_flux_ratio=line_flux_ratio, temperature=temperature,
-        >>                      upper_levels=upper_levels, lower_levels=lower_levels,
-        >>                      elj_data=s_ii_elj, omij_data=s_ii_omij,
-        >>                      aij_data=s_ii_aij)
-        >> print("Electron Density:", density)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> atom='s'
+        >>> ion='ii'
+        >>> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
+        >>> upper_levels='1,2/'
+        >>> lower_levels='1,3/'
+        >>> temperature=np.float64(7000.0)#
+        >>> line_flux_ratio=np.float64(1.506)#
+        >>> density=pyequib.calc_density(line_flux_ratio=line_flux_ratio, temperature=temperature,
+        >>>                      upper_levels=upper_levels, lower_levels=lower_levels,
+        >>>                      elj_data=s_ii_elj, omij_data=s_ii_omij,
+        >>>                      aij_data=s_ii_aij)
+        >>> print("Electron Density:", density)
            Electron Density:       2312.6395
 
-    :return: This function returns the electron density.
-    :rtype: float64
+    :Categories:
+      Plasma Diagnostics, Collisionally Excited Lines
 
-    :param line_flux_ratio: flux intensity ratio
-    :type line_flux_ratio: float
+    :Dirs:
+     ./
+         Main routines
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Author:
+      Ashkbiz Danehkar
 
-    :param upper_levels: upper atomic level(s) e.g '1,2/', '1,2,1,3/'
-    :type upper_levels: str    
-                                 
-    :param lower_levels: lower atomic level(s) e.g '1,2/', '1,2,1,3/''
-    :type lower_levels: str    
-    
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
+    :Copyright:
+      This library is released under a GNU General Public License.
 
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object   
+    :Version:
+      0.3.0
 
-    :param low_density: lower density range
-    :type low_density: float, optional
+    :History:
+        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
 
-    :param high_density: upper density range
-    :type high_density: float, optional
-    
-    :param num_density: number of the iteration step
-    :type num_density: int, optional
+        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
 
-    :param min_temperature: minimum temperature
-    :type min_temperature: float, optional                       
+        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE).
 
+        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION.
+
+        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL.
+
+        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP.
+
+        20/11/2016, A. Danehkar, Made a new function calc_populations()
+          for solving atomic level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature().
+
+        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
+                         input elj_data, omij_data, aij_data.
+
+        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
+                           from calc_density().
+
+        27/02/2019, A. Danehkar, Fix a bug in the atomic level assumption, and
+                           use the simplified calc_populations() routine.
+
+        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
+
+        24/05/2019, A. Danehkar, Add the optional density range.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+
+    FORTRAN HISTORY:
+
+        03/05/1981, I.D.Howarth,  Version 1.
+
+        05/05/1981, I.D.Howarth,  Minibug fixed!
+
+        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
+
+        03/08/1981, S.Adams,      Interpolates collision strengths.
+
+        07/08/1981, S.Adams,      Input method changed.
+
+        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
+                                  filenames given to SA's data files.
+
+        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
+
+        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting.
+
+        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=.
+
+        2006, B.Ercolano,   Converted to F90.
    """
-   
-#    History:
-#        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
-#        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
-#        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
-#             IDL function INTERPOL( /SPLINE).
-#        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
-#                         LA_LINEAR_EQUATION.
-#        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
-#              with IDL function LUDC & LUSOL.
-#        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
-#                       SPL_INIT & SPL_INTERP.
-#        20/11/2016, A. Danehkar, Made a new function calc_populations()
-#          for solving atomic level populations and separated it from
-#          calc_abundance(), calc_density() and calc_temperature().
-#        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
-#                         input elj_data, omij_data, aij_data.
-#        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
-#                           from calc_density().
-#        27/02/2019, A. Danehkar, Fix a bug in the atomic level assumption, and
-#                           use the simplified calc_populations() routine.
-#        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
-#        24/05/2019, A. Danehkar, Add the optional density range.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-#    FORTRAN HISTORY:
-#        03/05/1981, I.D.Howarth,  Version 1.
-#        05/05/1981, I.D.Howarth,  Minibug fixed!
-#        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
-#        03/08/1981, S.Adams,      Interpolates collision strengths.
-#        07/08/1981, S.Adams,      Input method changed.
-#        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
-#                                  filenames given to SA's data files.
-#        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
-#        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
-#                            modified such that matrix sizes (i.e. maximum
-#                            of Te and maximum no of levels) can now be cha
-#                            by modifying the parameters NDIM1, NDIM2 and N
-#                            in the Main program. EASY!
-#                            Now takes collision rates as well.
-#                            All variables are declared explicitly
-#                            Generate two extra files (ionpop.lis and ionra
-#                            of plain stream format for plotting.
-#        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
-#                            Fixed readin bug for IBIG=2 case.
-#                            Now reads reformatted upsilons (easier to see
-#                            and the 0 0 0 data end is excluded for these c
-#                            The A values have a different format for IBIG=.
-#        2006, B.Ercolano,   Converted to F90.
-   
    # common share1, Atomic_Data_Path
    h_planck = 6.62606957e-27 # erg s
    c_speed = 2.99792458e10 # cm/s
@@ -565,7 +623,7 @@ def calc_density(line_flux_ratio=None, temperature=None,
    result1 = np.float64(0)
 
    level_num = len(elj_data)
-   t_num = len(omij_data.strength[0])
+   t_num = len(omij_data['strength'][0])
    omij_num = len(omij_data)
 
    wava = np.zeros(level_num + 1)
@@ -606,9 +664,9 @@ def calc_density(line_flux_ratio=None, temperature=None,
    irats = 0
    #level_max=max([max(ITRANA),max(ITRANB)]) ! mistake
    level_max = level_num
-   aij = np.asarray(aij_data.aij)
+   aij = aij_data['aij'][0]
    aij = aij.T
-   elj = np.asarray(elj_data.ej)
+   elj = elj_data['ej']
    tempi = temperature
    if (tempi < temp_min):
       tempi = temp_min # add
@@ -716,108 +774,136 @@ def calc_populations(temperature=None, density=None,
         This function solves atomic level populations in statistical equilibrium
         for given electron temperature and density.
    
+    :Returns:
+       type=array/object. This function returns the atomic level populations.
+   
+    :Keywords:
+        temperature :   in, required, type=float
+                        electron temperature
+        density     :   in, required, type=float
+                        electron density
+        elj_data    :   in, required, type=array/object
+                               energy levels (Ej) data
+        omij_data   :   in, required, type=array/object
+                               collision strengths (omega_ij) data
+        aij_data    :   in, required, type=array/object
+                               transition probabilities (Aij) data
+        eff_Omij    :   in, type=array/object
+                        effective collision strengths (Omij_T) at given temperature
+        level_num   :   in, type=int
+                        Number of levels
+        irats       :   in, type=int
+                        Else Coll. rates = tabulated values * 10 ** irats
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> atom='s'
-        >> ion='ii'
-        >> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
-        >> density = np.float64(1000)
-        >> temperature=np.float64(10000.0)#
-        >> nlj=pyequib.calc_populations(temperature=temperature, density=density,
-        >>                      elj_data=s_ii_elj, omij_data=s_ii_omij,
-        >>                      aij_data=s_ii_aij)
-        >> print('Atomic Level Populations:', nlj)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> atom='s'
+        >>> ion='ii'
+        >>> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
+        >>> density = np.float64(1000)
+        >>> temperature=np.float64(10000.0)#
+        >>> nlj=pyequib.calc_populations(temperature=temperature, density=density,
+        >>>                      elj_data=s_ii_elj, omij_data=s_ii_omij,
+        >>>                      aij_data=s_ii_aij)
+        >>> print('Atomic Level Populations:', nlj)
            Atomic Level Populations:    0.96992832    0.0070036315     0.023062261   2.6593671e-06   3.1277019e-06
-           
-    :return: This function returns the atomic level populations.
-    :rtype: array/object
-
-    :param line_flux_ratio: flux intensity ratio
-    :type line_flux_ratio: float
-
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param density: electron density
-    :type density: float  
-    
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
-
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object   
-
-    :param eff_Omij: effective collision strengths (Omij_T) at given temperature
-    :type eff_Omij: array/object   
-    
-    :param level_num: Number of levels
-    :type level_num: int, optional
-
-    :param irats: Else Coll. rates = tabulated values * 10 ** irats
-    :type irats: int, optional                   
    
+    :Categories:
+      Plasma Diagnostics, Abundance Analysis, Collisionally Excited Lines
+   
+    :Dirs:
+     ./
+         Subroutines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
+   
+        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
+   
+        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE).
+   
+        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION.
+   
+        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL.
+   
+        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP.
+   
+        20/11/2016, A. Danehkar, Made a new function calc_populations()
+          for solving atomic level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature().
+   
+        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
+                         input elj_data, omij_data, aij_data.
+   
+        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
+                           from calc_populations().
+   
+        27/02/2019, A. Danehkar, Simplify the calc_populations() routine
+                           for external usage.
+   
+        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+
+    FORTRAN HISTORY:
+   
+        03/05/1981, I.D.Howarth,  Version 1.
+   
+        05/05/1981, I.D.Howarth,  Minibug fixed!
+   
+        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
+   
+        03/08/1981, S.Adams,      Interpolates collision strengths.
+   
+        07/08/1981, S.Adams,      Input method changed.
+   
+        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
+                                  filenames given to SA's data files.
+   
+        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
+   
+        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting.
+   
+        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=.
+   
+        2006, B.Ercolano,   Converted to F90.
    """
-   
-#    History:
-#        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
-#        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
-#        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
-#             IDL function INTERPOL( /SPLINE).   
-#        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
-#                          LA_LINEAR_EQUATION.
-#        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
-#              with IDL function LUDC & LUSOL.   
-#        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
-#                       SPL_INIT & SPL_INTERP.
-#        20/11/2016, A. Danehkar, Made a new function calc_populations()
-#          for solving atomic level populations and separated it from
-#          calc_abundance(), calc_density() and calc_temperature().
-#        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
-#                         input elj_data, omij_data, aij_data.
-#        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
-#                           from calc_populations().
-#        27/02/2019, A. Danehkar, Simplify the calc_populations() routine
-#                           for external usage.
-#        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-#    FORTRAN HISTORY:
-#        03/05/1981, I.D.Howarth,  Version 1.
-#        05/05/1981, I.D.Howarth,  Minibug fixed!
-#        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
-#        03/08/1981, S.Adams,      Interpolates collision strengths.
-#        07/08/1981, S.Adams,      Input method changed.
-#        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
-#                                  filenames given to SA's data files.
-#        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
-#        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
-#                            modified such that matrix sizes (i.e. maximum
-#                            of Te and maximum no of levels) can now be cha
-#                            by modifying the parameters NDIM1, NDIM2 and N
-#                            in the Main program. EASY!
-#                            Now takes collision rates as well.
-#                            All variables are declared explicitly
-#                            Generate two extra files (ionpop.lis and ionra
-#                            of plain stream format for plotting.
-#        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
-#                            Fixed readin bug for IBIG=2 case.
-#                            Now reads reformatted upsilons (easier to see
-#                            and the 0 0 0 data end is excluded for these c
-#                            The A values have a different format for IBIG=.
-#        2006, B.Ercolano,   Converted to F90.
-        
    h_planck = 4.13566766225e-15 # eV.s #6.62606957e-27 # erg.s
    c_speed = 2.99792458e10 # cm/s
    k_b = 8.617330350e-5 # eV/K # 1.3806485279e-16 # erg/K
@@ -845,17 +931,17 @@ def calc_populations(temperature=None, density=None,
       return 0
    if (level_num is not None) == 0:   
       level_num = len(elj_data)
-   t_num = len(omij_data.strength[0]) # Number of temperature intervals
+   t_num = len(omij_data['strength'][0]) # Number of temperature intervals
    if (irats is not None) == 0:   
       irats = 0
    
-   t_lin_list = np.asarray(omij_data.strength[0])
+   t_lin_list = omij_data['strength'][0]
    t_log_list = np.log10(t_lin_list) # temperature intervals (array)
    
-   aij = np.asarray(aij_data.aij) # Transition Probabilities (A_ij)
+   aij =aij_data['aij'][0] # Transition Probabilities (A_ij)
    aij=aij.T
-   ej = np.asarray(elj_data.ej) # Energy Levels (E_j) in cm-1
-   gj = np.int32(np.asarray(elj_data.j_v) * 2. + 1.) # Ground Levels (G_j)
+   ej = elj_data['ej'] # Energy Levels (E_j) in cm-1
+   gj = np.int32(elj_data['j_v'] * 2. + 1.) # Ground Levels (G_j)
    
    qj = np.zeros(t_num)
    qij = np.zeros((level_num, level_num))
@@ -937,57 +1023,134 @@ def calc_crit_density(temperature=None,
         This function calculates critical densities in statistical equilibrium
         for given electron temperature.
    
+    :Returns:
+       type=array/object. This function returns the critical densities.
+   
+    :Keywords:
+        temperature :   in, required, type=float
+                        electron temperature
+        elj_data    :   in, required, type=array/object
+                               energy levels (Ej) data
+        omij_data   :   in, required, type=array/object
+                               collision strengths (omega_ij) data
+        aij_data    :   in, required, type=array/object
+                               transition probabilities (Aij) data
+        level_num   :   in, type=int
+                        Number of levels
+        irats       :   in, type=int
+                        Else Coll. rates = tabulated values * 10 ** irats
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> atom='s'
-        >> ion='ii'
-        >> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
-        >> temperature=np.float64(10000.0)
-        >> n_crit=pyequib.calc_crit_density(temperature=temperature,
-        >>                          elj_data=s_ii_elj, omij_data=s_ii_omij,
-        >>                          aij_data=s_ii_aij)
-        >> print('Critical Densities:', n_crit)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> atom='s'
+        >>> ion='ii'
+        >>> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
+        >>> temperature=np.float64(10000.0)
+        >>> n_crit=pyequib.calc_crit_density(temperature=temperature,
+        >>>                          elj_data=s_ii_elj, omij_data=s_ii_omij,
+        >>>                          aij_data=s_ii_aij)
+        >>> print('Critical Densities:', n_crit)
            Critical Densities:       0.0000000       5007.8396       1732.8414       1072685.0       2220758.1
-           
-    :return: This function returns the critical densities.
-    :rtype: array/object
-
-    :param temperature: electron temperature
-    :type temperature: float     
-    
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
-
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object   
-    
-    :param level_num: Number of levels
-    :type level_num: int, optional
-
-    :param irats: Else Coll. rates = tabulated values * 10 ** irats
-    :type irats: int, optional     
    
+    :Categories:
+      Plasma Diagnostics, Abundance Analysis, Collisionally Excited Lines
+   
+    :Dirs:
+     ./
+         Main routines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
+   
+        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
+   
+        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE).
+   
+        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION.
+   
+        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL.
+   
+        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP.
+   
+        20/11/2016, A. Danehkar, Made a new function calc_populations()
+          for solving atomic level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature().
+   
+        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
+                         input elj_data, omij_data, aij_data.
+   
+        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
+                           from calc_populations().
+   
+        27/02/2019, A. Danehkar, Simplify the calc_populations() routine
+                           for external usage.
+   
+        01/03/2019, A. Danehkar, Create the calc_crit_density() routine
+                           from the calc_populations() routine.
+   
+        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+
+    FORTRAN HISTORY:
+   
+        03/05/1981, I.D.Howarth,  Version 1.
+   
+        05/05/1981, I.D.Howarth,  Minibug fixed!
+   
+        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
+   
+        03/08/1981, S.Adams,      Interpolates collision strengths.
+   
+        07/08/1981, S.Adams,      Input method changed.
+   
+        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
+                                  filenames given to SA's data files.
+   
+        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
+   
+        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting.
+   
+        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=.
+   
+        2006, B.Ercolano,   Converted to F90.
    """
- 
-#     History:  
-#        01/03/2019, A. Danehkar, Create the calc_crit_density() routine
-#                           from the calc_populations() routine.
-#        04/03/2019, A. Danehkar, Use the get_omij_temp() routine.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
    h_planck = 4.13566766225e-15 # eV.s #6.62606957e-27 # erg.s
    c_speed = 2.99792458e10 # cm/s
    k_b = 8.617330350e-5 # eV/K # 1.3806485279e-16 # erg/K
@@ -1012,24 +1175,24 @@ def calc_crit_density(temperature=None,
       return 0
    if (level_num is not None) == 0:   
       level_num = len(elj_data)
-   t_num = len(omij_data.strength[0]) # Number of temperature intervals
+   t_num = len(omij_data['strength'][0]) # Number of temperature intervals
    omij_num = len(omij_data)
    omij = np.zeros((t_num, level_num, level_num))
    for k in range(1, (omij_num - 1)+(1)):
-      i = np.asarray(omij_data.level1[k])
-      j = np.asarray(omij_data.level2[k])
+      i = omij_data['level1'][k]
+      j = omij_data['level2'][k]
       if (i <= level_num)&( j <= level_num):
-         omij[0:(t_num - 1)+1,i - 1,j - 1] = np.asarray(omij_data.strength[k])
+         omij[0:(t_num - 1)+1,i - 1,j - 1] = omij_data['strength'][k]
    if (irats is not None) == 0:   
       irats = 0
    
-   t_lin_list = np.asarray(omij_data.strength[0])
+   t_lin_list = omij_data['strength'][0]
    t_log_list = np.log10(t_lin_list) # temperature intervals (array)
 
-   aij = np.asarray(aij_data.aij) # Transition Probabilities (A_ij)
+   aij = aij_data['aij'][0] # Transition Probabilities (A_ij)
    aij=aij.T
-   ej = np.asarray(elj_data.ej) # Energy Levels (E_j) in cm-1
-   gj = np.int32(np.asarray(elj_data.j_v) * 2. + 1.)  # Ground Levels (G_j)
+   ej = elj_data['ej'] # Energy Levels (E_j) in cm-1
+   gj = np.int32(elj_data['j_v'] * 2. + 1.)  # Ground Levels (G_j)
    
    qj = np.zeros(t_num)
    qij = np.zeros((level_num, level_num))
@@ -1079,103 +1242,136 @@ def calc_emissivity(temperature=None, density=None,
         solving atomic level populations and in statistical equilibrium
         for given electron density and temperature.
    
+    :Returns:
+       type=double. This function returns the line emissivity.
+   
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        atomic_levels :     In, required, type=string
+                            level(s) e.g '1,2/', '1,2,1,3/'
+        elj_data      :     in, required, type=array/object
+                            energy levels (Ej) data
+        omij_data     :     in, required, type=array/object
+                            collision strengths (omega_ij) data
+        aij_data      :     in, required, type=array/object
+                            transition probabilities (Aij) data
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> atom='o'
-        >> ion='iii'
-        >> o_iii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> o_iii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> o_iii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> atomic_levels='3,4/'
-        >> emiss5007=np.float64(0.0)
-        >> emiss5007=pyequib.calc_emissivity(temperature=temperature, density=density,
-        >>                           atomic_levels=atomic_levels,
-        >>                           elj_data=o_iii_elj, omij_data=o_iii_omij,
-        >>                           aij_data=o_iii_aij
-        >> print('Emissivity(O III 5007):', emiss5007)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> atom='o'
+        >>> ion='iii'
+        >>> o_iii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> o_iii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> o_iii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> atomic_levels='3,4/'
+        >>> emiss5007=np.float64(0.0)
+        >>> emiss5007=pyequib.calc_emissivity(temperature=temperature, density=density,
+        >>>                           atomic_levels=atomic_levels,
+        >>>                           elj_data=o_iii_elj, omij_data=o_iii_omij,
+        >>>                           aij_data=o_iii_aij
+        >>> print('Emissivity(O III 5007):', emiss5007)
            Emissivity(O III 5007):   3.6041012e-21
-           
-    :return: This function returns the line emissivity.
-    :rtype: float64
-
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param density: electron density
-    :type density: float     
-
-    :param atomic_levels: level(s) e.g '1,2/', '1,2,1,3/'
-    :type atomic_levels: str  
-      
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
-
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object   
-    
-   """
    
-#    History:
-#        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
-#        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
-#        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
-#             IDL function INTERPOL( /SPLINE).
-#        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
-#                          LA_LINEAR_EQUATION.
-#        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
-#              with IDL function LUDC & LUSOL.
-#        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
-#                       SPL_INIT & SPL_INTERP.
-#        20/11/2016, A. Danehkar, Made a new function calc_populations()
-#          for solving atomic level populations and separated it from
-#          calc_abundance(), calc_density() and calc_temperature().
-#        21/11/2016, A. Danehkar, Made a new function calc_emissivity()
-#                         for calculating line emissivities and separated it
-#                         from calc_abundance().
-#        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
-#                         input elj_data, omij_data, aij_data.
-#        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
-#                           from calc_emissivity().
-#        27/06/2019, A. Danehkar, Use the simplified calc_populations() routine.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-#    FORTRAN HISTORY:
-#        03/05/1981, I.D.Howarth,  Version 1.
-#        05/05/1981, I.D.Howarth,  Minibug fixed!
-#        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
-#        03/08/1981, S.Adams,      Interpolates collision strengths.
-#        07/08/1981, S.Adams,      Input method changed.
-#        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
-#                                  filenames given to SA's data files.
-#        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
-#        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
-#                            modified such that matrix sizes (i.e. maximum
-#                            of Te and maximum no of levels) can now be cha
-#                            by modifying the parameters NDIM1, NDIM2 and N
-#                            in the Main program. EASY!
-#                            Now takes collision rates as well.
-#                            All variables are declared explicitly
-#                            Generate two extra files (ionpop.lis and ionra
-#                            of plain stream format for plotting.
-#        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
-#                            Fixed readin bug for IBIG=2 case.
-#                            Now reads reformatted upsilons (easier to see
-#                            and the 0 0 0 data end is excluded for these c
-#                            The A values have a different format for IBIG=.
-#        2006, B.Ercolano,   Converted to F90.
-        
+    :Categories:
+      Abundance Analysis, Collisionally Excited Lines, Emissivity
+   
+    :Dirs:
+     ./
+         Main routines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
+   
+        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
+   
+        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE).
+   
+        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION.
+   
+        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL.
+   
+        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP.
+   
+        20/11/2016, A. Danehkar, Made a new function calc_populations()
+          for solving atomic level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature().
+   
+        21/11/2016, A. Danehkar, Made a new function calc_emissivity()
+                         for calculating line emissivities and separated it
+                         from calc_abundance().
+   
+        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
+                         input elj_data, omij_data, aij_data.
+   
+        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
+                           from calc_emissivity().
+   
+        27/06/2019, A. Danehkar, Use the simplified calc_populations() routine.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+
+    FORTRAN HISTORY:
+   
+        03/05/1981, I.D.Howarth,  Version 1.
+   
+        05/05/1981, I.D.Howarth,  Minibug fixed!
+   
+        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
+   
+        03/08/1981, S.Adams,      Interpolates collision strengths.
+   
+        07/08/1981, S.Adams,      Input method changed.
+   
+        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
+                                  filenames given to SA's data files.
+   
+        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
+   
+        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting.
+   
+        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=.
+   
+        2006, B.Ercolano,   Converted to F90.
+   """
    #global atomic_data_path
    
    h_planck = 6.62606957e-27 # erg s
@@ -1223,9 +1419,9 @@ def calc_emissivity(temperature=None, density=None,
        # if levels_i >= levels_num:
        #   break
    irats = 0
-   aij = np.asarray(aij_data.aij)
+   aij = aij_data['aij'][0]
    aij=aij.T
-   elj = np.asarray(elj_data.ej)
+   elj = elj_data['ej']
    
    if ((temperature <= 0.e0) | (density <= 0.e0)):
       print('temperature = ', temperature, ', density = ', density)
@@ -1255,116 +1451,146 @@ def calc_abundance(temperature=None, density=None,
         by solving atomic level populations and
         line emissivities in statistical equilibrium
         for given electron density and temperature.
-
+   
+    :Returns:
+       type=double. This function returns the ionic abundanc.
+   
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        line_flux     :     in, required, type=float
+                            line flux intensity
+        atomic_levels :     in, required, type=string
+                            level(s) e.g '1,2/', '1,2,1,3/'
+        elj_data      :     in, required, type=array/object
+                            energy levels (Ej) data
+        omij_data     :     in, required, type=array/object
+                            collision strengths (omega_ij) data
+        aij_data      :     in, required, type=array/object
+                            transition probabilities (Aij) data
+        h_i_aeff_data :     in, required, type=array/object
+                            H I recombination coefficients
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >> atom='o'
-        >> ion='iii'
-        >> o_iii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> o_iii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> o_iii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
-        >> atom='h'
-        >> ion='ii' # H I
-        >> hi_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> h_i_aeff_data=hi_rc_data.aeff
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> atomic_levels='3,4/'
-        >> iobs5007=np.float64(1200.0)
-        >> abb5007=np.float64(0.0)
-        >> abb5007=pyequib.calc_abundance(temperature=temperature, density=density,
-        >>                        line_flux=iobs5007, atomic_levels=atomic_levels,
-        >>                        elj_data=o_iii_elj, omij_data=o_iii_omij,
-        >>                        aij_data=o_iii_aij, h_i_aeff_data=hi_rc_data.aeff)
-        >> print('N(O^2+)/N(H+):', abb5007)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>> atom='o'
+        >>> ion='iii'
+        >>> o_iii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> o_iii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> o_iii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+        >>> atom='h'
+        >>> ion='ii' # H I
+        >>> hi_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> h_i_aeff_data=hi_rc_data['aeff'][0]
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> atomic_levels='3,4/'
+        >>> iobs5007=np.float64(1200.0)
+        >>> abb5007=np.float64(0.0)
+        >>> abb5007=pyequib.calc_abundance(temperature=temperature, density=density,
+        >>>                        line_flux=iobs5007, atomic_levels=atomic_levels,
+        >>>                        elj_data=o_iii_elj, omij_data=o_iii_omij,
+        >>>                        aij_data=o_iii_aij, h_i_aeff_data=hi_rc_data['aeff'][0])
+        >>> print('N(O^2+)/N(H+):', abb5007)
            N(O^2+)/N(H+):   0.00041256231
-           
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
-
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param density: electron density
-    :type density: float     
-
-    :param line_flux: line flux intensity
-    :type line_flux: float  
-    
-    :param atomic_levels: level(s) e.g '1,2/', '1,2,1,3/'
-    :type atomic_levels: str  
-      
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
-
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object  
-
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-                            
-   """
    
-#    History:
-#        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
-#        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
-#        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
-#             IDL function INTERPOL( /SPLINE).
-#        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
-#                          LA_LINEAR_EQUATION.
-#        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
-#              with IDL function LUDC & LUSOL.
-#        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
-#                       SPL_INIT & SPL_INTERP.
-#        20/11/2016, A. Danehkar, Made a new function calc_populations()
-#          for solving atomic level populations and separated it from
-#          calc_abundance(), calc_density() and calc_temperature().
-#        21/11/2016, A. Danehkar, Made a new function calc_emissivity()
-#                         for calculating line emissivities and separated it
-#                         from calc_abundance().   
-#        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
-#                         input elj_data, omij_data, aij_data.
-#        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
-#                           from calc_abundance().
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-#    FORTRAN HISTORY:
-#        03/05/1981, I.D.Howarth,  Version 1.
-#        05/05/1981, I.D.Howarth,  Minibug fixed!
-#        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
-#        03/08/1981, S.Adams,      Interpolates collision strengths.
-#        07/08/1981, S.Adams,      Input method changed.
-#        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
-#                                  filenames given to SA's data files.
-#        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
-#        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
-#                            modified such that matrix sizes (i.e. maximum
-#                            of Te and maximum no of levels) can now be cha
-#                            by modifying the parameters NDIM1, NDIM2 and N
-#                            in the Main program. EASY!
-#                            Now takes collision rates as well.
-#                            All variables are declared explicitly
-#                            Generate two extra files (ionpop.lis and ionra
-#                            of plain stream format for plotting.
-#        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
-#                            Fixed readin bug for IBIG=2 case.
-#                            Now reads reformatted upsilons (easier to see
-#                            and the 0 0 0 data end is excluded for these c
-#                            The A values have a different format for IBIG=.
-#        2006, B.Ercolano,   Converted to F90.
-        
+    :Categories:
+      Abundance Analysis, Collisionally Excited Lines
+   
+    :Dirs:
+     ./
+         Main routines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        15/09/2013, A. Danehkar, Translated from FORTRAN to IDL code.
+   
+        20/10/2016, A. Danehkar, Replaced str2int with strnumber.
+   
+        20/10/2016, A. Danehkar, Replaced CFY, SPLMAT, and CFD with
+             IDL function INTERPOL( /SPLINE).
+   
+        20/10/2016, A. Danehkar, Replaced LUSLV with IDL LAPACK function
+                          LA_LINEAR_EQUATION.
+   
+        15/11/2016, A. Danehkar, Replaced LA_LINEAR_EQUATION (not work in GDL)
+              with IDL function LUDC & LUSOL.
+   
+        19/11/2016, A. Danehkar, Replaced INTERPOL (not accurate) with
+                       SPL_INIT & SPL_INTERP.
+   
+        20/11/2016, A. Danehkar, Made a new function calc_populations()
+          for solving atomic level populations and separated it from
+          calc_abundance(), calc_density() and calc_temperature().
+   
+        21/11/2016, A. Danehkar, Made a new function calc_emissivity()
+                         for calculating line emissivities and separated it
+                         from calc_abundance().
+   
+        10/03/2017, A. Danehkar, Integration with AtomNeb, now uses atomic data
+                         input elj_data, omij_data, aij_data.
+   
+        12/06/2017, A. Danehkar, Cleaning the function, and remove unused varibales
+                           from calc_abundance().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+
+    FORTRAN HISTORY:
+   
+        03/05/1981, I.D.Howarth,  Version 1.
+   
+        05/05/1981, I.D.Howarth,  Minibug fixed!
+   
+        07/05/1981, I.D.Howarth,  Now takes collision rates or strengths.
+   
+        03/08/1981, S.Adams,      Interpolates collision strengths.
+   
+        07/08/1981, S.Adams,      Input method changed.
+   
+        19/11/1984, R.E.S.Clegg,  SA files entombed in scratch disk. Logical
+                                  filenames given to SA's data files.
+   
+        08/1995, D.P.Ruffle, Changed input file format. Increased matrices.
+   
+        02/1996, X.W.Liu,   Tidy up. SUBROUTINES SPLMAT, HGEN, CFY and CFD
+                            modified such that matrix sizes (i.e. maximum
+                            of Te and maximum no of levels) can now be cha
+                            by modifying the parameters NDIM1, NDIM2 and N
+                            in the Main program. EASY!
+                            Now takes collision rates as well.
+                            All variables are declared explicitly
+                            Generate two extra files (ionpop.lis and ionra
+                            of plain stream format for plotting.
+   
+        06/1996, C.J.Pritchet, Changed input data format for cases IBIG=1,2.
+                            Fixed readin bug for IBIG=2 case.
+                            Now reads reformatted upsilons (easier to see
+                            and the 0 0 0 data end is excluded for these c
+                            The A values have a different format for IBIG=.
+   
+        2006, B.Ercolano,   Converted to F90.
+   """
    ahb = np.float64(0)
    
    h_planck = 6.62606957e-27 # erg.s
@@ -1421,32 +1647,53 @@ def print_ionic(temperature=None, density=None,
        This function prints the atom's transitions information,
        atomic level populations, critical densities, and emissivities
        for given temperature and density.
-
+   
+    :Keywords:
+        temperature   :   in, required, type=float
+                          electron temperature
+        density       :   in, required, type=float
+                          electron density
+        elj_data      :   in, required, type=array/object
+                          energy levels (Ej) data
+        omij_data     :   in, required, type=array/object
+                          collision strengths (omega_ij) data
+        aij_data      :   in, required, type=array/object
+                          transition probabilities (Aij) data
+        h_i_aeff_data :   in, type=array/object
+                          H I recombination coefficients
+        printEmissivity  :   in, type=boolean
+                             Set for printing Emissivities
+        printPopulations :   in, type=boolean
+                             Set for printing Populations
+        printCritDensity  :  in, type=boolean
+                             Set for printing Critical Densities
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >> atom='o'
-        >> ion='iii'
-        >> o_iii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> o_iii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> o_iii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
-        >> atom='h'
-        >> ion='ii' # H I
-        >> hi_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> temperature=np.float64(10000.0)#
-        >> density = np.float64(1000.)
-        >> pyequib.print_ionic, temperature=temperature, density=density,
-        >>              elj_data=o_iii_elj, omij_data=o_iii_omij,
-        >>              aij_data=o_iii_aij, h_i_aeff_data=hi_rc_data.aeff
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>> atom='o'
+        >>> ion='iii'
+        >>> o_iii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> o_iii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> o_iii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+        >>> atom='h'
+        >>> ion='ii' # H I
+        >>> hi_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> temperature=np.float64(10000.0)#
+        >>> density = np.float64(1000.)
+        >>> pyequib.print_ionic, temperature=temperature, density=density,
+        >>>              elj_data=o_iii_elj, omij_data=o_iii_omij,
+        >>>              aij_data=o_iii_aij, h_i_aeff_data=hi_rc_data['aeff'][0]
            Temperature =   10000.0 K
            Density =    1000.0 cm-3
    
@@ -1478,47 +1725,35 @@ def print_ionic(temperature=None, density=None,
             0.000E+00   5.759E-24   1.779E-26   2.289E-23
    
            H-beta emissivity: 1.237E-25 N(H+) Ne  [erg/s]
-           
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param density: electron density
-    :type density: float
-      
-    :param elj_data: energy levels (Ej) data
-    :type elj_data: array/object   
-
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param aij_data: transition probabilities (Aij) data
-    :type aij_data: array/object  
-
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-    
-    :param printEmissivity: Set for printing Emissivities
-    :type printEmissivity: boolean
-
-    :param printPopulations: Set for printing Populations
-    :type printPopulations: boolean
-    
-    :param printCritDensity: Set for printing Critical Densities
-    :type printCritDensity: boolean
-                             
-   """
    
-#    History:
-#        04/03/2019, A. Danehkar, create the print_ionic() routine.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
+    :Categories:
+      Plasma Diagnostics, Abundance Analysis, Collisionally Excited Lines
+   
+    :Dirs:
+     ./
+         Main routines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        04/03/2019, A. Danehkar, create the print_ionic() routine.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+   """
    h_planck = 6.62606957e-27 # erg s
    c_speed = 2.99792458e10 # cm/s
    
    if (temperature is not None) == 1:   
       print('Temperature = {0:9.1f} K'.format(temperature))
    if (density is not None) == 1:   
-      print('Density = {0:9.1f} cm-3'.format(temperature))
+      print('Density = {0:9.1f} cm-3'.format(density))
    if (elj_data is not None) == 0:   
       print('elj_data is not set')
       return
@@ -1563,9 +1798,9 @@ def print_ionic(temperature=None, density=None,
          print(s)
       print('')
    if (printemissivity is not None) == 1:
-      aij = np.asarray(aij_data.aij)
+      aij = aij_data['aij'][0]
       aij = aij.T
-      elj = np.asarray(elj_data.ej)
+      elj = elj_data['ej']
       for i in range(2, (level_num)+(1)):
          aij_str = ''
          transition_str = ''
@@ -1606,25 +1841,39 @@ def get_omij_temp(temperature=None, omij_data=None, elj_data=None,
         This function derives the effective collision strengths (Omij_T) from
         the collision strengths (omega_ij) data for the given temperature.
    
+    :Returns:
+       type=array/object. This function returns the effective collision strengths (Omij_T).
+   
+    :Keywords:
+        temperature :   in, required, type=float
+                        electron temperature
+        omij_data   :   in, required, type=array/object
+                        collision strengths (omega_ij) data
+        level_num   :   in, type=int
+                        Number of levels
+        irats       :   in, type=int
+                        Else Coll. rates = tabulated values * 10 ** irats
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_dir = os.path.join('atomic-data', 'chianti70')
-        >> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-        >> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-        >> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-        >> atom='s'
-        >> ion='ii'
-        >> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-        >> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-        >> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
-        >> temperature=np.float64(10000.0)#
-        >> omij_t=pyequib.get_omij_temp(temperature=temperature, omij_data=s_ii_omij)
-        >> print('Effective Collision Strengths: ')
-        >> print(omij_t)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_dir = os.path.join('atomic-data', 'chianti70')
+        >>> atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
+        >>> atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
+        >>> atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+        >>> atom='s'
+        >>> ion='ii'
+        >>> s_ii_elj=atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
+        >>> s_ii_omij=atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
+        >>> s_ii_aij=atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)\
+        >>> temperature=np.float64(10000.0)#
+        >>> omij_t=pyequib.get_omij_temp(temperature=temperature, omij_data=s_ii_omij)
+        >>> print('Effective Collision Strengths: ')
+        >>> print(omij_t)
            Effective Collision Strengths:
            0.0000000       0.0000000       0.0000000       0.0000000       0.0000000
            2.7800000       0.0000000       0.0000000       0.0000000       0.0000000
@@ -1632,27 +1881,27 @@ def get_omij_temp(temperature=None, omij_data=None, elj_data=None,
            1.1700000       1.8000000       2.2000000       0.0000000       0.0000000
            2.3500000       3.0000000       4.9900000       2.7100000       0.0000000
    
-    :return: This function returns the effective collision strengths (Omij_T).
-    :rtype: array/object
-
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param omij_data: collision strengths (omega_ij) data
-    :type omij_data: array/object   
-    
-    :param level_num: Number of levels
-    :type level_num: int 
-
-    :param irats: Else Coll. rates = tabulated values * 10 ** irats
-    :type irats: int
-    
-   """
+    :Categories:
+      Plasma Diagnostics, Abundance Analysis, Collisionally Excited Lines
    
-#    History:
-#        04/03/2019, A. Danehkar, create the get_omij_temp() routine.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
+    :Dirs:
+     ./
+         Subroutines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        04/03/2019, A. Danehkar, create the get_omij_temp() routine.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+   """
    h_planck = 4.13566766225e-15 # eV.s #6.62606957e-27 # erg.s
    c_speed = 2.99792458e10 # cm/s
    k_b = 8.617330350e-5 # eV/K # 1.3806485279e-16 # erg/K
@@ -1665,7 +1914,7 @@ def get_omij_temp(temperature=None, omij_data=None, elj_data=None,
       return 0
    if (level_num is not None) == 0:   
       if (elj_data is not None) == 0:   
-         level_num = max([max(omij_data[:].level1), max(omij_data[:].level2)])
+         level_num = max([max(omij_data['level1'][:]), max(omij_data['level2'][:])])
       else:   
          level_num = len(elj_data)
    if (irats is not None) == 0:   
@@ -1675,18 +1924,18 @@ def get_omij_temp(temperature=None, omij_data=None, elj_data=None,
          if (elj_data is not None) == 0:
             print('elj_data is not set. It is required for irats')
             return 0
-         ej = elj_data.ej # Energy Levels (E_j) in cm-1
+         ej = elj_data['ej'] # Energy Levels (E_j) in cm-1
    t_log = np.float64(np.log10(temperature))
-   t_num = len(omij_data.strength[0]) # Number of temperature intervals
-   t_lin_list = np.float64(np.asarray(omij_data.strength[0]))
+   t_num = len(omij_data['strength'][0]) # Number of temperature intervals
+   t_lin_list = np.float64(omij_data['strength'][0])
    t_log_list = np.log10(t_lin_list) # temperature intervals (array)
    omij_num = len(omij_data)
    omij_t = np.zeros((level_num, level_num))
    for k in range(1, (omij_num - 1)+(1)):
-      i = np.asarray(omij_data.level1[k])
-      j = np.asarray(omij_data.level2[k])
+      i = omij_data['level1'][k]
+      j = omij_data['level2'][k]
       if (i <= level_num) & (j <= level_num):
-         qj = np.float64(np.asarray(omij_data.strength[k]))
+         qj = np.float64(omij_data['strength'][k])
          if (irats != 0):   
             d_e =  np.float64(ej[j - 1] - ej[i - 2]) * h_planck * c_speed # delta Energy in eV; convert from cm-1 to eV
             # Calculate the Boltzmann factor
@@ -1717,28 +1966,47 @@ def calc_emiss_h_beta(temperature=None, density=None, h_i_aeff_data=None):
          by using the helium emissivities from
          Storey & Hummer, 1995MNRAS.272...41S.
 
-    :return: This function returns the H beta emissivity 4pi j(HBeta 4861)/Np Ne).
-    :rtype: float64
+     :Private:
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Returns:
+        type=double. This function returns the H beta emissivity 4pi j(HBeta 4861)/Np Ne).
 
-    :param density: electron density
-    :type density: float 
-    
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-                             
+     :Keywords:
+         temperature     :   in, required, type=float
+                             electron temperature
+         density         :   in, required, type=float
+                             electron density
+         h_i_aeff_data   :   in, required, type=array/object
+                             H I recombination coefficients
+
+     :Categories:
+       Abundance Analysis, Recombination Lines, Emissivity
+
+     :Dirs:
+      ./
+          Main routines
+
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on H I emissivities
+         from Storey & Hummer, 1995MNRAS.272...41S.
+
+         25/08/2012, A. Danehkar, IDL code written.
+
+         11/03/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Change from logarithmic to linear
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
     """
-    
-#     History:
-#         Based on H I emissivities
-#         from Storey & Hummer, 1995MNRAS.272...41S.
-#         25/08/2012, A. Danehkar, IDL code written.
-#         11/03/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Change from logarithmic to linear
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
     if (temperature is not None) == 0:
         print('Temperature is not set')
         return 0
@@ -1762,7 +2030,7 @@ def calc_emiss_h_beta(temperature=None, density=None, h_i_aeff_data=None):
     temp_grid = np.array([500., 1000., 3000., 5000., 7500., 10000., 12500., 15000., 20000., 30000.])
 
     nlines = 130
-    h_i_aeff=np.asarray(h_i_aeff_data)
+    h_i_aeff=h_i_aeff_data
     h_i_aeff=h_i_aeff.T
     for i in range(0, nlines):
         temp1 = h_i_aeff[:, i]
@@ -1805,18 +2073,39 @@ def find_aeff_sh95_column(lo_lev, hi_lev, lev_num):
         within the database of H I emissivities given by
         from Storey & Hummer, 1995MNRAS.272...41S.
 
-    :return: This function returns the data location .
-    :rtype: float64
+    :Private:
 
-    :param lo_lev: low energy level
-    :type lo_lev: float     
+    :Returns:
+       type=double. This function returns the data location .
 
-    :param hi_lev: high energy level
-    :type hi_lev: float 
-    
-    :param lev_num: level number
-    :type lev_num: float
-                      
+    :Params:
+        lo_lev  :  in, required, type=float
+                      low energy level
+
+        hi_lev  :  in, required, type=float
+                      high energy level
+
+        lev_num :  in, required, type=float
+                      level number
+
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on H I emissivities
+        from Storey & Hummer, 1995MNRAS.272...41S.
+
+        25/08/2012, A. Danehkar, IDL code written.
+
+        11/03/2017, A. Danehkar, Integration with AtomNeb.
+ 
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
     """
     # lev_num=25
     count = 2
@@ -1830,17 +2119,20 @@ def find_aeff_sh95_column(lo_lev, hi_lev, lev_num):
     return 0
 
 def interp_2d(tab_in, x, y, x_tab, y_tab, xlog=None, ylog=None):
-#       function interp_2d,tab_in,x,y,x_tab,y_tab,[xlog=xlog],[ylog=ylog]
-#       return an interpolated 2 Dim less than tab_in (no extrapolation)
-#       tab_in: fltarr([*,*,...],n_x,n_y)
-#       x,y: values where we want to interpolate
-#       x_tab,y_tab: fltarr(n_x),fltarr(n_y) : x and y vectors, must be
-#          sorted, no necessarily in increasing order.
-#       x_log and y_log: allows log interpolation
-    
-    #C. Morisset (LAS, Marseille, 2000)
-    #03/10/2020, A. Danehkar, Transferred from IDL to Python.
-    
+    """
+       function interp_2d,tab_in,x,y,x_tab,y_tab,[xlog=xlog],[ylog=ylog]
+       return an interpolated 2 Dim less than tab_in (no extrapolation)
+       tab_in: fltarr([*,*,...],n_x,n_y)
+       x,y: values where we want to interpolate
+       x_tab,y_tab: fltarr(n_x),fltarr(n_y) : x and y vectors, must be
+          sorted, no necessarily in increasing order.
+       x_log and y_log: allows log interpolation
+       C. Morisset (LAS, Marseille, 2000)
+
+       03/10/2020, A. Danehkar, Transferred from IDL to Python.
+    """
+    # ON_ERROR, 2
+
     size_tab_in = [len(tab_in), len(tab_in[0])]
     n_dim_tab = 1 #size_tab_in[0]
     n_x = len(x_tab)
@@ -1899,60 +2191,99 @@ def calc_emiss_he_i_rl(temperature=None, density=None,
         for the given wavelength of He I recombination line
         by using the recombination coefficients from Porter et al.
         2012MNRAS.425L..28P.
-        
+   
+    :Returns:
+       type=double. This function returns the line emissivity.
+   
+    :Keywords:
+        temperature    :    in, required, type=float
+                            electron temperature
+        density        :    in, required, type=float
+                            electron density
+        linenum        :    in, required, type=int
+                            Line Number for Wavelength
+   
+                            Wavelength=4120.84:linenum=7,
+   
+                            Wavelength=4387.93: linenum=8,
+   
+                            Wavelength=4437.55: linenum=9,
+   
+                            Wavelength=4471.50: linenum=10,
+   
+                            Wavelength=4921.93: linenum=12,
+   
+                            Wavelength=5015.68: linenum=13,
+   
+                            Wavelength=5047.74: linenum=14,
+   
+                            Wavelength=5875.66: linenum=15,
+   
+                            Wavelength=6678.16: linenum=16,
+   
+                            Wavelength=7065.25: linenum=17,
+   
+                            Wavelength=7281.35: linenum=18.
+   
+        line_flux      :    in, required, type=float
+                            line flux intensity
+        he_i_aeff_data :    in, required, type=array/object
+                            He I recombination coefficients
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_he_i_file= filepath('rc_he_ii_PFSD12.fits', root_dir=base_dir, subdir=data_rc_dir )
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >>
-        >> atom='he'
-        >> ion='ii' # He I
-        >> he_i_rc_data=atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
-        >> he_i_aeff_data=he_i_rc_data.aeff
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> linenum=10# 4471.50
-        >> emiss_he_i=pyequib.calc_emiss_he_i_rl(temperature=temperature, density=density,
-        >>                                linenum=linenum,
-        >>                                he_i_aeff_data=he_i_aeff_data)
-        >> print('Emissivity:', emiss_he_i)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_he_i_file= filepath('rc_he_ii_PFSD12.fits', root_dir=base_dir, subdir=data_rc_dir )
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>>
+        >>> atom='he'
+        >>> ion='ii' # He I
+        >>> he_i_rc_data=atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
+        >>> he_i_aeff_data=he_i_rc_data['aeff'][0]
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> linenum=10# 4471.50
+        >>> emiss_he_i=pyequib.calc_emiss_he_i_rl(temperature=temperature, density=density,
+        >>>                                linenum=linenum,
+        >>>                                he_i_aeff_data=he_i_aeff_data)
+        >>> print('Emissivity:', emiss_he_i)
            Emissivity:   6.3822830e-26
-           
-    :return: This function returns the line emissivity.
-    :rtype: float64
-
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param density: electron density
-    :type density: float 
-    
-    :param linenum: Line Number for Wavelength: Wavelength=4120.84:linenum=7; Wavelength=4387.93: linenum=8; Wavelength=4437.55: linenum=9; Wavelength=4471.50: linenum=10; Wavelength=4921.93: linenum=12; Wavelength=5015.68: linenum=13; Wavelength=5047.74: linenum=14; Wavelength=5875.66: linenum=15; Wavelength=6678.16: linenum=16; Wavelength=7065.25: linenum=17; Wavelength=7281.35: linenum=18.
-    :type linenum: int
-      
-    :param line_flux: line flux intensity
-    :type line_flux: float
-
-    :param he_i_aeff_data: He I recombination coefficients
-    :type he_i_aeff_data: array/object
-                            
-   """
    
-#    History:
-#        Based on improved He I emissivities in the case B
-#        from Porter et al. 2012MNRAS.425L..28P   
-#        15/12/2013, A. Danehkar, IDL code written.   
-#        20/03/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_he_i_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_he_i_rl().
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
+    :Categories:
+      Abundance Analysis, Recombination Lines, Emissivity
+   
+    :Dirs:
+     ./
+         Main routines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        Based on improved He I emissivities in the case B
+        from Porter et al. 2012MNRAS.425L..28P
+   
+        15/12/2013, A. Danehkar, IDL code written.
+   
+        20/03/2017, A. Danehkar, Integration with AtomNeb.
+   
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_he_i_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_he_i_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+   """
    if (temperature is not None) == 0:   
       print('Temperature is not set')
       return 0
@@ -1979,7 +2310,7 @@ def calc_emiss_he_i_rl(temperature=None, density=None,
    temp1 = np.zeros(46)
    
    nlines = 294
-   he_i_aeff = np.asarray(he_i_aeff_data)
+   he_i_aeff = he_i_aeff_data
    he_i_aeff = he_i_aeff.T
    for i in range(0, nlines):
       temp1 = he_i_aeff[:,i]
@@ -2021,53 +2352,72 @@ def calc_emiss_he_ii_rl(temperature=None, density=None,
         by using the helium emissivities from
         Storey & Hummer, 1995MNRAS.272...41S.
    
+    :Returns:
+       type=double. This function returns the line emissivity.
+   
+    :Keywords:
+        temperature     :   in, required, type=float
+                            electron temperature
+        density         :   in, required, type=float
+                            electron density
+        he_ii_aeff_data :   in, required, type=array/object
+                            He II recombination coefficients
+   
+    :Examples:
        For example::
    
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_he_i_file= os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >>
-        >> atom='he'
-        >> ion='iii' # He II
-        >> he_ii_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> he_ii_aeff_data=he_ii_rc_data.aeff
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> he_ii_4686_flux = 135.833
-        >> emiss_he_ii=pyequib.calc_emiss_he_ii_rl(temperature=temperature, density=density,
-        >>                                 he_ii_aeff_data=he_ii_aeff_data)
-        >> print('Emissivity:', emiss_he_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_he_i_file= os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>>
+        >>> atom='he'
+        >>> ion='iii' # He II
+        >>> he_ii_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> he_ii_aeff_data=he_ii_rc_data['aeff'][0]
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> he_ii_4686_flux = 135.833
+        >>> emiss_he_ii=pyequib.calc_emiss_he_ii_rl(temperature=temperature, density=density,
+        >>>                                 he_ii_aeff_data=he_ii_aeff_data)
+        >>> print('Emissivity:', emiss_he_ii)
            Emissivity:   1.4989134e-24
-           
-    :return: This function returns the line emissivity.
-    :rtype: float64
-
-    :param temperature: electron temperature
-    :type temperature: float     
-
-    :param density: electron density
-    :type density: float 
-
-    :param he_ii_aeff_data: He II recombination coefficients
-    :type he_ii_aeff_data: array/object
-                            
-   """
    
-#    :History:
-#        Based on He II emissivities
-#        from Storey & Hummer, 1995MNRAS.272...41S.
-#        15/12/2013, A. Danehkar, IDL code written.
-#        02/04/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Change from logarithmic to linear
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_he_ii_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_he_ii_rl()
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
+    :Categories:
+      Abundance Analysis, Recombination Lines, Emissivity
+   
+    :Dirs:
+     ./
+         Main routines
+   
+    :Author:
+      Ashkbiz Danehkar
+   
+    :Copyright:
+      This library is released under a GNU General Public License.
+   
+    :Version:
+      0.3.0
+   
+    :History:
+        Based on He II emissivities
+        from Storey & Hummer, 1995MNRAS.272...41S.
+   
+        15/12/2013, A. Danehkar, IDL code written.
+   
+        02/04/2017, A. Danehkar, Integration with AtomNeb.
+   
+        10/07/2019, A. Danehkar, Change from logarithmic to linear
+   
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_he_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_he_ii_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+   """
    if (temperature is not None) == 0:   
       print('Temperature is not set')
       return 0
@@ -2095,7 +2445,7 @@ def calc_emiss_he_ii_rl(temperature=None, density=None,
    
    nlines = 156
 
-   he_ii_aeff = np.asarray(he_ii_aeff_data)
+   he_ii_aeff = he_ii_aeff_data
    he_ii_aeff = he_ii_aeff.T
    for i in range(0, nlines):
        temp1 = he_ii_aeff[:, i]
@@ -2136,57 +2486,76 @@ def calc_emiss_c_ii_rl(temperature=None, density=None,
         by using the recombination coefficients from
         from Davey et al. (2000) 2000A&AS..142...85D.
 
+    :Returns:
+       type=double. This function returns the line emissivity.
+
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        wavelength    :     in, required, type=float
+                            Line Wavelength in Angstrom
+        c_ii_rc_data  :     in, required, type=array/object
+                            C II recombination coefficients
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >>
-        >> atom='c'
-        >> ion='iii' # C II
-        >> c_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> wavelength=6151.43
-        >> emiss_c_ii=pyequib.calc_emiss_c_ii_rl(temperature=temperature, density=density,
-        >>                               wavelength=wavelength,
-        >>                               c_ii_rc_data=c_ii_rc_data)
-        >> print('Emissivity:', emiss_c_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>>
+        >>> atom='c'
+        >>> ion='iii' # C II
+        >>> c_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> wavelength=6151.43
+        >>> emiss_c_ii=pyequib.calc_emiss_c_ii_rl(temperature=temperature, density=density,
+        >>>                               wavelength=wavelength,
+        >>>                               c_ii_rc_data=c_ii_rc_data)
+        >>> print('Emissivity:', emiss_c_ii)
            Emissivity:   5.4719511e-26
-           
-    :return: This function returns the line emissivity.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Categories:
+      Abundance Analysis, Recombination Lines, Emissivity
 
-    :param density: electron density
-    :type density: float 
+    :Dirs:
+     ./
+         Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float 
-    
-    :param c_ii_rc_data: C II recombination coefficients
-    :type c_ii_rc_data: array/object                        
-                            
-    """
-    
-#    History:
-#        Based on recombination coefficients for C II lines from
-#        Davey et al. 2000A&AS..142...85D.
-#        Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
-#        02/2003, Yong Zhang, added to MOCASSIN.
-#        10/05/2013, A. Danehkar, Translated to IDL code.
-#        15/04/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_c_ii_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_c_ii_rl().        
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on recombination coefficients for C II lines from
+        Davey et al. 2000A&AS..142...85D.
+
+        Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
+
+        02/2003, Yong Zhang, added to MOCASSIN.
+
+        10/05/2013, A. Danehkar, Translated to IDL code.
+
+        15/04/2017, A. Danehkar, Integration with AtomNeb.
+
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_c_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_c_ii_rl().        
         
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
+    """
    # ciiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
     h_planck = 6.62606957e-27 # erg s
     c_speed = 2.99792458e10 # cm/s
@@ -2218,19 +2587,19 @@ def calc_emiss_c_ii_rl(temperature=None, density=None,
     aeff = np.float64(0.0)
     br = np.float64(1.0)
     temp4 = temperature / 10000.0
-    loc1 = np.where(abs(c_ii_rc_data.wavelength - wavelength) <= 1.5)
+    loc1 = np.where(abs(c_ii_rc_data['wavelength'] - wavelength) <= 1.5)
     loc1=np.asarray(loc1[0])
     temp2 = len(loc1)
     if temp2 != 1:
-        wavelength_min = np.amin(np.asarray(c_ii_rc_data.wavelength)[loc1])
-        loc1 = np.where(c_ii_rc_data.wavelength == wavelength_min)
+        wavelength_min = np.amin(c_ii_rc_data['wavelength'][loc1])
+        loc1 = np.where(c_ii_rc_data['wavelength'] == wavelength_min)
         loc1 = np.asarray(loc1[0])
-    lamb = np.float64(np.asarray(c_ii_rc_data.wavelength)[loc1])
-    a = np.float64(np.asarray(c_ii_rc_data.a)[loc1])
-    b = np.float64(np.asarray(c_ii_rc_data.b)[loc1])
-    c = np.float64(np.asarray(c_ii_rc_data.c)[loc1])
-    d = np.float64(np.asarray(c_ii_rc_data.d)[loc1])
-    f = np.float64(np.asarray(c_ii_rc_data.f)[loc1])
+    lamb = np.float64(c_ii_rc_data['wavelength'][loc1])
+    a = np.float64(c_ii_rc_data['a'][loc1])
+    b = np.float64(c_ii_rc_data['b'][loc1])
+    c = np.float64(c_ii_rc_data['c'][loc1])
+    d = np.float64(c_ii_rc_data['d'][loc1])
+    f = np.float64(c_ii_rc_data['f'][loc1])
     aeff = 1.0e-14 * (a * (temp4 ** f))
     aeff = aeff * (1. + (b * (1. - temp4)) + (c * ((1. - temp4) ** 2)) + (d * ((1. - temp4) ** 3)))
     #ciiRLs_Int = 100.0*(aeff/hbeta_aeff)*br*(4861.33/lamb)*abund
@@ -2247,55 +2616,72 @@ def calc_emiss_c_iii_rl(temperature=None, density=None,
          by using the recombination coefficients from
          Pequignot et al. 1991A&A...251..680P.
 
+     :Returns:
+        type=double. This function returns the line emissivity.
+
+     :Keywords:
+         temperature   :     in, required, type=float
+                             electron temperature
+         density       :     in, required, type=float
+                             electron density
+         wavelength    :     in, required, type=float
+                             Line Wavelength in Angstrom
+         c_iii_rc_data :     in, required, type=array/object
+                             C III recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >>
-         >> atom='c'
-         >> ion='iv' # C III
-         >> c_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> wavelength=4647.42
-         >> emiss_c_iii=pyequib.calc_emiss_c_iii_rl(temperature=temperature, density=density,
-         >>                                 wavelength=wavelength,
-         >>                                 c_iii_rc_data=c_iii_rc_data)
-         >> print('Emissivity:', emiss_c_iii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>>
+         >>> atom='c'
+         >>> ion='iv' # C III
+         >>> c_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> wavelength=4647.42
+         >>> emiss_c_iii=pyequib.calc_emiss_c_iii_rl(temperature=temperature, density=density,
+         >>>                                 wavelength=wavelength,
+         >>>                                 c_iii_rc_data=c_iii_rc_data)
+         >>> print('Emissivity:', emiss_c_iii)
             Emissivity:   7.5749632e-25
-            
-    :return: This function returns the line emissivity.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Categories:
+       Abundance Analysis, Recombination Lines, Emissivity
 
-    :param density: electron density
-    :type density: float 
+     :Dirs:
+      ./
+          Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float 
-    
-    :param c_iii_rc_data: C III recombination coefficients
-    :type c_iii_rc_data: array/object                            
+     :Author:
+       Ashkbiz Danehkar
 
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on effective radiative recombination coefficients for C III lines from
+         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
+
+         18/05/2013, A. Danehkar, Translated to IDL code.
+
+         06/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_c_iii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_c_iii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on effective radiative recombination coefficients for C III lines from
-#         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
-#         18/05/2013, A. Danehkar, Translated to IDL code.
-#         06/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_c_iii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_c_iii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    # ciiiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
    h_planck = 6.62606957e-27 # erg s
    c_speed = 2.99792458e10 # cm/s 
@@ -2328,19 +2714,19 @@ def calc_emiss_c_iii_rl(temperature=None, density=None,
    z = 3.0 # ion level c^3+
    # equation (1) in 1991A&A...251..680P
    temp4 = 1.0e-4 * temperature / z ** 2
-   loc1 = np.where(abs(c_iii_rc_data.wavelength - wavelength) <= 0.01)
+   loc1 = np.where(abs(c_iii_rc_data['wavelength'] - wavelength) <= 0.01)
    loc1=np.asarray(loc1[0])
    temp2 = len(loc1)
    if temp2 != 1:
-      wavelength_min = np.amin(np.asarray(c_iii_rc_data.wavelength)[loc1])
-      loc1 = np.where(c_iii_rc_data.wavelength == wavelength_min)
+      wavelength_min = np.amin(c_iii_rc_data['wavelength'][loc1])
+      loc1 = np.where(c_iii_rc_data['wavelength'] == wavelength_min)
       loc1 = np.asarray(loc1[0])
-   lamb = np.float64(np.asarray(c_iii_rc_data.wavelength)[loc1])
-   a = np.float64(np.asarray(c_iii_rc_data.a)[loc1])
-   b = np.float64(np.asarray(c_iii_rc_data.b)[loc1])
-   c = np.float64(np.asarray(c_iii_rc_data.c)[loc1])
-   d = np.float64(np.asarray(c_iii_rc_data.d)[loc1])
-   br = np.float64(np.asarray(c_iii_rc_data.br)[loc1])
+   lamb = np.float64(c_iii_rc_data['wavelength'][loc1])
+   a = np.float64(c_iii_rc_data['a'][loc1])
+   b = np.float64(c_iii_rc_data['b'][loc1])
+   c = np.float64(c_iii_rc_data['c'][loc1])
+   d = np.float64(c_iii_rc_data['d'][loc1])
+   br = np.float64(c_iii_rc_data['br'][loc1])
    # equation (1) in 1991A&A...251..680P
    aeff = 1.0e-13 * z * br
    aeff = aeff * (a * (temp4 ** b)) / (1. + c * (temp4 ** d))
@@ -2359,66 +2745,85 @@ def calc_emiss_n_ii_rl(temperature=None, density=None,
         by using the recombination coefficients from
         Escalante & Victor 1990ApJS...73..513E.
 
+    :Returns:
+       type=double. This function returns the line emissivity.
+
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        wavelength    :     in, required, type=float
+                            Line Wavelength in Angstrom
+        n_ii_rc_br    :     in, required, type=array/object
+                            N II branching ratios (Br)
+        n_ii_rc_data  :     in, required, type=array/object
+                            N II recombination coefficients
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >> atom='h'
-        >> ion='ii' # H I
-        >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> h_i_aeff_data=h_i_rc_data.aeff
-        >> atom='n'
-        >> ion='iii' # N II
-        >> n_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-        >> n_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> wavelength=4442.02
-        >> emiss_n_ii=pyequib.calc_emiss_n_ii_rl(temperature=temperature, density=density,
-        >>                               wavelength=wavelength,
-        >>                               n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
-        >>                               h_i_aeff_data=h_i_aeff_data)
-        >> print('Emissivity:', emiss_n_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>> atom='h'
+        >>> ion='ii' # H I
+        >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+        >>> atom='n'
+        >>> ion='iii' # N II
+        >>> n_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+        >>> n_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> wavelength=4442.02
+        >>> emiss_n_ii=pyequib.calc_emiss_n_ii_rl(temperature=temperature, density=density,
+        >>>                               wavelength=wavelength,
+        >>>                               n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
+        >>>                               h_i_aeff_data=h_i_aeff_data)
+        >>> print('Emissivity:', emiss_n_ii)
            Emissivity:   3.0397397e-26
-           
-    :return: This function returns the line emissivity.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Categories:
+      Abundance Analysis, Recombination Lines, Emissivity
 
-    :param density: electron density
-    :type density: float 
+    :Dirs:
+     ./
+         Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float 
-    
-    :param n_ii_rc_br: N II branching ratios (Br)
-    :type n_ii_rc_br: array/object  
+    :Author:
+      Ashkbiz Danehkar
 
-    :param n_ii_rc_data: N II recombination coefficients
-    :type n_ii_rc_data: array/object  
+    :Copyright:
+      This library is released under a GNU General Public License.
 
+    :Version:
+      0.3.0
+
+    :History:
+        Based on Effective recombination coefficients for N II lines from
+        Escalante & Victor 1990ApJS...73..513E.
+
+        Adopted from MIDAS Rnii script written by X.W.Liu.
+
+        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
+                          Ercolano et al. 2005MNRAS.362.1038E.
+
+        10/05/2013, A. Danehkar, Translated to IDL code.
+
+        25/04/2017, A. Danehkar, Integration with AtomNeb.
+
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_n_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_n_ii_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
 
- #   History:
- #       Based on Effective recombination coefficients for N II lines from
- #       Escalante & Victor 1990ApJS...73..513E.
- #       Adopted from MIDAS Rnii script written by X.W.Liu.
- #       Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
- #                         Ercolano et al. 2005MNRAS.362.1038E.
- #       10/05/2013, A. Danehkar, Translated to IDL code.
- #       25/04/2017, A. Danehkar, Integration with AtomNeb.
- #       10/07/2019, A. Danehkar, Made a new function calc_emiss_n_ii_rl()
- #                        for calculating line emissivities and separated it
- #                        from calc_abund_n_ii_rl().
- #       03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
 #  niiRLstructure ={Wave:np.float64(0.0), #REAL*8
 #              Int:np.float64(0.0),
 #              Obs:np.float64(0.0),
@@ -2456,15 +2861,15 @@ def calc_emiss_n_ii_rl(temperature=None, density=None,
    g1 = np.float64(0.0)
    g2 = np.float64(0.0)
    temp4 = temperature / 10000.0
-   loc1 = np.where(abs(n_ii_rc_br.wavelength - wavelength) <= 0.01)
+   loc1 = np.where(abs(n_ii_rc_br['wavelength'] - wavelength) <= 0.01)
    loc1=np.asarray(loc1[0])
    temp2 = len(loc1)
    if temp2 != 1:
-      wavelength_min = np.amin(np.asarray(n_ii_rc_br.wavelength)[loc1])
-      loc1 = np.where(n_ii_rc_br.wavelength == wavelength_min)
+      wavelength_min = np.amin(n_ii_rc_br['wavelength'][loc1])
+      loc1 = np.where(n_ii_rc_br['wavelength'] == wavelength_min)
       loc1 = np.asarray(loc1[0])
-   wave = np.float64(np.asarray(n_ii_rc_br.wavelength)[loc1])
-   rl_br = np.float64(np.asarray(n_ii_rc_br.br)[loc1])
+   wave = np.float64(n_ii_rc_br['wavelength'][loc1])
+   rl_br = np.float64(n_ii_rc_br['br'][loc1])
 
    loc1=loc1.item()
    #---------------------------------------
@@ -2622,9 +3027,9 @@ def calc_emiss_n_ii_rl(temperature=None, density=None,
       print('wavelength has an illegal value.')
    
    if ((loc1 >= 0) & (loc1 <= 96)):
-      a0=np.float64(np.asarray(n_ii_rc_data.a)[i - 1])
-      b0=np.float64(np.asarray(n_ii_rc_data.b)[i - 1])
-      c0=np.float64(np.asarray(n_ii_rc_data.c)[i - 1])
+      a0=np.float64(n_ii_rc_data['a'][i - 1])
+      b0=np.float64(n_ii_rc_data['b'][i - 1])
+      c0=np.float64(n_ii_rc_data['c'][i - 1])
       aeff = 10. ** (a0 + b0 * np.log10(temp4) + c0 * np.log10(temp4) ** 2)
    
    #niiRLs_Int = 100.0 * emissivity / hbeta_ems * abund
@@ -2641,55 +3046,72 @@ def calc_emiss_n_iii_rl(temperature=None, density=None,
          by using the recombination coefficients from
          Pequignot et al. 1991A&A...251..680P.
 
+     :Returns:
+        type=double. This function returns the line emissivity.
+
+     :Keywords:
+         temperature   :     in, required, type=float
+                             electron temperature
+         density       :     in, required, type=float
+                             electron density
+         wavelength    :     in, required, type=float
+                             Line Wavelength in Angstrom
+         n_iii_rc_data  :     in, required, type=array/object
+                             N III recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >>
-         >> atom='n'
-         >> ion='iv' # N III
-         >> n_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> wavelength=4640.64
-         >> emiss_n_iii=pyequib.calc_abund_n_iii_rl(temperature=temperature, density=density,
-         >>                                 wavelength=wavelength,
-         >>                                 n_iii_rc_data=n_iii_rc_data)
-         >> print('Emissivity:', emiss_n_iii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>>
+         >>> atom='n'
+         >>> ion='iv' # N III
+         >>> n_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> wavelength=4640.64
+         >>> emiss_n_iii=pyequib.calc_abund_n_iii_rl(temperature=temperature, density=density,
+         >>>                                 wavelength=wavelength,
+         >>>                                 n_iii_rc_data=n_iii_rc_data)
+         >>> print('Emissivity:', emiss_n_iii)
             Emissivity:   4.7908644e-24
-            
-    :return: This function returns the line emissivity.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Categories:
+       Abundance Analysis, Recombination Lines, Emissivity
 
-    :param density: electron density
-    :type density: float 
+     :Dirs:
+      ./
+          Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float 
+     :Author:
+       Ashkbiz Danehkar
 
-    :param n_iii_rc_data: N III recombination coefficients
-    :type n_iii_rc_data: array/object  
+     :Copyright:
+       This library is released under a GNU General Public License.
 
+     :Version:
+       0.3.0
+
+     :History:
+         Based on  effective radiative recombination coefficients for N III lines from
+         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
+
+         10/05/2013, A. Danehkar, IDL code written.
+
+         20/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_n_iii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_n_iii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on  effective radiative recombination coefficients for N III lines from
-#         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
-#         10/05/2013, A. Danehkar, IDL code written.
-#         20/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_n_iii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_n_iii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    # niiiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
    h_planck = 6.62606957e-27 # erg s
    c_speed = 2.99792458e10 # cm/s 
@@ -2722,23 +3144,23 @@ def calc_emiss_n_iii_rl(temperature=None, density=None,
    z = 3.0 # ion level c^3+
    # equation (1) in 1991A&A...251..680P
    temp4 = 1.0e-4 * temperature / z ** 2
-   loc1 = np.where(abs(n_iii_rc_data.wavelength - wavelength) <= 0.01)
+   loc1 = np.where(abs(n_iii_rc_data['wavelength'] - wavelength) <= 0.01)
    loc1=np.asarray(loc1[0])
    temp2 = len(loc1)
    if temp2 != 1:
-      wavelength_min = np.amin(np.asarray(n_iii_rc_data.wavelength)[loc1])
-      loc1 = np.where(n_iii_rc_data.wavelength == wavelength_min)
+      wavelength_min = np.amin(n_iii_rc_data['wavelength'][loc1])
+      loc1 = np.where(n_iii_rc_data['wavelength'] == wavelength_min)
       loc1 = np.asarray(loc1[0])
       temp2 = len(loc1)
       if temp2 != 1:
-         loc1 = np.where((n_iii_rc_data.wavelength == wavelength_min)&(n_iii_rc_data.case1 == 'B'))
+         loc1 = np.where((n_iii_rc_data['wavelength'] == wavelength_min)&(n_iii_rc_data['case1'] == 'B'))
          loc1 = np.asarray(loc1[0])
-   lamb = np.float64(np.asarray(n_iii_rc_data.wavelength)[loc1])
-   a = np.float64(np.asarray(n_iii_rc_data.a)[loc1])
-   b = np.float64(np.asarray(n_iii_rc_data.b)[loc1])
-   c = np.float64(np.asarray(n_iii_rc_data.c)[loc1])
-   d = np.float64(np.asarray(n_iii_rc_data.d)[loc1])
-   br = np.float64(np.asarray(n_iii_rc_data.br)[loc1])
+   lamb = np.float64(n_iii_rc_data['wavelength'][loc1])
+   a = np.float64(n_iii_rc_data['a'][loc1])
+   b = np.float64(n_iii_rc_data['b'][loc1])
+   c = np.float64(n_iii_rc_data['c'][loc1])
+   d = np.float64(n_iii_rc_data['d'][loc1])
+   br = np.float64(n_iii_rc_data['br'][loc1])
    # equation (1) in 1991A&A...251..680P
    aeff = 1.0e-13 * z * br
    aeff = aeff * (a * (temp4 ** b)) / (1. + c * (temp4 ** d))
@@ -2757,63 +3179,82 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
         by using the recombination coefficients from
         Storey 1994A&A...282..999S and Liu et al. 1995MNRAS.272..369L.
 
+    :Returns:
+       type=double. This function returns the line emissivity.
+
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        wavelength    :     in, required, type=float
+                            Line Wavelength in Angstrom
+        o_ii_rc_br    :     in, required, type=array/object
+                            O II branching ratios (Br)
+        o_ii_rc_data  :     in, required, type=array/object
+                            O II recombination coefficients
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >>
-        >> atom='o'
-        >> ion='iii' # O II
-        >> o_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-        >> o_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> wavelength=4613.68
-        >> emiss_o_ii=pyequib.calc_emiss_o_ii_rl(temperature=temperature, density=density,
-        >>                               wavelength=wavelength,
-        >>                               o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data,
-        >>                               h_i_aeff_data=h_i_aeff_data)
-        >> print('Emissivity:', emiss_o_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>>
+        >>> atom='o'
+        >>> ion='iii' # O II
+        >>> o_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+        >>> o_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> wavelength=4613.68
+        >>> emiss_o_ii=pyequib.calc_emiss_o_ii_rl(temperature=temperature, density=density,
+        >>>                               wavelength=wavelength,
+        >>>                               o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data,
+        >>>                               h_i_aeff_data=h_i_aeff_data)
+        >>> print('Emissivity:', emiss_o_ii)
            Emissivity:   5.9047319e-27
-           
-    :return: This function returns the line emissivity.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Categories:
+      Abundance Analysis, Recombination Lines, Emissivity
 
-    :param density: electron density
-    :type density: float 
+    :Dirs:
+     ./
+         Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float 
+    :Author:
+      Ashkbiz Danehkar
 
-    :param o_ii_rc_br: O II branching ratios (Br)
-    :type o_ii_rc_br: array/object  
+    :Copyright:
+      This library is released under a GNU General Public License.
 
-    :param o_ii_rc_data: O II recombination coefficients
-    :type o_ii_rc_data: array/object    
+    :Version:
+      0.3.0
 
+    :History:
+        Based on recombination coefficients for O II lines from
+        Storey 1994A&A...282..999S and Liu et al. 1995MNRAS.272..369L.
+
+        Adopted from MIDAS script Roii.prg written by X.W.Liu.
+
+        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
+                          Ercolano et al. 2005MNRAS.362.1038E.
+
+        10/05/2013, A. Danehkar, Translated to IDL code.
+
+        25/04/2017, A. Danehkar, Integration with AtomNeb.
+
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_o_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_o_ii_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
 
-#    History:
-#        Based on recombination coefficients for O II lines from
-#        Storey 1994A&A...282..999S and Liu et al. 1995MNRAS.272..369L.
-#        Adopted from MIDAS script Roii.prg written by X.W.Liu.
-#        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
-#                          Ercolano et al. 2005MNRAS.362.1038E.
-#        10/05/2013, A. Danehkar, Translated to IDL code.
-#        25/04/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_o_ii_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_o_ii_rl().
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
 #  oiiRLstructure ={Wave:np.float64(0.0), #REAL*8
 #              Int:np.float64(0.0),
 #              Obs:np.float64(0.0),
@@ -2853,38 +3294,38 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
    g1 = np.float64(0.0)
    g2 = np.float64(0.0)
    temp4 = temperature / 10000.0
-   loc1 = np.where(abs(o_ii_rc_br.wavelength - wavelength) <= 0.01)
+   loc1 = np.where(abs(o_ii_rc_br['wavelength'] - wavelength) <= 0.01)
    loc1=np.asarray(loc1[0])
    temp2 = len(loc1)
    if temp2 != 1:
-      wavelength_min = np.amin(np.asarray(o_ii_rc_br.wavelength)[loc1])
-      loc1 = np.where(o_ii_rc_br.wavelength == wavelength_min)
+      wavelength_min = np.amin(o_ii_rc_br['wavelength'][loc1])
+      loc1 = np.where(o_ii_rc_br['wavelength'] == wavelength_min)
       loc1 = np.asarray(loc1[0])
    temp2 = len(loc1)
    if temp2 != 1:
       loc1 = np.amin(loc1)
    
-   wave = np.float64(np.asarray(o_ii_rc_br.wavelength)[loc1])
-   br_a = np.float64(np.asarray(o_ii_rc_br.br_a)[loc1])
-   br_b = np.float64(np.asarray(o_ii_rc_br.br_b)[loc1])
-   br_c = np.float64(np.asarray(o_ii_rc_br.br_c)[loc1])
-   g1 = np.float64(np.asarray(o_ii_rc_br.g1)[loc1])
-   g2 = np.float64(np.asarray(o_ii_rc_br.g2)[loc1])
+   wave = np.float64(o_ii_rc_br['wavelength'][loc1])
+   br_a = np.float64(o_ii_rc_br['br_a'][loc1])
+   br_b = np.float64(o_ii_rc_br['br_b'][loc1])
+   br_c = np.float64(o_ii_rc_br['br_c'][loc1])
+   g1 = np.float64(o_ii_rc_br['g1'][loc1])
+   g2 = np.float64(o_ii_rc_br['g2'][loc1])
    densi = np.float64(density)
    log10ne = np.log10(densi)
 
    #---------------------------------------
    if (((loc1 >= 0) & (loc1 <= 182))):
       # 4f-3d transitions
-      a = np.float64(np.asarray(o_ii_rc_data.a4)[0]) # 0.232
-      b = np.float64(np.asarray(o_ii_rc_data.b)[0]) #-0.92009
-      c = np.float64(np.asarray(o_ii_rc_data.c)[0]) # 0.15526
-      d = np.float64(np.asarray(o_ii_rc_data.d)[0]) # 0.03442
+      a = np.float64(o_ii_rc_data['a4'][0]) # 0.232
+      b = np.float64(o_ii_rc_data['b'][0]) #-0.92009
+      c = np.float64(o_ii_rc_data['c'][0]) # 0.15526
+      d = np.float64(o_ii_rc_data['d'][0]) # 0.03442
       # an = [0.236, 0.232, 0.228, 0.222]
-      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[0]),
-                     np.float64(np.asarray(o_ii_rc_data.a4)[0]),
-                     np.float64(np.asarray(o_ii_rc_data.a5)[0]),
-                     np.float64(np.asarray(o_ii_rc_data.a6)[0])])
+      an = np.array([np.float64(o_ii_rc_data['a2'][0]),
+                     np.float64(o_ii_rc_data['a4'][0]),
+                     np.float64(o_ii_rc_data['a5'][0]),
+                     np.float64(o_ii_rc_data['a6'][0])])
       if (log10ne <= 2):   
          a = an[0]
       else:   
@@ -2913,15 +3354,15 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
       #---------------------------------------
    elif ((loc1 >= 183) & (loc1 <= 218)):
       # 3d-3p ^4F transitions (Case A=B=C for a,b,c,d# Br diff. slightly, adopt Case B)
-      a = np.float64(np.asarray(o_ii_rc_data.a4)[1]) # 0.876
-      b = np.float64(np.asarray(o_ii_rc_data.b)[1]) # -0.73465
-      c = np.float64(np.asarray(o_ii_rc_data.c)[1]) # 0.13689
-      d = np.float64(np.asarray(o_ii_rc_data.d)[1]) # 0.06220
+      a = np.float64(o_ii_rc_data['a4'][1]) # 0.876
+      b = np.float64(o_ii_rc_data['b'][1]) # -0.73465
+      c = np.float64(o_ii_rc_data['c'][1]) # 0.13689
+      d = np.float64(o_ii_rc_data['d'][1]) # 0.06220
       # an = [0.876, 0.876, 0.877, 0.880] #a for logNe = 2,4,5,6 (LSBC95, Tab.5a)
-      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[1]),
-                     np.float64(np.asarray(o_ii_rc_data.a4)[1]),
-                     np.float64(np.asarray(o_ii_rc_data.a5)[1]),
-                     np.float64(np.asarray(o_ii_rc_data.a6)[1])])
+      an = np.array([np.float64(o_ii_rc_data['a2'][1]),
+                     np.float64(o_ii_rc_data['a4'][1]),
+                     np.float64(o_ii_rc_data['a5'][1]),
+                     np.float64(o_ii_rc_data['a6'][1])])
       if (log10ne <= 2):   
          a = an[0]
       else:   
@@ -2948,17 +3389,17 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
       #---------------------------------------
    elif ((loc1 >= 219) & (loc1 <= 309)):
       # 3d-3p ^4D, ^4P transitions
-      a = np.float64(np.asarray(o_ii_rc_data.a4)[3]) # 0.745
-      b = np.float64(np.asarray(o_ii_rc_data.b)[3]) # -0.74621
-      c = np.float64(np.asarray(o_ii_rc_data.c)[3]) # 0.15710
-      d = np.float64(np.asarray(o_ii_rc_data.d)[3]) # 0.07059
+      a = np.float64(o_ii_rc_data['a4'][3]) # 0.745
+      b = np.float64(o_ii_rc_data['b'][3]) # -0.74621
+      c = np.float64(o_ii_rc_data['c'][3]) # 0.15710
+      d = np.float64(o_ii_rc_data['d'][3]) # 0.07059
       #an = [0.727,0.726,0.725,0.726] # Case: A
       # an = [0.747, 0.745, 0.744, 0.745] # Case: B
       #an = [0.769,0.767,0.766,0.766] # Case: C
-      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[3]),
-                     np.float64(np.asarray(o_ii_rc_data.a4)[3]),
-                     np.float64(np.asarray(o_ii_rc_data.a5)[3]),
-                     np.float64(np.asarray(o_ii_rc_data.a6)[3])])
+      an = np.array([np.float64(o_ii_rc_data['a2'][3]),
+                     np.float64(o_ii_rc_data['a4'][3]),
+                     np.float64(o_ii_rc_data['a5'][3]),
+                     np.float64(o_ii_rc_data['a6'][3])])
       if (log10ne <= 2):   
          a = an[0]
       else:   
@@ -2984,17 +3425,14 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
       #---------------------------------------
    elif ((loc1 >= 310) & (loc1 <= 327)):
       # 3d-3p ^2F transitions
-      a = np.float64(np.asarray(o_ii_rc_data.a4)[5]) # 0.745
-      b = np.float64(np.asarray(o_ii_rc_data.b)[5]) # -0.74621
-      c = np.float64(np.asarray(o_ii_rc_data.c)[5]) # 0.15710
-      d = np.float64(np.asarray(o_ii_rc_data.d)[5]) # 0.07059
+      a = np.float64(o_ii_rc_data['a4'][5]) # 0.745
+      b = np.float64(o_ii_rc_data['b'][5]) # -0.74621
+      c = np.float64(o_ii_rc_data['c'][5]) # 0.15710
+      d = np.float64(o_ii_rc_data['d'][5]) # 0.07059
       #an = [0.727, 0.726, 0.725, 0.726] # Case: A
       #an = [0.747,0.745,0.744,0.745] # Case: B
       #an = [0.769,0.767,0.766,0.766] # Case: C
-      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[5]),
-                     np.float64(np.asarray(o_ii_rc_data.a4)[5]),
-                     np.float64(np.asarray(o_ii_rc_data.a5)[5]),
-                     np.float64(np.asarray(o_ii_rc_data.a6)[5])])
+      an = np.array([o_ii_rc_data['a2'][5], o_ii_rc_data['a4'][5], o_ii_rc_data['a5'][5], o_ii_rc_data['a6'][5]])
       if (log10ne <= 2):   
          a = an[0]
       else:   
@@ -3020,16 +3458,16 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
       #---------------------------------------
    elif ((loc1 >= 328) & (loc1 <= 357)):
       # 3d-3p ^2D transitions
-      a = np.float64(np.asarray(o_ii_rc_data.a4)[11]) # 0.601
-      b = np.float64(np.asarray(o_ii_rc_data.b)[11]) # -0.79533
-      c = np.float64(np.asarray(o_ii_rc_data.c)[11]) # 0.15314
-      d = np.float64(np.asarray(o_ii_rc_data.d)[11]) # 0.05322
+      a = np.float64(o_ii_rc_data['a4'][11]) # 0.601
+      b = np.float64(o_ii_rc_data['b'][11]) # -0.79533
+      c = np.float64(o_ii_rc_data['c'][11]) # 0.15314
+      d = np.float64(o_ii_rc_data['d'][11]) # 0.05322
       #an = [0.603, 0.601, 0.600, 0.599] # Case: A
       #an = [0.620,0.618,0.616,0.615] # Case: C
-      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[11]),
-                     np.float64(np.asarray(o_ii_rc_data.a4)[11]),
-                     np.float64(np.asarray(o_ii_rc_data.a5)[11]),
-                     np.float64(np.asarray(o_ii_rc_data.a6)[11])])
+      an = np.array([np.float64(o_ii_rc_data['a2'][11]),
+                     np.float64(o_ii_rc_data['a4'][11]),
+                     np.float64(o_ii_rc_data['a5'][11]),
+                     np.float64(o_ii_rc_data['a6'][11])])
       if (log10ne <= 2):
          a = an[0]
       else:   
@@ -3055,16 +3493,16 @@ def calc_emiss_o_ii_rl(temperature=None, density=None,
       #---------------------------------------
    elif ((loc1 >= 358) & (loc1 <= 387)):
       # 3d-3p ^2P transitions
-      a = np.float64(np.asarray(o_ii_rc_data.a4)[13]) # 0.524
-      b = np.float64(np.asarray(o_ii_rc_data.b)[13]) # -0.78448
-      c = np.float64(np.asarray(o_ii_rc_data.c)[13]) # 0.13681
-      d = np.float64(np.asarray(o_ii_rc_data.d)[13]) # 0.05608
+      a = np.float64(o_ii_rc_data['a4'][13]) # 0.524
+      b = np.float64(o_ii_rc_data['b'][13]) # -0.78448
+      c = np.float64(o_ii_rc_data['c'][13]) # 0.13681
+      d = np.float64(o_ii_rc_data['d'][13]) # 0.05608
       #an = [0.526, 0.524, 0.523, 0.524] # Case: A
       #an = [0.538,0.536,0.535,0.536] # Case: C
-      an = np.array([np.float64(np.asarray(o_ii_rc_data.a2)[13]),
-                     np.float64(np.asarray(o_ii_rc_data.a4)[13]),
-                     np.float64(np.asarray(o_ii_rc_data.a5)[13]),
-                     np.float64(np.asarray(o_ii_rc_data.a6)[13])])
+      an = np.array([np.float64(o_ii_rc_data['a2'][13]),
+                     np.float64(o_ii_rc_data['a4'][13]),
+                     np.float64(o_ii_rc_data['a5'][13]),
+                     np.float64(o_ii_rc_data['a6'][13])])
       if (log10ne <= 2):   
          a = an[0]
       else:   
@@ -3322,57 +3760,76 @@ def calc_emiss_ne_ii_rl(temperature=None, density=None,
          by using the recombination coefficients from
          Kisielius et al. (1998) & Storey (unpublished).
 
+     :Returns:
+        type=double. This function returns the line emissivity.
+
+     :Keywords:
+         temperature   :     in, required, type=float
+                             electron temperature
+         density       :     in, required, type=float
+                             electron density
+         wavelength    :     in, required, type=float
+                             Line Wavelength in Angstrom
+         ne_ii_rc_data  :    in, required, type=array/object
+                             Ne II recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >>
-         >> atom='ne'
-         >> ion='iii' # Ne II
-         >> ne_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> wavelength=3777.14
-         >> emiss_ne_ii=pyequib.calc_emiss_ne_ii_rl(temperature=temperature, density=density,
-         >>                                 wavelength=wavelength,
-         >>                                 ne_ii_rc_data=ne_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
-         >> print('Emissivity:', emiss_ne_ii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>>
+         >>> atom='ne'
+         >>> ion='iii' # Ne II
+         >>> ne_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> wavelength=3777.14
+         >>> emiss_ne_ii=pyequib.calc_emiss_ne_ii_rl(temperature=temperature, density=density,
+         >>>                                 wavelength=wavelength,
+         >>>                                 ne_ii_rc_data=ne_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
+         >>> print('Emissivity:', emiss_ne_ii)
             Emissivity:   1.5996881e-25
-            
-    :return: This function returns the line emissivity.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Categories:
+       Abundance Analysis, Recombination Lines, Emissivity
 
-    :param density: electron density
-    :type density: float 
+     :Dirs:
+      ./
+          Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float 
+     :Author:
+       Ashkbiz Danehkar
 
-    :param ne_ii_rc_data: Ne II recombination coefficients
-    :type ne_ii_rc_data: array/object                          
+     :Copyright:
+       This library is released under a GNU General Public License.
 
+     :Version:
+       0.3.0
+
+     :History:
+         Based on effective radiative recombination coefficients for Ne II lines
+         from Kisielius et al. 1998A&AS..133..257K & Storey (unpublished).
+
+         Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
+
+         02/2003, Yong Zhang, scripts added to MOCASSIN.
+
+         14/05/2013, A. Danehkar, Translated to IDL code.
+
+         10/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_ne_ii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_ne_ii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on effective radiative recombination coefficients for Ne II lines
-#         from Kisielius et al. 1998A&AS..133..257K & Storey (unpublished).
-#         Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
-#         02/2003, Yong Zhang, scripts added to MOCASSIN.
-#         14/05/2013, A. Danehkar, Translated to IDL code.
-#         10/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_ne_ii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_ne_ii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    # neiiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
    h_planck = 6.62606957e-27 # erg s
    c_speed = 2.99792458e10 # cm/s 
@@ -3406,20 +3863,20 @@ def calc_emiss_ne_ii_rl(temperature=None, density=None,
    z = 3.0 # ion level c^3+
    # equation (1) in 1991A&A...251..680P
    temp4 = temperature / 10000.0
-   loc1 = np.where(abs(ne_ii_rc_data.wavelength - wavelength) <= 0.01)
+   loc1 = np.where(abs(ne_ii_rc_data['wavelength'] - wavelength) <= 0.01)
    loc1=np.asarray(loc1[0])
    temp2 = len(loc1)
    if temp2 != 1:
-      wavelength_min = np.amin(np.asarray(ne_ii_rc_data.wavelength)[loc1])
-      loc1 = np.where(ne_ii_rc_data.wavelength == wavelength_min)
+      wavelength_min = np.amin(ne_ii_rc_data['wavelength'][loc1])
+      loc1 = np.where(ne_ii_rc_data['wavelength'] == wavelength_min)
       loc1 = np.asarray(loc1[0])
-   lamb = np.float64(np.asarray(ne_ii_rc_data.wavelength)[loc1])
-   a = np.float64(np.asarray(ne_ii_rc_data.a)[loc1])
-   b = np.float64(np.asarray(ne_ii_rc_data.b)[loc1])
-   c = np.float64(np.asarray(ne_ii_rc_data.c)[loc1])
-   d = np.float64(np.asarray(ne_ii_rc_data.d)[loc1])
-   f = np.float64(np.asarray(ne_ii_rc_data.f)[loc1])
-   br = np.float64(np.asarray(ne_ii_rc_data.br)[loc1])
+   lamb = np.float64(ne_ii_rc_data['wavelength'][loc1])
+   a = np.float64(ne_ii_rc_data['a'][loc1])
+   b = np.float64(ne_ii_rc_data['b'][loc1])
+   c = np.float64(ne_ii_rc_data['c'][loc1])
+   d = np.float64(ne_ii_rc_data['d'][loc1])
+   f = np.float64(ne_ii_rc_data['f'][loc1])
+   br = np.float64(ne_ii_rc_data['br'][loc1])
    # equation (1) in 1991A&A...251..680P
    aeff = 1.0e-14 * (a * (temp4 ** f)) * br
    aeff = aeff * (1. + b * (1.0 - temp4) + c * (1.0 - temp4) ** 2 + d * (1.0 - temp4) ** 3)
@@ -3438,66 +3895,104 @@ def calc_abund_he_i_rl(temperature=None, density=None,
          by using the recombination coefficients from Porter et al.
          2012MNRAS.425L..28P.
 
+     :Returns:
+        type=double. This function returns the ionic abundanc.
+
+     :Keywords:
+         temperature    :    in, required, type=float
+                             electron temperature
+         density        :    in, required, type=float
+                             electron density
+         linenum        :    in, required, type=int
+                             Line Number for Wavelength
+
+                             Wavelength=4120.84:linenum=7,
+
+                             Wavelength=4387.93: linenum=8,
+
+                             Wavelength=4437.55: linenum=9,
+
+                             Wavelength=4471.50: linenum=10,
+
+                             Wavelength=4921.93: linenum=12,
+
+                             Wavelength=5015.68: linenum=13,
+
+                             Wavelength=5047.74: linenum=14,
+
+                             Wavelength=5875.66: linenum=15,
+
+                             Wavelength=6678.16: linenum=16,
+
+                             Wavelength=7065.25: linenum=17,
+
+                             Wavelength=7281.35: linenum=18.
+
+         line_flux      :    in, required, type=float
+                             line flux intensity
+         he_i_aeff_data :    in, required, type=array/object
+                             He I recombination coefficients
+         h_i_aeff_data  :    in, required, type=array/object
+                             H I recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_he_i_file= os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >> atom='h'
-         >> ion='ii' # H I
-         >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-         >> h_i_aeff_data=h_i_rc_data.aeff
-         >> atom='he'
-         >> ion='ii' # He I
-         >> he_i_rc_data=atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
-         >> he_i_aeff_data=he_i_rc_data.aeff
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> he_i_4471_flux= 2.104
-         >> linenum=10# 4471.50
-         >> abund_he_i=pyequib.calc_abund_he_i_rl(temperature=temperature, density=density,
-         >>                                  linenum=linenum, line_flux=he_i_4471_flux,
-         >>                                  he_i_aeff_data=he_i_aeff_data, h_i_aeff_data=h_i_aeff_data)
-         >> print('N(He^+)/N(H^+):', abund_he_i)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_he_i_file= os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>> atom='h'
+         >>> ion='ii' # H I
+         >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+         >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+         >>> atom='he'
+         >>> ion='ii' # He I
+         >>> he_i_rc_data=atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
+         >>> he_i_aeff_data=he_i_rc_data['aeff'][0]
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> he_i_4471_flux= 2.104
+         >>> linenum=10# 4471.50
+         >>> abund_he_i=pyequib.calc_abund_he_i_rl(temperature=temperature, density=density,
+         >>>                                  linenum=linenum, line_flux=he_i_4471_flux,
+         >>>                                  he_i_aeff_data=he_i_aeff_data, h_i_aeff_data=h_i_aeff_data)
+         >>> print('N(He^+)/N(H^+):', abund_he_i)
             N(He^+)/N(H^+):     0.040848393
-            
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Categories:
+       Abundance Analysis, Recombination Lines
 
-    :param density: electron density
-    :type density: float 
-    
-    :param linenum: Line Number for Wavelength: Wavelength=4120.84:linenum=7; Wavelength=4387.93: linenum=8; Wavelength=4437.55: linenum=9; Wavelength=4471.50: linenum=10; Wavelength=4921.93: linenum=12; Wavelength=5015.68: linenum=13; Wavelength=5047.74: linenum=14; Wavelength=5875.66: linenum=15; Wavelength=6678.16: linenum=16; Wavelength=7065.25: linenum=17; Wavelength=7281.35: linenum=18.
-    :type linenum: int
-      
-    :param line_flux: line flux intensity
-    :type line_flux: float
+     :Dirs:
+      ./
+          Main routines
 
-    :param he_i_aeff_data: He I recombination coefficients
-    :type he_i_aeff_data: array/object
-    
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-                             
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on improved He I emissivities in the case B
+         from Porter et al. 2012MNRAS.425L..28P
+
+         15/12/2013, A. Danehkar, IDL code written.
+
+         20/03/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_he_i_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_he_i_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-#     History:
-#         Based on improved He I emissivities in the case B
-#         from Porter et al. 2012MNRAS.425L..28P
-#         15/12/2013, A. Danehkar, IDL code written.
-#         20/03/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_he_i_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_he_i_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
-   
    if (temperature is not None) == 0:   
       print('Temperature is not set')
       return 0
@@ -3535,62 +4030,78 @@ def calc_abund_he_ii_rl(temperature=None, density=None,
          by using the helium emissivities from
          Storey & Hummer, 1995MNRAS.272...41S.
 
+     :Returns:
+        type=double. This function returns the ionic abundanc.
+
+     :Keywords:
+         temperature     :   in, required, type=float
+                             electron temperature
+         density         :   in, required, type=float
+                             electron density
+         line_flux       :   in, required, type=float
+                             line flux intensity
+         he_ii_aeff_data :   in, required, type=array/object
+                             He II recombination coefficients
+         h_i_aeff_data   :   in, required, type=array/object
+                             H I recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_he_i_file= os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >> atom='h'
-         >> ion='ii' # H I
-         >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-         >> h_i_aeff_data=h_i_rc_data.aeff
-         >> atom='he'
-         >> ion='iii' # He II
-         >> he_ii_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-         >> he_ii_aeff_data=he_ii_rc_data.aeff
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> he_ii_4686_flux = 135.833
-         >> abund_he_ii=pyequib.calc_abund_he_ii_rl(temperature=temperature, density=density,
-         >>                                 line_flux=he_ii_4686_flux,
-         >>                                 he_ii_aeff_data=he_ii_aeff_data, h_i_aeff_data=h_i_aeff_data)
-         >> print('N(He^2+)/N(H^+):', abund_he_ii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_he_i_file= os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>> atom='h'
+         >>> ion='ii' # H I
+         >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+         >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+         >>> atom='he'
+         >>> ion='iii' # He II
+         >>> he_ii_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+         >>> he_ii_aeff_data=he_ii_rc_data['aeff'][0]
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> he_ii_4686_flux = 135.833
+         >>> abund_he_ii=pyequib.calc_abund_he_ii_rl(temperature=temperature, density=density,
+         >>>                                 line_flux=he_ii_4686_flux,
+         >>>                                 he_ii_aeff_data=he_ii_aeff_data, h_i_aeff_data=h_i_aeff_data)
+         >>> print('N(He^2+)/N(H^+):', abund_he_ii)
             N(He^2+)/N(H^+):      0.11228817
-            
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Categories:
+       Abundance Analysis, Recombination Lines
 
-    :param density: electron density
-    :type density: float 
-      
-    :param line_flux: line flux intensity
-    :type line_flux: float
+     :Dirs:
+      ./
+          Main routines
 
-    :param he_ii_aeff_data: He II recombination coefficients
-    :type he_ii_aeff_data: array/object
-    
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-    
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on He II emissivities
+         from Storey & Hummer, 1995MNRAS.272...41S.
+
+         15/12/2013, A. Danehkar, IDL code written.
+
+         02/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_he_ii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_he_ii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on He II emissivities
-#         from Storey & Hummer, 1995MNRAS.272...41S.
-#         15/12/2013, A. Danehkar, IDL code written.
-#         02/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_he_ii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_he_ii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    if (temperature is not None) == 0:   
       print('Temperature is not set')
       return 0
@@ -3626,67 +4137,84 @@ def calc_abund_c_ii_rl(temperature=None, density=None,
         by using the recombination coefficients from
         from Davey et al. (2000) 2000A&AS..142...85D.
 
+    :Returns:
+       type=double. This function returns the ionic abundanc.
+
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        wavelength    :     in, required, type=float
+                            Line Wavelength in Angstrom
+        line_flux     :     in, required, type=float
+                            line flux intensity
+        c_ii_rc_data  :     in, required, type=array/object
+                            C II recombination coefficients
+        h_i_aeff_data :     in, required, type=array/object
+                            H I recombination coefficients
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >> atom='h'
-        >> ion='ii' # H I
-        >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> h_i_aeff_data=h_i_rc_data.aeff
-        >> atom='c'
-        >> ion='iii' # C II
-        >> c_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> c_ii_6151_flux = 0.028
-        >> wavelength=6151.43
-        >> abund_c_ii=pyequib.calc_abund_c_ii_rl(temperature=temperature, density=density,
-        >>                               wavelength=wavelength, line_flux=c_ii_6151_flux,
-        >>                               c_ii_rc_data=c_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
-        >> print('N(C^2+)/N(H+):', abund_c_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>> atom='h'
+        >>> ion='ii' # H I
+        >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+        >>> atom='c'
+        >>> ion='iii' # C II
+        >>> c_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> c_ii_6151_flux = 0.028
+        >>> wavelength=6151.43
+        >>> abund_c_ii=pyequib.calc_abund_c_ii_rl(temperature=temperature, density=density,
+        >>>                               wavelength=wavelength, line_flux=c_ii_6151_flux,
+        >>>                               c_ii_rc_data=c_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
+        >>> print('N(C^2+)/N(H+):', abund_c_ii)
            N(C^2+)/N(H+):    0.00063404650
 
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
+    :Categories:
+      Abundance Analysis, Recombination Lines
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Dirs:
+     ./
+         Main routines
 
-    :param density: electron density
-    :type density: float 
+    :Author:
+      Ashkbiz Danehkar
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float
-         
-    :param line_flux: line flux intensity
-    :type line_flux: float
+    :Copyright:
+      This library is released under a GNU General Public License.
 
-    :param c_ii_rc_data: C II recombination coefficients
-    :type c_ii_rc_data: array/object
-    
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
+    :Version:
+      0.3.0
 
+    :History:
+        Based on recombination coefficients for C II lines from
+        Davey et al. 2000A&AS..142...85D.
+
+        Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
+
+        02/2003, Yong Zhang, added to MOCASSIN.
+
+        10/05/2013, A. Danehkar, Translated to IDL code.
+
+        15/04/2017, A. Danehkar, Integration with AtomNeb.
+
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_c_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_c_ii_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python. 
    """
-   
-#    History:
-#        Based on recombination coefficients for C II lines from
-#        Davey et al. 2000A&AS..142...85D.
-#        Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
-#        02/2003, Yong Zhang, added to MOCASSIN.
-#        10/05/2013, A. Danehkar, Translated to IDL code.
-#        15/04/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_c_ii_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_c_ii_rl().
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python. 
-   
    # ciiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
    if (temperature is not None) == 0:   
       print('Temperature is not set')
@@ -3725,65 +4253,80 @@ def calc_abund_c_iii_rl(temperature=None, density=None,
          by using the recombination coefficients from
          Pequignot et al. 1991A&A...251..680P.
 
+     :Returns:
+        type=double. This function returns the ionic abundanc.
+
+     :Keywords:
+         temperature   :     in, required, type=float
+                             electron temperature
+         density       :     in, required, type=float
+                             electron density
+         wavelength    :     in, required, type=float
+                             Line Wavelength in Angstrom
+         line_flux     :     in, required, type=float
+                             line flux intensity
+         c_iii_rc_data :     in, required, type=array/object
+                             C III recombination coefficients
+         h_i_aeff_data :     in, required, type=array/object
+                             H I recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >> atom='h'
-         >> ion='ii' # H I
-         >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-         >> h_i_aeff_data=h_i_rc_data.aeff
-         >> atom='c'
-         >> ion='iv' # C III
-         >> c_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> c_iii_4647_flux = 0.107
-         >> wavelength=4647.42
-         >> abund_c_iii=pyequib.calc_abund_c_iii_rl(temperature=temperature, density=density,
-         >>                                 wavelength=wavelength, line_flux=c_iii_4647_flux,
-         >>                                 c_iii_rc_data=c_iii_rc_data, h_i_aeff_data=h_i_aeff_data)
-         >> print('N(C^3+)/N(H+):', abund_c_iii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>> atom='h'
+         >>> ion='ii' # H I
+         >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+         >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+         >>> atom='c'
+         >>> ion='iv' # C III
+         >>> c_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> c_iii_4647_flux = 0.107
+         >>> wavelength=4647.42
+         >>> abund_c_iii=pyequib.calc_abund_c_iii_rl(temperature=temperature, density=density,
+         >>>                                 wavelength=wavelength, line_flux=c_iii_4647_flux,
+         >>>                                 c_iii_rc_data=c_iii_rc_data, h_i_aeff_data=h_i_aeff_data)
+         >>> print('N(C^3+)/N(H+):', abund_c_iii)
             N(C^3+)/N(H+):    0.00017502840
 
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
+     :Categories:
+       Abundance Analysis, Recombination Lines
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Dirs:
+      ./
+          Main routines
 
-    :param density: electron density
-    :type density: float 
+     :Author:
+       Ashkbiz Danehkar
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float
-         
-    :param line_flux: line flux intensity
-    :type line_flux: float
+     :Copyright:
+       This library is released under a GNU General Public License.
 
-    :param c_iii_rc_data: C III recombination coefficients
-    :type c_iii_rc_data: array/object
-    
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-                             
+     :Version:
+       0.3.0
+
+     :History:
+         Based on effective radiative recombination coefficients for C III lines from
+         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
+
+         18/05/2013, A. Danehkar, Translated to IDL code.
+
+         06/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_c_iii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_c_iii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on effective radiative recombination coefficients for C III lines from
-#         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
-#         18/05/2013, A. Danehkar, Translated to IDL code.
-#         06/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_c_iii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_c_iii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    # ciiiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
    if (temperature is not None) == 0:   
       print('Temperature is not set')
@@ -3823,73 +4366,90 @@ def calc_abund_n_ii_rl(temperature=None, density=None,
         by using the recombination coefficients from
         Escalante & Victor 1990ApJS...73..513E.
 
+    :Returns:
+       type=double. This function returns the ionic abundanc.
+
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        wavelength    :     in, required, type=float
+                            Line Wavelength in Angstrom
+        line_flux     :     in, required, type=float
+                            line flux intensity
+        n_ii_rc_br    :     in, required, type=array/object
+                            N II branching ratios (Br)
+        n_ii_rc_data  :     in, required, type=array/object
+                            N II recombination coefficients
+        h_i_aeff_data :     in, required, type=array/object
+                            H I recombination coefficients
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >> atom='h'
-        >> ion='ii' # H I
-        >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> h_i_aeff_data=h_i_rc_data.aeff
-        >> atom='n'
-        >> ion='iii' # N II
-        >> n_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-        >> n_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> n_ii_4442_flux = 0.017
-        >> wavelength=4442.02
-        >> abund_n_ii=pyequib.calc_abund_n_ii_rl(temperature=temperature, density=density,
-        >>                               wavelength=wavelength, line_flux=n_ii_4442_flux,
-        >>                               n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
-        >>                               h_i_aeff_data=h_i_aeff_data)
-        >> print('N(N^2+)/N(H+):', abund_n_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>> atom='h'
+        >>> ion='ii' # H I
+        >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+        >>> atom='n'
+        >>> ion='iii' # N II
+        >>> n_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+        >>> n_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> n_ii_4442_flux = 0.017
+        >>> wavelength=4442.02
+        >>> abund_n_ii=pyequib.calc_abund_n_ii_rl(temperature=temperature, density=density,
+        >>>                               wavelength=wavelength, line_flux=n_ii_4442_flux,
+        >>>                               n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
+        >>>                               h_i_aeff_data=h_i_aeff_data)
+        >>> print('N(N^2+)/N(H+):', abund_n_ii)
            N(N^2+)/N(H+):   0.00069297541
-           
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Categories:
+      Abundance Analysis, Recombination Lines
 
-    :param density: electron density
-    :type density: float 
+    :Dirs:
+     ./
+         Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float
-         
-    :param line_flux: line flux intensity
-    :type line_flux: float
+    :Author:
+      Ashkbiz Danehkar
 
-    :param n_ii_rc_br: N II branching ratios (Br)
-    :type n_ii_rc_br: array/object
+    :Copyright:
+      This library is released under a GNU General Public License.
 
-    :param n_ii_rc_data: N II recombination coefficients
-    :type n_ii_rc_data: array/object
-       
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
-    
+    :Version:
+      0.3.0
+
+    :History:
+        Based on Effective recombination coefficients for N II lines from
+        Escalante & Victor 1990ApJS...73..513E.
+
+        Adopted from MIDAS Rnii script written by X.W.Liu.
+
+        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
+                          Ercolano et al. 2005MNRAS.362.1038E.
+
+        10/05/2013, A. Danehkar, Translated to IDL code.
+
+        25/04/2017, A. Danehkar, Integration with AtomNeb.
+
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_n_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_n_ii_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
 
-#    History:
-#        Based on Effective recombination coefficients for N II lines from
-#        Escalante & Victor 1990ApJS...73..513E.
-#        Adopted from MIDAS Rnii script written by X.W.Liu.
-#        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
-#                          Ercolano et al. 2005MNRAS.362.1038E.
-#        10/05/2013, A. Danehkar, Translated to IDL code.
-#        25/04/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_n_ii_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_n_ii_rl().
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
 #  niiRLstructure ={Wave:np.float64(0.0), #REAL*8
 #              Int:np.float64(0.0),
 #              Obs:np.float64(0.0),
@@ -3940,65 +4500,80 @@ def calc_abund_n_iii_rl(temperature=None, density=None,
          by using the recombination coefficients from
          Pequignot et al. 1991A&A...251..680P.
 
+     :Returns:
+        type=double. This function returns the ionic abundanc.
+
+     :Keywords:
+         temperature   :     in, required, type=float
+                             electron temperature
+         density       :     in, required, type=float
+                             electron density
+         wavelength    :     in, required, type=float
+                             Line Wavelength in Angstrom
+         line_flux     :     in, required, type=float
+                             line flux intensity
+         n_iii_rc_data  :     in, required, type=array/object
+                             N III recombination coefficients
+         h_i_aeff_data :     in, required, type=array/object
+                             H I recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >> atom='h'
-         >> ion='ii' # H I
-         >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-         >> h_i_aeff_data=h_i_rc_data.aeff
-         >> atom='n'
-         >> ion='iv' # N III
-         >> n_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> n_iii_4641_flux = 0.245
-         >> wavelength=4640.64
-         >> abund_n_iii=pyequib.calc_abund_n_iii_rl(temperature=temperature, density=density,
-         >>                                 wavelength=wavelength, line_flux=n_iii_4641_flux,
-         >>                                 n_iii_rc_data=n_iii_rc_data, h_i_aeff_data=h_i_aeff_data)
-         >> print('N(N^3+)/N(H+):', abund_n_iii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_ppb91_file=os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>> atom='h'
+         >>> ion='ii' # H I
+         >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+         >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+         >>> atom='n'
+         >>> ion='iv' # N III
+         >>> n_iii_rc_data=atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> n_iii_4641_flux = 0.245
+         >>> wavelength=4640.64
+         >>> abund_n_iii=pyequib.calc_abund_n_iii_rl(temperature=temperature, density=density,
+         >>>                                 wavelength=wavelength, line_flux=n_iii_4641_flux,
+         >>>                                 n_iii_rc_data=n_iii_rc_data, h_i_aeff_data=h_i_aeff_data)
+         >>> print('N(N^3+)/N(H+):', abund_n_iii)
             N(N^3+)/N(H+):    6.3366175e-05
 
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
+     :Categories:
+       Abundance Analysis, Recombination Lines
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Dirs:
+      ./
+          Main routines
 
-    :param density: electron density
-    :type density: float 
+     :Author:
+       Ashkbiz Danehkar
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float
-         
-    :param line_flux: line flux intensity
-    :type line_flux: float
+     :Copyright:
+       This library is released under a GNU General Public License.
 
-    :param n_iii_rc_data: N III recombination coefficients
-    :type n_iii_rc_data: array/object
-       
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
+     :Version:
+       0.3.0
 
+     :History:
+         Based on  effective radiative recombination coefficients for N III lines from
+         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
+
+         10/05/2013, A. Danehkar, IDL code written.
+
+         20/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_n_iii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_n_iii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on  effective radiative recombination coefficients for N III lines from
-#         Pequignot, Petitjean, Boisson, C. 1991A&A...251..680P.
-#         10/05/2013, A. Danehkar, IDL code written.
-#         20/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_n_iii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_n_iii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    # niiiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
 
    if (temperature is not None) == 0:   
@@ -4039,73 +4614,90 @@ def calc_abund_o_ii_rl(temperature=None, density=None,
         by using the recombination coefficients from
         Storey 1994A&A...282..999S and Liu et al. 1995MNRAS.272..369L.
 
+    :Returns:
+       type=double. This function returns the ionic abundanc.
+
+    :Keywords:
+        temperature   :     in, required, type=float
+                            electron temperature
+        density       :     in, required, type=float
+                            electron density
+        wavelength    :     in, required, type=float
+                            Line Wavelength in Angstrom
+        line_flux     :     in, required, type=float
+                            line flux intensity
+        o_ii_rc_br    :     in, required, type=array/object
+                            O II branching ratios (Br)
+        o_ii_rc_data  :     in, required, type=array/object
+                            O II recombination coefficients
+        h_i_aeff_data :     in, required, type=array/object
+                            H I recombination coefficients
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> import atomneb
-        >> import os
-        >> base_dir = '../externals/atomneb/'
-        >> data_rc_dir = os.path.join('atomic-data-rc')
-        >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-        >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-        >> atom='h'
-        >> ion='ii' # H I
-        >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-        >> h_i_aeff_data=h_i_rc_data.aeff
-        >> atom='o'
-        >> ion='iii' # O II
-        >> o_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-        >> o_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
-        >> temperature=np.float64(10000.0)
-        >> density=np.float64(5000.0)
-        >> o_ii_4614_flux = 0.009
-        >> wavelength=4613.68
-        >> abund_o_ii=pyequib.calc_abund_o_ii_rl(temperature=temperature, density=density,
-        >>                               wavelength=wavelength, line_flux=o_ii_4614_flux,
-        >>                               o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data,
-        >>                               h_i_aeff_data=h_i_aeff_data)
-        >> print('N(O^2+)/N(H+):', abund_o_ii)
+        >>> import pyequib
+        >>> import atomneb
+        >>> import os
+        >>> base_dir = '../externals/atomneb/'
+        >>> data_rc_dir = os.path.join('atomic-data-rc')
+        >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+        >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+        >>> atom='h'
+        >>> ion='ii' # H I
+        >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+        >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+        >>> atom='o'
+        >>> ion='iii' # O II
+        >>> o_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+        >>> o_ii_rc_data_br=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+        >>> temperature=np.float64(10000.0)
+        >>> density=np.float64(5000.0)
+        >>> o_ii_4614_flux = 0.009
+        >>> wavelength=4613.68
+        >>> abund_o_ii=pyequib.calc_abund_o_ii_rl(temperature=temperature, density=density,
+        >>>                               wavelength=wavelength, line_flux=o_ii_4614_flux,
+        >>>                               o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data,
+        >>>                               h_i_aeff_data=h_i_aeff_data)
+        >>> print('N(O^2+)/N(H+):', abund_o_ii)
            N(O^2+)/N(H+):    0.0018886330
-           
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+    :Categories:
+      Abundance Analysis, Recombination Lines
 
-    :param density: electron density
-    :type density: float 
+    :Dirs:
+     ./
+         Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float
-         
-    :param line_flux: line flux intensity
-    :type line_flux: float
+    :Author:
+      Ashkbiz Danehkar
 
-    :param o_ii_rc_br: O II branching ratios (Br)
-    :type o_ii_rc_br: array/object
+    :Copyright:
+      This library is released under a GNU General Public License.
 
-    :param o_ii_rc_data: O II recombination coefficients
-    :type o_ii_rc_data: array/object
-          
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
+    :Version:
+      0.3.0
 
+    :History:
+        Based on recombination coefficients for O II lines from
+        Storey 1994A&A...282..999S and Liu et al. 1995MNRAS.272..369L.
+
+        Adopted from MIDAS script Roii.prg written by X.W.Liu.
+
+        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
+                          Ercolano et al. 2005MNRAS.362.1038E.
+
+        10/05/2013, A. Danehkar, Translated to IDL code.
+
+        25/04/2017, A. Danehkar, Integration with AtomNeb.
+
+        10/07/2019, A. Danehkar, Made a new function calc_emiss_o_ii_rl()
+                         for calculating line emissivities and separated it
+                         from calc_abund_o_ii_rl().
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
 
-#    History:
-#        Based on recombination coefficients for O II lines from
-#        Storey 1994A&A...282..999S and Liu et al. 1995MNRAS.272..369L.
-#        Adopted from MIDAS script Roii.prg written by X.W.Liu.
-#        Revised based on scripts by Yong Zhang added to MOCASSIN, 02/2003
-#                          Ercolano et al. 2005MNRAS.362.1038E.
-#        10/05/2013, A. Danehkar, Translated to IDL code.
-#        25/04/2017, A. Danehkar, Integration with AtomNeb.
-#        10/07/2019, A. Danehkar, Made a new function calc_emiss_o_ii_rl()
-#                         for calculating line emissivities and separated it
-#                         from calc_abund_o_ii_rl().
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
 #  oiiRLstructure ={Wave:np.float64(0.0), #REAL*8
 #              Int:np.float64(0.0),
 #              Obs:np.float64(0.0),
@@ -4156,67 +4748,84 @@ def calc_abund_ne_ii_rl(temperature=None, density=None,
          by using the recombination coefficients from
          Kisielius et al. (1998) & Storey (unpublished).
 
+     :Returns:
+        type=double. This function returns the ionic abundanc.
+
+     :Keywords:
+         temperature   :     in, required, type=float
+                             electron temperature
+         density       :     in, required, type=float
+                             electron density
+         wavelength    :     in, required, type=float
+                             Line Wavelength in Angstrom
+         line_flux     :     in, required, type=float
+                             line flux intensity
+         ne_ii_rc_data  :    in, required, type=array/object
+                             Ne II recombination coefficients
+         h_i_aeff_data :     in, required, type=array/object
+                             H I recombination coefficients
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> import atomneb
-         >> import os
-         >> base_dir = '../externals/atomneb/'
-         >> data_rc_dir = os.path.join('atomic-data-rc')
-         >> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-         >> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
-         >> atom='h'
-         >> ion='ii' # H I
-         >> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
-         >> h_i_aeff_data=h_i_rc_data.aeff
-         >> atom='ne'
-         >> ion='iii' # Ne II
-         >> ne_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-         >> temperature=np.float64(10000.0)
-         >> density=np.float64(5000.0)
-         >> ne_ii_3777_flux = 0.056
-         >> wavelength=3777.14
-         >> abund_ne_ii=pyequib.calc_abund_ne_ii_rl(temperature=temperature, density=density,
-         >>                                 wavelength=wavelength, line_flux=ne_ii_3777_flux,
-         >>                                 ne_ii_rc_data=ne_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
-         >> print('N(Ne^2+)/N(H+):', abund_ne_ii)
+         >>> import pyequib
+         >>> import atomneb
+         >>> import os
+         >>> base_dir = '../externals/atomneb/'
+         >>> data_rc_dir = os.path.join('atomic-data-rc')
+         >>> atom_rc_all_file= os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+         >>> atom_rc_sh95_file= os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+         >>> atom='h'
+         >>> ion='ii' # H I
+         >>> h_i_rc_data=atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+         >>> h_i_aeff_data=h_i_rc_data['aeff'][0]
+         >>> atom='ne'
+         >>> ion='iii' # Ne II
+         >>> ne_ii_rc_data=atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+         >>> temperature=np.float64(10000.0)
+         >>> density=np.float64(5000.0)
+         >>> ne_ii_3777_flux = 0.056
+         >>> wavelength=3777.14
+         >>> abund_ne_ii=pyequib.calc_abund_ne_ii_rl(temperature=temperature, density=density,
+         >>>                                 wavelength=wavelength, line_flux=ne_ii_3777_flux,
+         >>>                                 ne_ii_rc_data=ne_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
+         >>> print('N(Ne^2+)/N(H+):', abund_ne_ii)
             N(Ne^2+)/N(H+):    0.00043376850
-            
-    :return: This function returns the ionic abundanc.
-    :rtype: float64
 
-    :param temperature: electron temperature
-    :type temperature: float     
+     :Categories:
+       Abundance Analysis, Recombination Lines
 
-    :param density: electron density
-    :type density: float 
+     :Dirs:
+      ./
+          Main routines
 
-    :param wavelength: Line Wavelength in Angstrom
-    :type wavelength: float
-         
-    :param line_flux: line flux intensity
-    :type line_flux: float
+     :Author:
+       Ashkbiz Danehkar
 
-    :param ne_ii_rc_data: Ne II recombination coefficients
-    :type ne_ii_rc_data: array/object
-          
-    :param h_i_aeff_data: H I recombination coefficients
-    :type h_i_aeff_data: array/object
+     :Copyright:
+       This library is released under a GNU General Public License.
 
+     :Version:
+       0.3.0
+
+     :History:
+         Based on effective radiative recombination coefficients for Ne II lines
+         from Kisielius et al. 1998A&AS..133..257K & Storey (unpublished).
+
+         Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
+
+         02/2003, Yong Zhang, scripts added to MOCASSIN.
+
+         14/05/2013, A. Danehkar, Translated to IDL code.
+
+         10/04/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Made a new function calc_emiss_ne_ii_rl()
+                          for calculating line emissivities and separated it
+                          from calc_abund_ne_ii_rl().
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#        History:
-#         Based on effective radiative recombination coefficients for Ne II lines
-#         from Kisielius et al. 1998A&AS..133..257K & Storey (unpublished).
-#         Adopted from MOCASSIN, Ercolano et al. 2005MNRAS.362.1038E.
-#         02/2003, Yong Zhang, scripts added to MOCASSIN.
-#         14/05/2013, A. Danehkar, Translated to IDL code.
-#         10/04/2017, A. Danehkar, Integration with AtomNeb.
-#         10/07/2019, A. Danehkar, Made a new function calc_emiss_ne_ii_rl()
-#                          for calculating line emissivities and separated it
-#                          from calc_abund_ne_ii_rl().
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-   
    # neiiRLstructure ={Wave:np.float64(0.0), Int:np.float64(0.0), Obs:np.float64(0.0), Abundance:np.float64(0.0)}
    if (temperature is not None) == 0:   
       print('Temperature is not set')
@@ -4251,37 +4860,82 @@ def redlaw(wavelength, ext_law=None, rv=None, fmlaw=None):
          This function determines the reddening law function of the line at the given wavelength
          for the used extinction law.
 
+     :Returns:
+        type=double/array. This function returns the reddening law function value for the given wavelength.
+
+     :Params:
+         wavelength :  in, required, type=float/array
+                       Wavelength in Angstrom
+
+     :Keywords:
+        ext_law  :  in, optional, type=string, default='GAL'
+                    the extinction law:
+
+                    'GAL' for Howarth Galactic.
+
+                    'GAL2' for Savage and Mathis.
+
+                    'CCM' for CCM galactic.
+
+                    'JBK' for Whitford, Seaton, Kaler.
+
+                    'FM' for Fitxpatrick.
+
+                    'SMC' for Prevot SMC.
+
+                    'LMC' for Howarth LMC.
+
+        rv       :  in, optional, type=float, default=3.1
+                    the optical total-to-selective extinction ratio, RV = A(V)/E(B-V).
+
+        fmlaw    :  in, optional, type=string, default='GAL'
+                    the fmlaw keyword is used only in the redlaw_fm function:
+
+                    'GAL' for  the default fit parameters for the R-dependent
+                               Galactic extinction curve from Fitzpatrick & Massa
+                               (Fitzpatrick, 1999, PASP, 111, 63).
+
+                    'LMC2' for the fit parameters are those determined for
+                                  reddening the LMC2 field (inc. 30 Dor)
+                                  from Misselt et al.  (1999, ApJ, 515, 128).
+
+                    'AVGLMC' for  the fit parameters are those determined for
+                                  reddening in the general Large Magellanic Cloud (LMC)
+                                  field by Misselt et al.  (1999, ApJ, 515, 128).
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> wavelength=6563.0
-         >> r_v=3.1
-         >> fl=pyequib.redlaw(wavelength, rv=r_v)
-         >> print('fl(6563)', fl)
+         >>> import pyequib
+         >>> wavelength=6563.0
+         >>> r_v=3.1
+         >>> fl=pyequib.redlaw(wavelength, rv=r_v)
+         >>> print('fl(6563)', fl)
             fl(6563)     -0.32013816
-            
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+     :Categories:
+       Interstellar Extinction
 
-    :param ext_law: the extinction law (default='GAL'): 'GAL' for Howarth Galactic; 'GAL2' for Savage and Mathis; 'CCM' for CCM galactic; 'JBK' for Whitford, Seaton, Kaler; 'FM' for Fitxpatrick; 'SMC' for Prevot SMC; 'LMC' for Howarth LMC.
-    :type ext_law: str, optional             
+     :Dirs:
+      ./
+          Main routines
 
-    :param rv: the optical total-to-selective extinction ratio, RV = A(V)/E(B-V), default=3.1
-    :type rv: float, optional    
+     :Author:
+       Ashkbiz Danehkar
 
-    :param fmlaw: the fmlaw keyword is used only in the redlaw_fm function (default='GAL'): 'GAL' for  the default fit parameters for the R-dependent Galactic extinction curve from Fitzpatrick & Massa (Fitzpatrick, 1999, PASP, 111, 63); 'LMC2' for the fit parameters are those determined for reddening the LMC2 field (inc. 30 Dor) from Misselt et al.  (1999, ApJ, 515, 128); 'AVGLMC' for  the fit parameters are those determined for reddening in the general Large Magellanic Cloud (LMC) field by Misselt et al.  (1999, ApJ, 515, 128).
-    :type fmlaw: str, optional    
+     :Copyright:
+       This library is released under a GNU General Public License.
 
+     :Version:
+       0.3.0
+
+     :History:
+         Originally from IRAF STSDAS SYNPHOT redlaw.x, ebmvxfunc.x
+
+         31/08/2012, A. Danehkar, Converted to IDL code.
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Originally from IRAF STSDAS SYNPHOT redlaw.x, ebmvxfunc.x
-#         31/08/2012, A. Danehkar, Converted to IDL code.
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    if (ext_law is not None):   
       extlaw = ext_law
    else:   
@@ -4311,35 +4965,55 @@ def redlaw_gal(wavelength, rv=None):
        This function determines the reddening law function of the line at the given wavelength
        for Galactic Seaton1979+Howarth1983+CCM1983.
 
+    :Returns:
+       type=double/array. This function returns the reddening law function value(s) for the given wavelength(s).
+
+    :Params:
+       wavelength :  in, required, type=float
+                      Wavelength in Angstrom
+
+    :Keywords:
+       rv       :  in, optional, type=float, default=3.1
+                   the optical total-to-selective extinction ratio, RV = A(V)/E(B-V).
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> wavelength=6563.0
-        >> r_v=3.1
-        >> fl=pyequib.redlaw_gal(wavelength, rv=r_v)
-        >> print('fl(6563)', fl)
+        >>> import pyequib
+        >>> wavelength=6563.0
+        >>> r_v=3.1
+        >>> fl=pyequib.redlaw_gal(wavelength, rv=r_v)
+        >>> print('fl(6563)', fl)
            fl(6563)     -0.32013816
-           
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+    :Categories:
+      Interstellar Extinction
 
-    :param rv: the optical total-to-selective extinction ratio, RV = A(V)/E(B-V), default=3.1
-    :type rv: float, optional    
+    :Dirs:
+     ./
+         Subroutines
 
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on the UV Formulae from Seaton 1979, MNRAS, 187, 73
+        1979MNRAS.187P..73S, the opt/NIR from Howarth 1983, MNRAS, 203, 301
+        the FIR from Cardelli, Clayton and Mathis 1989, ApJ, 345, 245
+        1989ApJ...345..245C
+
+        Originally from IRAF STSDAS SYNPHOT ebmvxfunc.x, pyneb.extinction
+
+        31/08/2012, A. Danehkar, Converted to IDL code.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#    History:
-#        Based on the UV Formulae from Seaton 1979, MNRAS, 187, 73
-#        1979MNRAS.187P..73S, the opt/NIR from Howarth 1983, MNRAS, 203, 301
-#        the FIR from Cardelli, Clayton and Mathis 1989, ApJ, 345, 245
-#        1989ApJ...345..245C
-#        Originally from IRAF STSDAS SYNPHOT ebmvxfunc.x, pyneb.extinction
-#        31/08/2012, A. Danehkar, Converted to IDL code.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
    # Tabulated inverse wavelengths in microns:
    xtable = np.array([0., 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
                       2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7])
@@ -4402,30 +5076,51 @@ def redlaw_gal2(wavelength):
        This function determines the reddening law function of the line at the given wavelength
        for Galactic Savage & Mathis 1979.
 
+    :Returns:
+       type=double/array. This function returns the reddening law function value(s) for the given wavelength(s).
+
+    :Params:
+        wavelength :  in, required, type=float
+                      Wavelength in Angstrom
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> wavelength=6563.0
-        >> fl=pyequib.redlaw_gal2(wavelength)
-        >> print('fl(6563)', fl)
+        >>> import pyequib
+        >>> wavelength=6563.0
+        >>> fl=pyequib.redlaw_gal2(wavelength)
+        >>> print('fl(6563)', fl)
            fl(6563)     -0.30925984
-           
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
-    
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
 
+    :Categories:
+      Interstellar Extinction
+
+    :Dirs:
+     ./
+        Subroutines
+
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on Savage & Mathis 1979, ARA&A, vol. 17, 73-111
+
+        Originally from IRAF STSDAS SYNPHOT ebmvxfunc.x
+
+        20/09/1994, R. A. Shaw, Initial IRAF implementation.
+
+        04/03/1995, R. A. Shaw, Return A(lambda)/A(V) instead.
+
+        31/08/2012, A. Danehkar, Converted to IDL code.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#    History:
-#        Based on Savage & Mathis 1979, ARA&A, vol. 17, 73-111
-#        Originally from IRAF STSDAS SYNPHOT ebmvxfunc.x
-#        20/09/1994, R. A. Shaw, Initial IRAF implementation.
-#        04/03/1995, R. A. Shaw, Return A(lambda)/A(V) instead.
-#        31/08/2012, A. Danehkar, Converted to IDL code.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
    # Tabulated inverse wavelengths in microns:
    xtable = np.array([0.00, 0.29, 0.45, 0.80, 1.11, 1.43, 1.82, 2.27, 2.50, 2.91, 3.65,
                       4.00, 4.17, 4.35, 4.57, 4.76, 5.00, 5.26, 5.56, 5.88, 6.25, 6.71,
@@ -4467,35 +5162,56 @@ def redlaw_ccm(wavelength, rv=None):
    """
         This function determines the reddening law function of Cardelli, Clayton & Mathis.
 
+     :Returns:
+        type=double/array. This function returns the reddening law function value for the given wavelength.
+
+     :Params:
+         wavelength :  in, required, type=float/array
+                       Wavelength in Angstrom
+
+     :Keywords:
+        RV       :  in, optional, type=float, default=3.1
+                    the optical total-to-selective extinction ratio, RV = A(V)/E(B-V).
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> wavelength=6563.0
-         >> r_v=3.1
-         >> fl=pyequib..redlaw_ccm(wavelength, rv=r_v)
-         >> print('fl(6563)', fl)
+         >>> import pyequib
+         >>> wavelength=6563.0
+         >>> r_v=3.1
+         >>> fl=pyequib..redlaw_ccm(wavelength, rv=r_v)
+         >>> print('fl(6563)', fl)
             fl(6563)     -0.29756615
-            
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+     :Categories:
+       Interstellar Extinction
 
-    :param rv: the optical total-to-selective extinction ratio, RV = A(V)/E(B-V), default=3.1
-    :type rv: float, optional    
+     :Dirs:
+      ./
+          Subroutines
 
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on Formulae by Cardelli, Clayton & Mathis 1989, ApJ 345, 245-256.
+         1989ApJ...345..245C
+
+         Originally from IRAF STSDAS SYNPHOT redlaw.x
+
+         18/05/1993, R. A. Shaw, Initial IRAF implementation, based upon CCM module
+             in onedspec.deredden.
+
+         31/08/2012, A. Danehkar, Converted to IDL code.
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on Formulae by Cardelli, Clayton & Mathis 1989, ApJ 345, 245-256.
-#         1989ApJ...345..245C
-#         Originally from IRAF STSDAS SYNPHOT redlaw.x
-#         18/05/1993, R. A. Shaw, Initial IRAF implementation, based upon CCM module
-#             in onedspec.deredden.
-#         31/08/2012, A. Danehkar, Converted to IDL code.
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    if hasattr(wavelength, "__len__"):
      npts = len(wavelength)
      extl = np.zeros(npts)
@@ -4567,30 +5283,50 @@ def redlaw_jbk(wavelength):
    """
        This function determines the reddening law function for Galactic Whitford1958 + Seaton1977 + Kaler1976.
 
+    :Returns:
+       type=double/array. This function returns the reddening law function value(s) for the given wavelength(s).
+
+    :Params:
+        wavelength :  in, required, type=float
+                      Wavelength in Angstrom
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> wavelength=6563.0
-        >> fl=pyequib.redlaw_jbk(wavelength)
-        >> print('fl(6563)', fl)
+        >>> import pyequib
+        >>> wavelength=6563.0
+        >>> fl=pyequib.redlaw_jbk(wavelength)
+        >>> print('fl(6563)', fl)
            fl(6563)     -0.33113684
-           
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+    :Categories:
+      Interstellar Extinction
 
+    :Dirs:
+     ./
+         Subroutines
+
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on Whitford (1958), extended to the UV by Seaton (1977),
+        adapted by Kaler (1976).
+
+        Originally from IRAF STSDAS SYNPHOT redlaw.x
+
+        13/05/1993, R. A. Shaw, Initial IRAF implementation.
+
+        31/08/2012, A. Danehkar, Converted to IDL code.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#    History:
-#        Based on Whitford (1958), extended to the UV by Seaton (1977),
-#        adapted by Kaler (1976).
-#        Originally from IRAF STSDAS SYNPHOT redlaw.x
-#        13/05/1993, R. A. Shaw, Initial IRAF implementation.
-#        31/08/2012, A. Danehkar, Converted to IDL code.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
    # Tabulated wavelengths, Angstroms:
    refw = np.array([1150., 1200., 1250., 1300., 1350., 1400., 1450., 1500., 1550.,
                     1600., 1650., 1700., 1750., 1800., 1850., 1900., 1950., 2000.,
@@ -4650,37 +5386,69 @@ def redlaw_fm(wavelength, rv=None, fmlaw=None):
         This function determines the reddening law function by Fitzpatrick & Massa
         for the line at the given wavelength.
 
+     :Returns:
+        type=double/array. This function returns the reddening law function value for the given wavelength.
+
+     :Params:
+         wavelength :  in, required, type=float/array
+                       Wavelength in Angstrom
+
+     :Keywords:
+        RV       :  in, optional, type=float, default=3.1
+                    the optical total-to-selective extinction ratio, RV = A(V)/E(B-V).
+
+        fmlaw    :  in, optional, type=string, default='GAL'
+                    the fmlaw keyword is used only in the redlaw_fm function:
+
+                    'GAL' for  the default fit parameters for the R-dependent
+                               Galactic extinction curve from Fitzpatrick & Massa
+                               (Fitzpatrick, 1999, PASP, 111, 63).
+
+                    'LMC2' for the fit parameters are those determined for
+                                  reddening the LMC2 field (inc. 30 Dor)
+                                  from Misselt et al.  (1999, ApJ, 515, 128).
+
+                    'AVGLMC' for  the fit parameters are those determined for
+                                  reddening in the general Large Magellanic Cloud (LMC)
+                                  field by Misselt et al.  (1999, ApJ, 515, 128).
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> wavelength=6563.0
-         >> r_v=3.1
-         >> fl=pyequib.redlaw_fm(wavelength, rv=r_v)
-         >> print('fl(6563)', fl)
+         >>> import pyequib
+         >>> wavelength=6563.0
+         >>> r_v=3.1
+         >>> fl=pyequib.redlaw_fm(wavelength, rv=r_v)
+         >>> print('fl(6563)', fl)
             fl(6563)     -0.35054942
-            
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+     :Categories:
+       Interstellar Extinction
 
-    :param rv: the optical total-to-selective extinction ratio, RV = A(V)/E(B-V), default=3.1
-    :type rv: float, optional 
-    
-    :param fmlaw: the fmlaw keyword is used only in the redlaw_fm function (default='GAL'): 'GAL' for  the default fit parameters for the R-dependent Galactic extinction curve from Fitzpatrick & Massa (Fitzpatrick, 1999, PASP, 111, 63); 'LMC2' for the fit parameters are those determined for reddening the LMC2 field (inc. 30 Dor) from Misselt et al.  (1999, ApJ, 515, 128); 'AVGLMC' for  the fit parameters are those determined for reddening in the general Large Magellanic Cloud (LMC) field by Misselt et al.  (1999, ApJ, 515, 128).
-    :type fmlaw: str, optional
+     :Dirs:
+      ./
+          Subroutines
 
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on Formulae by Fitzpatrick 1999, PASP, 11, 63
+         1999PASP..111...63F, Fitzpatrick & Massa 1990,
+         ApJS, 72, 163, 1990ApJS...72..163F
+
+         Adopted from NASA IDL Library & PyAstronomy.
+
+         30/12/2016, A. Danehkar, Revised in IDL code.
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         Based on Formulae by Fitzpatrick 1999, PASP, 11, 63
-#         1999PASP..111...63F, Fitzpatrick & Massa 1990,
-#         ApJS, 72, 163, 1990ApJS...72..163F
-#         Adopted from NASA IDL Library & PyAstronomy.
-#         30/12/2016, A. Danehkar, Revised in IDL code.
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    # Tabulated inverse wavelengths in microns:
    if hasattr(wavelength, "__len__"):
      npts = len(wavelength)
@@ -4783,31 +5551,52 @@ def redlaw_smc(wavelength):
        This function determines the reddening law function of the line at the given wavelength
        for Small Magellanic Cloud.
 
+    :Returns:
+       type=double/array. This function returns the reddening law function value(s) for the given wavelength(s).
+
+    :Params:
+        wavelength :  in, required, type=float
+                      Wavelength in Angstrom
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> wavelength=6563.0
-        >> fl=pyequib.redlaw_smc(wavelength)
-        >> print('fl(6563)', fl)
+        >>> import pyequib
+        >>> wavelength=6563.0
+        >>> fl=pyequib.redlaw_smc(wavelength)
+        >>> print('fl(6563)', fl)
            fl(6563)     -0.22659261
-           
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+    :Categories:
+      Interstellar Extinction
 
+    :Dirs:
+     ./
+         Subroutines
+
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on Prevot et al. (1984), A&A, 132, 389-392
+        1984A%26A...132..389P
+
+        Originally from IRAF STSDAS SYNPHOT redlaw.x, ebmvxfunc.x
+
+        20/09/1994, R. A. Shaw, Initial IRAF implementation.
+
+        04/03/1995, R. A. Shaw, Return A(lambda)/A(V) instead.
+
+        31/08/2012, A. Danehkar, Converted to IDL code.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#    History:
-#        Based on Prevot et al. (1984), A&A, 132, 389-392
-#        1984A%26A...132..389P
-#        Originally from IRAF STSDAS SYNPHOT redlaw.x, ebmvxfunc.x
-#        20/09/1994, R. A. Shaw, Initial IRAF implementation.
-#        04/03/1995, R. A. Shaw, Return A(lambda)/A(V) instead.
-#        31/08/2012, A. Danehkar, Converted to IDL code.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
    # Tabulated inverse wavelengths in microns:
    xtab = np.array([0.00, 0.29, 0.45, 0.80, 1.11, 1.43, 1.82, 2.35, 2.70, 3.22, 3.34,
                     3.46, 3.60, 3.75, 3.92, 4.09, 4.28, 4.50, 4.73, 5.00, 5.24, 5.38,
@@ -4851,31 +5640,52 @@ def redlaw_lmc(wavelength):
        This function determines the reddening law function of the line at the given wavelength
        for the Large Magellanic Cloud.
 
+    :Returns:
+       type=double/array. This function returns the reddening law function value(s) for the given wavelength(s).
+
+    :Params:
+        wavelength :  in, required, type=float
+                      Wavelength in Angstrom
+
+    :Examples:
        For example::
 
-        >> import pyequib
-        >> wavelength=6563.0
-        >> fl=pyequib.redlaw_lmc(wavelength)
-        >> print('fl(6563)', fl)
+        >>> import pyequib
+        >>> wavelength=6563.0
+        >>> fl=pyequib.redlaw_lmc(wavelength)
+        >>> print('fl(6563)', fl)
            fl(6563)     -0.30871187
-           
-    :return: This function returns the reddening law function value(s) for the given wavelength(s).
-    :rtype: float64/array
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+    :Categories:
+      Interstellar Extinction
 
+    :Dirs:
+     ./
+         Subroutines
+
+    :Author:
+      Ashkbiz Danehkar
+
+    :Copyright:
+      This library is released under a GNU General Public License.
+
+    :Version:
+      0.3.0
+
+    :History:
+        Based on Formulae by Howarth 1983, MNRAS, 203, 301
+        1983MNRAS.203..301H
+
+        Originally from IRAF STSDAS SYNPHOT ebmvlfunc.x, redlaw.x
+
+        18/10/1994, R. A. Shaw, Initial IRAF implementation.
+
+        14/03/1995, R. A. Shaw, Return A(lambda)/A(V) instead.
+
+        31/08/2012, A. Danehkar, Converted to IDL code.
+
+        03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#    History:
-#        Based on Formulae by Howarth 1983, MNRAS, 203, 301
-#        1983MNRAS.203..301H
-#        Originally from IRAF STSDAS SYNPHOT ebmvlfunc.x, redlaw.x
-#        18/10/1994, R. A. Shaw, Initial IRAF implementation.
-#        14/03/1995, R. A. Shaw, Return A(lambda)/A(V) instead.
-#        31/08/2012, A. Danehkar, Converted to IDL code.
-#        03/10/2020, A. Danehkar, Transferred from IDL to Python.
-        
    # Tabulated inverse wavelengths in microns:
    xtab = np.array([0.00, 0.29, 0.45, 0.80, 1.11, 1.43, 1.82])
    
@@ -4926,48 +5736,87 @@ def deredden_flux(wavelength, flux, m_ext, ext_law=None, rv=None, fmlaw=None):
    """
          This function dereddens absolute flux intensity based on the reddening law.
 
+     :Returns:
+        type=double. This function returns the deredden flux intensity.
+
+     :Params:
+         wavelength :  in, required, type=float/array
+                       Wavelength in Angstrom
+         flux       :  in, required, type=float,
+                       absolute flux intensity
+         m_ext      :  in, required, type=float,
+                       logarithmic extinction
+
+     :Keywords:
+        ext_law  :  in, optional, type=string, default='GAL'
+                    the extinction law:
+
+                    'GAL' for Howarth Galactic.
+
+                    'GAL2' for Savage and Mathis.
+
+                    'CCM' for CCM galactic.
+
+                    'JBK' for Whitford, Seaton, Kaler.
+
+                    'FM' for Fitxpatrick.
+
+                    'SMC' for Prevot SMC.
+
+                    'LMC' for Howarth LMC.
+
+        rv       :  in, optional, type=float, default=3.1
+                    the optical total-to-selective extinction ratio, RV = A(V)/E(B-V).
+
+        fmlaw    :  in, optional, type=string, default='GAL'
+                    the fmlaw keyword is used only in the redlaw_fm function:
+
+                    'GAL' for  the default fit parameters for the R-dependent
+                               Galactic extinction curve from Fitzpatrick & Massa
+                               (Fitzpatrick, 1999, PASP, 111, 63).
+
+                    'LMC2' for the fit parameters are those determined for
+                                  reddening the LMC2 field (inc. 30 Dor)
+                                  from Misselt et al.  (1999, ApJ, 515, 128).
+
+                    'AVGLMC' for  the fit parameters are those determined for
+                                  reddening in the general Large Magellanic Cloud (LMC)
+                                  field by Misselt et al.  (1999, ApJ, 515, 128).
+
     :Examples:
        For example::
 
-         >> import pyequib
-         >> wavelength=6563.0
-         >> ext_law='GAL'
-         >> r_v=3.1
-         >> m_ext=1.0
-         >> flux=1.0
-         >> flux_deredden=pyequib.deredden_flux(wavelength, flux, m_ext, 
-                                                ext_law=ext_law, rv=r_v) 
-                                                # deredden absolute flux intensity
-         >> print('dereddened flux(6563):', flux_deredden)
+         >>> import pyequib
+         >>> wavelength=6563.0
+         >>> ext_law='GAL'
+         >>> r_v=3.1
+         >>> m_ext=1.0
+         >>> flux=1.0
+         >>> flux_deredden=pyequib.deredden_flux(wavelength, flux, m_ext, ext_law=ext_law, rv=r_v) # deredden absolute flux intensity
+         >>> print('dereddened flux(6563):', flux_deredden)
             dereddened flux(6563):       4.7847785
-            
-    :return: This function returns the deredden flux intensity.
-    :rtype: float64
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+     :Categories:
+       Interstellar Extinction
 
-    :param flux: absolute flux intensity
-    :type flux: float
- 
-    :param m_ext: logarithmic extinction
-    :type m_ext: float
-       
-    :param ext_law: the extinction law (default='GAL'): 'GAL' for Howarth Galactic; 'GAL2' for Savage and Mathis; 'CCM' for CCM galactic; 'JBK' for Whitford, Seaton, Kaler; 'FM' for Fitxpatrick; 'SMC' for Prevot SMC; 'LMC' for Howarth LMC.
-    :type ext_law: str, optional             
+     :Dirs:
+      ./
+          Main routines
 
-    :param rv: the optical total-to-selective extinction ratio, RV = A(V)/E(B-V), default=3.1
-    :type rv: float, optional    
+     :Author:
+       Ashkbiz Danehkar
 
-    :param fmlaw: the fmlaw keyword is used only in the redlaw_fm function (default='GAL'): 'GAL' for  the default fit parameters for the R-dependent Galactic extinction curve from Fitzpatrick & Massa (Fitzpatrick, 1999, PASP, 111, 63); 'LMC2' for the fit parameters are those determined for reddening the LMC2 field (inc. 30 Dor) from Misselt et al.  (1999, ApJ, 515, 128); 'AVGLMC' for  the fit parameters are those determined for reddening in the general Large Magellanic Cloud (LMC) field by Misselt et al.  (1999, ApJ, 515, 128).
-    :type fmlaw: str, optional 
+     :Copyright:
+       This library is released under a GNU General Public License.
 
+     :Version:
+       0.3.0
+
+     :History:
+         31/08/2012, A. Danehkar, IDL code.
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         31/08/2012, A. Danehkar, IDL code.
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-
    if (ext_law is not None):   
       extlaw = ext_law
    else:   
@@ -4988,45 +5837,87 @@ def deredden_relflux(wavelength, relflux, m_ext, ext_law=None, rv=None, fmlaw=No
    """
          This function dereddens flux intensity relative to Hb=100,  based on the reddening law.
 
+     :Returns:
+        type=double. This function returns the deredden flux intensity relative to Hb=100.
+
+     :Params:
+         wavelength :  in, required, type=float/array
+                       Wavelength in Angstrom
+         relflux       :  in, required, type=float,
+                       flux intensity relative to Hb=100
+         m_ext      :  in, required, type=float,
+                       logarithmic extinction
+
+     :Keywords:
+        ext_law  :  in, optional, type=string, default='GAL'
+                    the extinction law:
+
+                    'GAL' for Howarth Galactic.
+
+                    'GAL2' for Savage and Mathis.
+
+                    'CCM' for CCM galactic.
+
+                    'JBK' for Whitford, Seaton, Kaler.
+
+                    'FM' for Fitxpatrick.
+
+                    'SMC' for Prevot SMC.
+
+                    'LMC' for Howarth LMC.
+
+        rv       :  in, optional, type=float, default=3.1
+                    the optical total-to-selective extinction ratio, RV = A(V)/E(B-V).
+
+        fmlaw    :  in, optional, type=string, default='GAL'
+                    the fmlaw keyword is used only in the redlaw_fm function:
+
+                    'GAL' for  the default fit parameters for the R-dependent
+                               Galactic extinction curve from Fitzpatrick & Massa
+                               (Fitzpatrick, 1999, PASP, 111, 63).
+
+                    'LMC2' for the fit parameters are those determined for
+                                  reddening the LMC2 field (inc. 30 Dor)
+                                  from Misselt et al.  (1999, ApJ, 515, 128).
+
+                    'AVGLMC' for  the fit parameters are those determined for
+                                  reddening in the general Large Magellanic Cloud (LMC)
+                                  field by Misselt et al.  (1999, ApJ, 515, 128).
+
+    :Examples:
        For example::
 
-         >> import pyequib
-         >> wavelength=6563.0
-         >> ext_law='GAL'
-         >> r_v=3.1
-         >> m_ext=1.0
-         >> flux=1.0
-         >> flux_deredden=pyequib.deredden_relflux(wavelength, flux, m_ext, ext_law=ext_law, rv=r_v) # deredden absolute flux intensity
-         >> print('dereddened relative flux(6563):', flux_deredden)
+         >>> import pyequib
+         >>> wavelength=6563.0
+         >>> ext_law='GAL'
+         >>> r_v=3.1
+         >>> m_ext=1.0
+         >>> flux=1.0
+         >>> flux_deredden=pyequib.deredden_relflux(wavelength, flux, m_ext, ext_law=ext_law, rv=r_v) # deredden absolute flux intensity
+         >>> print('dereddened relative flux(6563):', flux_deredden)
             dereddened relative flux(6563):       0.47847785
-            
-    :return: This function returns the deredden flux intensity relative to Hb=100.
-    :rtype: float64
 
-    :param wavelength: Wavelength in Angstrom
-    :type wavelength: float/array
+     :Categories:
+       Interstellar Extinction
 
-    :param relflux: flux intensity relative to Hb=100
-    :type relflux: float
- 
-    :param m_ext: logarithmic extinction
-    :type m_ext: float
-       
-    :param ext_law: the extinction law (default='GAL'): 'GAL' for Howarth Galactic; 'GAL2' for Savage and Mathis; 'CCM' for CCM galactic; 'JBK' for Whitford, Seaton, Kaler; 'FM' for Fitxpatrick; 'SMC' for Prevot SMC; 'LMC' for Howarth LMC.
-    :type ext_law: str, optional             
+     :Dirs:
+      ./
+          Main routines
 
-    :param rv: the optical total-to-selective extinction ratio, RV = A(V)/E(B-V), default=3.1
-    :type rv: float, optional    
+     :Author:
+       Ashkbiz Danehkar
 
-    :param fmlaw: the fmlaw keyword is used only in the redlaw_fm function (default='GAL'): 'GAL' for  the default fit parameters for the R-dependent Galactic extinction curve from Fitzpatrick & Massa (Fitzpatrick, 1999, PASP, 111, 63); 'LMC2' for the fit parameters are those determined for reddening the LMC2 field (inc. 30 Dor) from Misselt et al.  (1999, ApJ, 515, 128); 'AVGLMC' for  the fit parameters are those determined for reddening in the general Large Magellanic Cloud (LMC) field by Misselt et al.  (1999, ApJ, 515, 128).
-    :type fmlaw: str, optional
+     :Copyright:
+       This library is released under a GNU General Public License.
 
+     :Version:
+       0.3.0
+
+     :History:
+         31/08/2012, A. Danehkar, IDL code.
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
    """
-   
-#     History:
-#         31/08/2012, A. Danehkar, IDL code.
-#         03/10/2020, A. Danehkar, Transferred from IDL to Python.
-         
    if (ext_law is not None):   
       extlaw = ext_law
    else:   
@@ -5044,21 +5935,24 @@ def deredden_relflux(wavelength, relflux, m_ext, ext_law=None, rv=None, fmlaw=No
    return int_dered
 
 def lin_interp(vv, xx, xout):
-#          This function perfoms a linear interpolation/extrapolaton.
-#
-#      :Returns:
-#         type=double. This function returns the interpolated/extrapolated value.
-#
-#      :Params:
-#          vv  :  in, required, type=float
-#                        VV array to interpolate
-#
-#          xx  :  in, required, type=float
-#                        X array that correspond to x(0), x(1), ...
-#
-#          xout :  in, required, type=float
-#                        X values at which vv should be interpolated
+   """
+          This function perfoms a linear interpolation/extrapolaton.
 
+      :Private:
+
+      :Returns:
+         type=double. This function returns the interpolated/extrapolated value.
+
+      :Params:
+          vv  :  in, required, type=float
+                        VV array to interpolate
+
+          xx  :  in, required, type=float
+                        X array that correspond to x(0), x(1), ...
+
+          xout :  in, required, type=float
+                        X values at which vv should be interpolated
+   """
    # Make a copy so we don't overwrite the input arguments.
    v = vv
    x = xx
@@ -5068,22 +5962,25 @@ def lin_interp(vv, xx, xout):
    
    return vout
 
-def lin_interp_v2(vv, xx, xout):  
-#         This function perfoms a linear interpolation/extrapolaton.
-#
-#     :Returns:
-#        type=double. This function returns the interpolated/extrapolated value.
-#
-#     :Params:
-#         vv  :  in, required, type=float
-#                       VV array to interpolate
-#
-#         xx  :  in, required, type=float
-#                       X array that correspond to x(0), x(1), ...
-#
-#         xout :  in, required, type=float
-#                       X values at which vv should be interpolated
-  
+def lin_interp_v2(vv, xx, xout):
+    """
+         This function perfoms a linear interpolation/extrapolaton.
+
+     :Private:
+
+     :Returns:
+        type=double. This function returns the interpolated/extrapolated value.
+
+     :Params:
+         vv  :  in, required, type=float
+                       VV array to interpolate
+
+         xx  :  in, required, type=float
+                       X array that correspond to x(0), x(1), ...
+
+         xout :  in, required, type=float
+                       X values at which vv should be interpolated
+    """
     v = vv
     x = xx
     m = len(v) ## of input pnts
@@ -5104,20 +6001,22 @@ def lin_interp_v2(vv, xx, xout):
     p = (xout - x[s]) * diff / (x[s + 1] - x[s]) + v[s]
     return p
 
-def check_sign(a, b): 
-#    NAME:
-#        equib_sign
-#    PURPOSE:
-#
-#    EXPLANATION:
-#
-#    CALLING SEQUENCE:
-#        ret= equib_sign(A, B)
-#
-#    INPUTS:
-#        A -     A parameter
-#        B -     B parameter
-#    RETURN:  value
+def check_sign(a, b):
+    """
+    NAME:
+        equib_sign
+    PURPOSE:
+
+    EXPLANATION:
+
+    CALLING SEQUENCE:
+        ret= equib_sign(A, B)
+
+    INPUTS:
+        A -     A parameter
+        B -     B parameter
+    RETURN:  value
+    """
     if b < 0:
         return -abs(a)
     else:
@@ -5125,7 +6024,7 @@ def check_sign(a, b):
 
 
 def do_str2int(str1):
-# Converts the list of string of miles into a list of integers of miles
+    """Converts the list of string of miles into a list of integers of miles"""
     try:
         integer = np.int32(str1)
         return integer
