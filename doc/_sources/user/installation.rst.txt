@@ -1,24 +1,17 @@
 Installation
 ============
 
-To install the last version, all you should need to do is
+To install the last version, all you should need to do is::
 
-.. code-block::
+        python setup.py install
 
-    $ python setup.py install
+To install the stable version, you can use the preferred installer program (pip)::
 
-To install the stable version, you can use the preferred installer program (pip):
+        pip install pyequib
 
-.. code-block::
+or you can install it from the cross-platform package manager *conda*::
 
-    $ pip install pyequib
-
-or you can install it from the cross-platform package manager *conda*:
-
-.. code-block::
-
-    $ conda install -c conda-forge pyequib
-
+        conda install -c conda-forge pyequib
 
 To get this package with the AtomNeb FITS files, you can simply use ``git`` command as follows::
 

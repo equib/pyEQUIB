@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; pyEQUIB 0.3.0 documentation</title>
+  <title>Usage &mdash; pyEQUIB 0.4.2 documentation</title>
   
 
   
@@ -261,7 +261,7 @@
 <span class="n">abb5007</span> <span class="o">=</span> <span class="n">pyequib</span><span class="o">.</span><span class="n">calc_abundance</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span>
                                  <span class="n">line_flux</span><span class="o">=</span><span class="n">iobs5007</span><span class="p">,</span> <span class="n">atomic_levels</span><span class="o">=</span><span class="n">levels5007</span><span class="p">,</span>
                                  <span class="n">elj_data</span><span class="o">=</span><span class="n">o_iii_elj</span><span class="p">,</span> <span class="n">omij_data</span><span class="o">=</span><span class="n">o_iii_omij</span><span class="p">,</span> <span class="n">aij_data</span><span class="o">=</span><span class="n">o_iii_aij</span><span class="p">,</span>
-                                 <span class="n">h_i_aeff_data</span><span class="o">=</span><span class="n">hi_rc_data</span><span class="o">.</span><span class="n">aeff</span><span class="p">)</span>
+                                 <span class="n">h_i_aeff_data</span><span class="o">=</span><span class="n">hi_rc_data</span><span class="p">[</span><span class="s1">&#39;aeff&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;N(O^2+)/N(H+):&#39;</span><span class="p">,</span> <span class="n">abb5007</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -387,7 +387,7 @@
 <span class="n">density</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mf">5000.0</span><span class="p">)</span>
 <span class="n">pyequib</span><span class="o">.</span><span class="n">print_ionic</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span>
             <span class="n">elj_data</span><span class="o">=</span><span class="n">o_iii_elj</span><span class="p">,</span> <span class="n">omij_data</span><span class="o">=</span><span class="n">o_iii_omij</span><span class="p">,</span> <span class="n">aij_data</span><span class="o">=</span><span class="n">o_iii_aij</span><span class="p">,</span>
-            <span class="n">h_i_aeff_data</span><span class="o">=</span><span class="n">hi_rc_data</span><span class="o">.</span><span class="n">aeff</span><span class="p">)</span>
+            <span class="n">h_i_aeff_data</span><span class="o">=</span><span class="n">hi_rc_data</span><span class="p">[</span><span class="s1">&#39;aeff&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>which gives:</p>
@@ -873,7 +873,7 @@
 <span class="n">wavelength</span><span class="o">=</span><span class="mf">3777.14</span>
 <span class="n">emiss_ne_ii</span> <span class="o">=</span> <span class="n">pyequib</span><span class="o">.</span><span class="n">calc_emiss_ne_ii_rl</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span>
                                   <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">ne_ii_rc_data</span><span class="o">=</span><span class="n">ne_ii_rc_data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ne II Emissivity:&#39;</span><span class="p">,</span> <span class="n">emiss_ne_ii</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ne II Emissivity:&#39;</span><span class="p">,</span> <span class="n">emiss_ne_ii</span>
 </pre></div>
 </div>
 <p>which gives:</p>
