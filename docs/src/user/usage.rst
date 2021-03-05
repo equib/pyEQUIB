@@ -102,7 +102,7 @@ Collisional Excitation Unit
         abb5007 = pyequib.calc_abundance(temperature=temperature, density=density, 
                                          line_flux=iobs5007, atomic_levels=levels5007,
                                          elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij, 
-                                         h_i_aeff_data=hi_rc_data.aeff)
+                                         h_i_aeff_data=hi_rc_data['aeff'][0])
         print('N(O^2+)/N(H+):', abb5007)
 
       which gives::
@@ -225,7 +225,7 @@ Collisional Excitation Unit
         density=np.float64(5000.0)
         pyequib.print_ionic(temperature=temperature, density=density,
                     elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij,
-                    h_i_aeff_data=hi_rc_data.aeff)
+                    h_i_aeff_data=hi_rc_data['aeff'][0])
 
       which gives::
       
@@ -694,7 +694,7 @@ Recombination Unit
         wavelength=3777.14
         emiss_ne_ii = pyequib.calc_emiss_ne_ii_rl(temperature=temperature, density=density,
                                           wavelength=wavelength, ne_ii_rc_data=ne_ii_rc_data)
-        print('Ne II Emissivity:', emiss_ne_ii)
+        print('Ne II Emissivity:', emiss_ne_ii
 
       which gives::
       
