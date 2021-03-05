@@ -36,10 +36,15 @@
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/pyequib/"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/pyequib.svg?style=flat" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/equib/pyEQUIB"><img alt="Build Status" src="https://travis-ci.org/equib/pyEQUIB.svg?branch=master" /></a>
 <a class="reference external image-reference" href="https://ci.appveyor.com/project/danehkar/pyequib"><img alt="Build Status" src="https://ci.appveyor.com/api/projects/status/b3gw6vgf8s0vu8nv?svg=true" /></a>
-<a class="reference external image-reference" href="https://coveralls.io/github/equib/pyEQUIB?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?" /></a>
+<a class="reference external image-reference" href="https://coveralls.io/github/equib/pyEQUIB?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/equib/pyEQUIB/badge.svg?branch=master" /></a>
 <a class="reference external image-reference" href="https://github.com/equib/pyEQUIB/blob/master/LICENSE"><object data="https://img.shields.io/badge/license-GPL-blue.svg" type="image/svg+xml">GitHub license</object></a>
+<a class="reference external image-reference" href="https://anaconda.org/conda-forge/pyequib"><object data="https://img.shields.io/conda/vn/conda-forge/pyequib.svg" type="image/svg+xml">Anaconda Cloud</object></a>
+<a class="reference external image-reference" href="https://pyequib.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/pyequib/badge/?version=latest" /></a>
 <object data="https://img.shields.io/badge/python-2.7%2C%203.8-blue.svg" type="image/svg+xml">
 Support Python versions 2.7 and 3.8</object>
+<a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4287576"><img alt="Zenodo" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4287576.svg"></a>
+<a class="reference external image-reference" href="https://doi.org/10.21105/joss.02798"><img alt="JOSS" src="http://joss.theoj.org/papers/10.21105/joss.02798/status.svg"></a>
+
 <div class="section" id="description">
 <h2>Description</h2>
 <p>The <strong>pyEQUIB</strong> library is a collection of <a class="reference external" href="https://www.python.org/">Python</a> programs developed to perform plasma diagnostics and abundance analysis using emission line fluxes measured in ionzed nebulae. It uses the <a class="reference external" href="https://github.com/atomneb/AtomNeb-py">AtomNeb Python Package</a> to read collision strengths and transition probabilities for collisionally excited lines (CEL), and recombination coefficients for recombination lines (RL). This Python package can be used to determine interstellar extinctions, electron temperatures, electron densities, and ionic abundances from the measured fluxes of emission lines. It mainly contains the follwing API functions written purely in Python:</p>
@@ -77,6 +82,10 @@ $ python setup.py install
 <p>To install the stable version, you can use the preferred installer program (pip):</p>
 <pre class="code literal-block">
 $ pip install pyequib
+</pre>
+<p>or you can install it from the cross-platform package manager <em>conda</em>:</p>
+<pre class="code literal-block">
+$ conda install -c conda-forge pyequib
 </pre>
 </div>
 </div>
@@ -179,7 +188,7 @@ iobs5007=np.float64(1200.0)
 abb5007 = pyequib.calc_abundance(temperature=temperature, density=density,
                                  line_flux=iobs5007, atomic_levels=levels5007,
                                  elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij,
-                                 h_i_aeff_data=hi_rc_data.aeff)
+                                 h_i_aeff_data=hi_rc_data['aeff'][0])
 print('N(O^2+)/N(H+):', abb5007)
 </pre>
 <p>which gives:</p>
@@ -305,7 +314,7 @@ temperature=np.float64(10000.0)
 density=np.float64(5000.0)
 pyequib.print_ionic(temperature=temperature, density=density,
             elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij,
-            h_i_aeff_data=hi_rc_data.aeff)
+            h_i_aeff_data=hi_rc_data['aeff'][0])
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -947,8 +956,68 @@ dereddened flux(6563)      0.47847785
 <div class="section" id="references">
 <h2>References</h2>
 <ul class="simple">
-<li>Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>3</strong>, 899. doi:<a class="reference external" href="https://doi.org/10.21105/joss.00899">10.21105/joss.00899</a>  ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D">2018JOSS....3..899D</a>.</li>
+<li>Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>5</strong>, 2798. doi:<a class="reference external" href="https://doi.org/10.21105/joss.02798">10.21105/joss.02798</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2020JOSS....5.2798D">2020JOSS....5.2798D</a>.</li>
+<li>Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>3</strong>, 899. doi:<a class="reference external" href="https://doi.org/10.21105/joss.00899">10.21105/joss.00899</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D">2018JOSS....3..899D</a>.</li>
 </ul>
+</div>
+<div class="section" id="citation">
+<h2>Citation</h2>
+<p>Using <strong>pyEQUIB</strong> in a scholarly publication? Please cite thess papers:</p>
+<pre class="code bibtex literal-block">
+<span class="name class">&#64;article</span><span class="punctuation">{</span><span class="name label">Danehkar2020</span><span class="punctuation">,</span>
+  <span class="name attribute">author</span> <span class="punctuation">=</span> <span class="literal string">{{Danehkar}, Ashkbiz}</span><span class="punctuation">,</span>
+  <span class="name attribute">title</span> <span class="punctuation">=</span> <span class="literal string">{pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis}</span><span class="punctuation">,</span>
+  <span class="name attribute">journal</span> <span class="punctuation">=</span> <span class="literal string">{Journal of Open Source Software}</span><span class="punctuation">,</span>
+  <span class="name attribute">volume</span> <span class="punctuation">=</span> <span class="literal string">{5}</span><span class="punctuation">,</span>
+  <span class="name attribute">number</span> <span class="punctuation">=</span> <span class="literal string">{55}</span><span class="punctuation">,</span>
+  <span class="name attribute">pages</span> <span class="punctuation">=</span> <span class="literal string">{2798}</span><span class="punctuation">,</span>
+  <span class="name attribute">year</span> <span class="punctuation">=</span> <span class="literal string">{2020}</span><span class="punctuation">,</span>
+  <span class="name attribute">doi</span> <span class="punctuation">=</span> <span class="literal string">{10.21105/joss.02798}</span>
+<span class="punctuation">}</span>
+
+<span class="name class">&#64;article</span><span class="punctuation">{</span><span class="name label">Danehkar2018</span><span class="punctuation">,</span>
+  <span class="name attribute">author</span> <span class="punctuation">=</span> <span class="literal string">{{Danehkar}, Ashkbiz}</span><span class="punctuation">,</span>
+  <span class="name attribute">title</span> <span class="punctuation">=</span> <span class="literal string">{proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis}</span><span class="punctuation">,</span>
+  <span class="name attribute">journal</span> <span class="punctuation">=</span> <span class="literal string">{Journal of Open Source Software}</span><span class="punctuation">,</span>
+  <span class="name attribute">volume</span> <span class="punctuation">=</span> <span class="literal string">{3}</span><span class="punctuation">,</span>
+  <span class="name attribute">number</span> <span class="punctuation">=</span> <span class="literal string">{32}</span><span class="punctuation">,</span>
+  <span class="name attribute">pages</span> <span class="punctuation">=</span> <span class="literal string">{899}</span><span class="punctuation">,</span>
+  <span class="name attribute">year</span> <span class="punctuation">=</span> <span class="literal string">{2018}</span><span class="punctuation">,</span>
+  <span class="name attribute">doi</span> <span class="punctuation">=</span> <span class="literal string">{10.21105/joss.00899}</span>
+<span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="learn-more">
+<h2>Learn More</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>Documentation</strong></td>
+<td><a class="reference external" href="https://pyequib.readthedocs.io/">https://pyequib.readthedocs.io/</a></td>
+</tr>
+<tr><td><strong>Repository</strong></td>
+<td><a class="reference external" href="https://github.com/equib/pyEQUIB">https://github.com/equib/pyEQUIB</a></td>
+</tr>
+<tr><td><strong>Issues &amp; Ideas</strong></td>
+<td><a class="reference external" href="https://github.com/equib/pyEQUIB/issues">https://github.com/equib/pyEQUIB/issues</a></td>
+</tr>
+<tr><td><strong>Conda-Forge</strong></td>
+<td><a class="reference external" href="https://anaconda.org/conda-forge/pyequib">https://anaconda.org/conda-forge/pyequib</a></td>
+</tr>
+<tr><td><strong>PyPI</strong></td>
+<td><a class="reference external" href="https://pypi.org/project/pyequib/">https://pypi.org/project/pyequib/</a></td>
+</tr>
+<tr><td><strong>DOI</strong></td>
+<td><a class="reference external" href="https://doi.org/10.21105/joss.02798">10.21105/joss.02798</a></td>
+</tr>
+<tr><td><strong>Archive</strong></td>
+<td><a class="reference external" href="https://doi.org/10.5281/zenodo.4287576">10.5281/zenodo.4287576</a></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
       <footer class="site-footer">
