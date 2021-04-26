@@ -6,7 +6,7 @@ __all__ =  ["calc_temperature", "calc_density",
             "calc_populations", "calc_crit_density",
             "calc_emissivity", "calc_abundance",
             "print_ionic", "get_omij_temp",
-            "calc_emiss_h_beta",
+            "calc_emiss_h_i", "calc_emiss_h_beta", "calc_emiss_h_alpha",
             "calc_emiss_he_i_rl", "calc_emiss_he_ii_rl",
             "calc_emiss_c_ii_rl", "calc_emiss_c_iii_rl",
             "calc_emiss_n_ii_rl", "calc_emiss_n_iii_rl",
@@ -24,7 +24,7 @@ from .pyequib import calc_temperature, calc_density, \
              calc_populations, calc_crit_density, \
              calc_emissivity, calc_abundance, \
              print_ionic, get_omij_temp, \
-             calc_emiss_h_beta, \
+             calc_emiss_h_i, calc_emiss_h_beta, calc_emiss_h_alpha, \
              calc_emiss_he_i_rl, calc_emiss_he_ii_rl, \
              calc_emiss_c_ii_rl, calc_emiss_c_iii_rl, \
              calc_emiss_n_ii_rl, calc_emiss_n_iii_rl, \
