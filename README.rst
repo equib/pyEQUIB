@@ -33,7 +33,7 @@ pyEQUIB Python Package
 .. image:: https://img.shields.io/badge/python-2.7%2C%203.8-blue.svg
     :alt: Support Python versions 2.7 and 3.8
     
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4287576.svg
+.. image:: https://img.shields.io/badge/DOI-10.5281/zenodo.4287576-blue.svg
     :target: https://doi.org/10.5281/zenodo.4287576
     :alt: Zenodo
     
