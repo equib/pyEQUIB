@@ -19,7 +19,7 @@ __all__ =  ["calc_temperature", "calc_density",
             "calc_populations", "calc_crit_density",
             "calc_emissivity", "calc_abundance",
             "print_ionic", "get_omij_temp",
-            "calc_emiss_h_beta",
+            "calc_emiss_h_i","calc_emiss_h_beta",
             "calc_emiss_he_i_rl", "calc_emiss_he_ii_rl",
             "calc_emiss_c_ii_rl", "calc_emiss_c_iii_rl",
             "calc_emiss_n_ii_rl", "calc_emiss_n_iii_rl",
@@ -1963,7 +1963,7 @@ def calc_emiss_h_beta(temperature=None, density=None, h_i_aeff_data=None):
     """
          This function calculates the emissivity for H_beta 4861A
          Emis(Hbeta)= 4pi j(HBeta 4861 A)/Np Ne) for the given temperature and density
-         by using the helium emissivities from
+         by using the hydrogn emissivities from
          Storey & Hummer, 1995MNRAS.272...41S.
 
      :Private:
@@ -2064,6 +2064,220 @@ def calc_emiss_h_beta(temperature=None, density=None, h_i_aeff_data=None):
     # h_beta_emissivity_log=np.log10(h_beta_emissivity(temp, density))
 
     return hb_emissivity
+
+def calc_emiss_h_alpha(temperature=None, density=None, h_i_aeff_data=None):
+    """
+         This function calculates the emissivity for H_alpha 6563A
+         Emis(HAlpha)= 4pi j(HAlpha 6563 A)/Np Ne) for the given temperature and density
+         by using the hydrogn emissivities from
+         Storey & Hummer, 1995MNRAS.272...41S.
+
+     :Private:
+
+     :Returns:
+        type=double. This function returns the H alpha emissivity 4pi j(HAlpha 6563)/Np Ne).
+
+     :Keywords:
+         temperature     :   in, required, type=float
+                             electron temperature
+         density         :   in, required, type=float
+                             electron density
+         h_i_aeff_data   :   in, required, type=array/object
+                             H I recombination coefficients
+
+     :Categories:
+       Abundance Analysis, Recombination Lines, Emissivity
+
+     :Dirs:
+      ./
+          Main routines
+
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on H I emissivities
+         from Storey & Hummer, 1995MNRAS.272...41S.
+
+         25/08/2012, A. Danehkar, IDL code written.
+
+         11/03/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Change from logarithmic to linear
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
+    """
+    if (temperature is not None) == 0:
+        print('Temperature is not set')
+        return 0
+    if (density is not None) == 0:
+        print('Density is not set')
+        return 0
+    if (h_i_aeff_data is not None) == 0:
+        print('H I recombination coefficients (h_i_aeff_data) are not set')
+        return 0
+
+    # h_a_col= find_aeff_sh95_column(3, 2)
+    linenum = find_aeff_sh95_column(3, 2, 25)
+
+    teh2 = np.float64(temperature)
+    neh2 = np.float64(density)
+    line1 = np.int32(linenum - 1)
+    emissivity = np.float64(0.0)
+
+    h_i_ems = np.zeros((10, 13))
+    temp1 = np.zeros(302)
+    temp_grid = np.array([500., 1000., 3000., 5000., 7500., 10000., 12500., 15000., 20000., 30000.])
+
+    nlines = 130
+    h_i_aeff=h_i_aeff_data
+    h_i_aeff=h_i_aeff.T
+    for i in range(0, nlines):
+        temp1 = h_i_aeff[:, i]
+        loc1=(np.where(temp_grid == temp1[1]))
+        loc1 = np.asarray(loc1[0])
+        tpos = np.int32(loc1)
+        npos = np.int32(round(np.log10(temp1[0]) - 2))
+        h_i_ems[tpos, npos] = temp1[line1]  # temp[2:45]
+
+    # restrict to the density & temperature ranges to 1995MNRAS.272...41S
+    if (neh2 < 1.1e2):
+        neh2 = 1.1e2
+    if (neh2 > 1.e14):
+        neh2 = 1.e14
+    if (teh2 < 550.):
+        teh2 = 550.
+    if (teh2 > 30000.):
+        teh2 = 30000.
+
+    # get logarithmic density
+    dens_log = np.log10(neh2)
+
+    dens_grid = np.float64(np.arange(13) + 2)
+    ha_emissivity = np.float64(0.0)
+    # Bilinearly interpolate density & temperature
+    # emiss_log =_interp2d(hi_ems1, temp_grid, dens_grid, TEh2, dens_log, [101,101], /cubic, /quintic)#, /trigrid) not work on GDL
+    ha_emissivity = interp_2d(h_i_ems[:, :], teh2, dens_log, temp_grid, dens_grid)
+
+    return ha_emissivity
+
+def calc_emiss_h_i(temperature=None, density=None, h_i_aeff_data=None, low_level=None, high_level=None):
+    """
+         This function calculates the emissivity for H I
+         Emis(Hbeta)= 4pi j(H I)/Np Ne) for the given temperature and density
+         by using the hydrogn emissivities from
+         Storey & Hummer, 1995MNRAS.272...41S.
+
+     :Private:
+
+     :Returns:
+        type=double. This function returns the H I emissivity 4pi j(H I)/Np Ne).
+
+     :Keywords:
+         temperature     :   in, required, type=float
+                             electron temperature
+         density         :   in, required, type=float
+                             electron density
+         h_i_aeff_data   :   in, required, type=array/object
+                             H I recombination coefficients
+         low_level       :   in, required, type=int
+                             low level
+         high_level      :   in, required, type=int
+                             high level
+         
+     :Categories:
+       Abundance Analysis, Recombination Lines, Emissivity
+
+     :Dirs:
+      ./
+          Main routines
+
+     :Author:
+       Ashkbiz Danehkar
+
+     :Copyright:
+       This library is released under a GNU General Public License.
+
+     :Version:
+       0.3.0
+
+     :History:
+         Based on H I emissivities
+         from Storey & Hummer, 1995MNRAS.272...41S.
+
+         25/08/2012, A. Danehkar, IDL code written.
+
+         11/03/2017, A. Danehkar, Integration with AtomNeb.
+
+         10/07/2019, A. Danehkar, Change from logarithmic to linear
+
+         03/10/2020, A. Danehkar, Transferred from IDL to Python.
+    """
+    if (temperature is not None) == 0:
+        print('Temperature is not set')
+        return 0
+    if (density is not None) == 0:
+        print('Density is not set')
+        return 0
+    if (h_i_aeff_data is not None) == 0:
+        print('H I recombination coefficients (h_i_aeff_data) are not set')
+        return 0
+    if (low_level is not None) == 0:
+        print('H I low level (low_level) is not set')
+        return 0
+    if (high_level is not None) == 0:
+        print('H I high level (high_level) is not set')
+        return 0
+           
+    # h_a_col= find_aeff_sh95_column(3, 2)
+    linenum = find_aeff_sh95_column(int(low_level), int(high_level), 25)
+
+    teh2 = np.float64(temperature)
+    neh2 = np.float64(density)
+    line1 = np.int32(linenum - 1)
+    emissivity = np.float64(0.0)
+
+    h_i_ems = np.zeros((10, 13))
+    temp1 = np.zeros(302)
+    temp_grid = np.array([500., 1000., 3000., 5000., 7500., 10000., 12500., 15000., 20000., 30000.])
+
+    nlines = 130
+    h_i_aeff=h_i_aeff_data
+    h_i_aeff=h_i_aeff.T
+    for i in range(0, nlines):
+        temp1 = h_i_aeff[:, i]
+        loc1=(np.where(temp_grid == temp1[1]))
+        loc1 = np.asarray(loc1[0])
+        tpos = np.int32(loc1)
+        npos = np.int32(round(np.log10(temp1[0]) - 2))
+        h_i_ems[tpos, npos] = temp1[line1]  # temp[2:45]
+
+    # restrict to the density & temperature ranges to 1995MNRAS.272...41S
+    if (neh2 < 1.1e2):
+        neh2 = 1.1e2
+    if (neh2 > 1.e14):
+        neh2 = 1.e14
+    if (teh2 < 550.):
+        teh2 = 550.
+    if (teh2 > 30000.):
+        teh2 = 30000.
+
+    # get logarithmic density
+    dens_log = np.log10(neh2)
+
+    dens_grid = np.float64(np.arange(13) + 2)
+    h_i_emissivity = np.float64(0.0)
+    # Bilinearly interpolate density & temperature
+    # emiss_log =_interp2d(hi_ems1, temp_grid, dens_grid, TEh2, dens_log, [101,101], /cubic, /quintic)#, /trigrid) not work on GDL
+    h_i_emissivity = interp_2d(h_i_ems[:, :], teh2, dens_log, temp_grid, dens_grid)
+
+    return h_i_emissivity
 
 def find_aeff_sh95_column(lo_lev, hi_lev, lev_num):
     """
