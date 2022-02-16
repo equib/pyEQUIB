@@ -6,8 +6,8 @@ pyEQUIB Python Package
     :target: https://pypi.python.org/pypi/pyequib/
     :alt: PyPI Version
     
-.. image:: https://travis-ci.com/equib/pyEQUIB.svg?branch=master
-    :target: https://travis-ci.com/equib/pyEQUIB
+.. image:: https://app.travis-ci.com/equib/pyEQUIB.svg?branch=master
+    :target: https://app.travis-ci.com/github/equib/pyEQUIB
     :alt: Build Status
     
 .. image:: https://ci.appveyor.com/api/projects/status/b3gw6vgf8s0vu8nv?svg=true
