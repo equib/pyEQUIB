@@ -33,8 +33,8 @@ pyEQUIB Python Package
 .. image:: https://img.shields.io/badge/python-2.7%2C%203.8-blue.svg
     :alt: Support Python versions 2.7 and 3.8
     
-.. image:: https://img.shields.io/badge/DOI-10.5281/zenodo.4287576-blue.svg
-    :target: https://doi.org/10.5281/zenodo.4287576
+.. image:: https://img.shields.io/badge/DOI-10.5281/zenodo.4287575-blue.svg
+    :target: https://doi.org/10.5281/zenodo.4287575
     :alt: Zenodo
     
 .. image:: http://joss.theoj.org/papers/10.21105/joss.02798/status.svg
@@ -957,5 +957,5 @@ Learn More
 **Conda-Forge**     https://anaconda.org/conda-forge/pyequib
 **PyPI**            https://pypi.org/project/pyequib/
 **DOI**             `10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_
-**Archive**         `10.5281/zenodo.4287576 <https://doi.org/10.5281/zenodo.4287576>`_
+**Archive**         `10.5281/zenodo.4287575 <https://doi.org/10.5281/zenodo.4287575>`_
 ==================  =============================================
