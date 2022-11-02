@@ -407,6 +407,9 @@ The Documentation of the Python functions provides in detail in the *API Documen
         ion = 'iii' # He II
         he_ii_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
         
+        h_i_aeff_data = h_i_rc_data['aeff'][0]
+        he_ii_aeff_data = he_ii_rc_data['aeff'][0]
+        
         temperature=np.float64(10000.0)
         density=np.float64(5000.0)
         he_ii_4686_flux = 135.833
