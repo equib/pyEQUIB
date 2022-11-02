@@ -93,7 +93,7 @@ How to Use
 
 The Documentation of the Python functions provides in detail in the *API Documentation* (`equib.github.io/pyEQUIB/doc <https://equib.github.io/pyEQUIB/doc>`_). There are three main object units:
 
-* **Collision Unit** which have the API functions for plasma diagnostics and abundance analysis of collisionally excited lines. Here are some examples of using *Collision* Unit:
+* **Collision Unit** has the API functions for plasma diagnostics and abundance analysis of collisionally excited lines. Here are some examples of using *Collision* Unit:
 
     - *Temperature*::
 
@@ -352,7 +352,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
         H-beta emissivity: 1.237E-25 N(H+) Ne  [erg/s]
 
 
-* **Recombination Unit** which have the API functions for plasma diagnostics and abundance analysis of recombination lines. Here are some examples of using *Recombination* Unit:
+* **Recombination Unit** has the API functions for plasma diagnostics and abundance analysis of recombination lines. Here are some examples of using *Recombination* Unit:
 
     - *He+ Ionic Abundance*::
 
@@ -805,7 +805,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
       
         Ne II Emissivity:   1.5996881e-25
         
-* **Reddening Unit** which have the API functions for estimating logarithmic extinctions at H-beta and dereddening observed fluxes based on reddening laws and extinctions. Here are some examples of using *Reddening* Unit:
+* **Reddening Unit** has the API functions for estimating logarithmic extinctions at H-beta and dereddening observed fluxes based on reddening laws and extinctions. Here are some examples of using *Reddening* Unit:
 
     - *Reddening Law Function*::
 
