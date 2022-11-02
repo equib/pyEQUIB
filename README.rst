@@ -848,7 +848,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
         wavelength=6563.0
         r_v=3.1
         fl=pyequib.redlaw_ccm(wavelength, rv=r_v)
-        prin('fl(6563):', fl)
+        print('fl(6563):', fl)
 
       which gives::
       
