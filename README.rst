@@ -913,7 +913,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
       which gives::
       
-        dereddened flux(6563)       4.7847785
+        dereddened flux(6563)       0.47847785
 
     - *Dereddening Relative Flux*::
 
@@ -928,7 +928,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
       which gives::
       
-        dereddened flux(6563)      0.47847785
+        dereddened flux(6563)      4.7847785
 
 Documentation
 =============
