@@ -99,6 +99,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -129,6 +130,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -159,6 +161,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -196,6 +199,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
     
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -232,6 +236,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -259,6 +264,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
     
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -285,6 +291,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
     
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_dir = os.path.join('atomic-data', 'chianti70')
@@ -351,6 +358,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -382,6 +390,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -411,6 +420,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
     
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -442,6 +452,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -596,6 +607,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -620,6 +632,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
     
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -643,6 +656,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
     
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
@@ -667,6 +681,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
 
         import pyequib
         import atomneb
+        import numpy as np
         import os
         base_dir = 'externals/atomneb'
         data_rc_dir = os.path.join('atomic-data-rc')
