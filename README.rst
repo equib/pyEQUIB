@@ -602,7 +602,7 @@ The Documentation of the Python functions provides in detail in the *API Documen
         abund_ne_ii = pyequib.calc_abund_ne_ii_rl(temperature=temperature, density=density,
                                           wavelength=wavelength, line_flux=ne_ii_3777_flux,
                                           ne_ii_rc_data=ne_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
-        print('N(Ne^2+)/N(H+):', Abund_ne_ii)
+        print('N(Ne^2+)/N(H+):', abund_ne_ii)
 
       which gives::
       
