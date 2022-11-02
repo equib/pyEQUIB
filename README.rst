@@ -373,6 +373,9 @@ The Documentation of the Python functions provides in detail in the *API Documen
         ion = 'ii' # He I
         he_i_rc_data = atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
         
+        h_i_aeff_data = h_i_rc_data['aeff'][0]
+        he_i_aeff_data = he_i_rc_data['aeff'][0]
+        
         temperature=np.float64(10000.0)
         density=np.float64(5000.0)
         he_i_4471_flux= 2.104
