@@ -93,8 +93,7 @@ or you can install it from the cross-platform package manager *conda*:
 How to Use
 ==========
 
-The Documentation of the Python functions provides in detail in the *API Documentation* (`equib.github.io/pyEQUIB/doc <https://equib.github.io/pyEQUIB/doc>`_). There are three main object units:
-
+The Documentation of the Python functions provides in detail in the *API Documentation* (`equib.github.io/pyEQUIB/doc <https://equib.github.io/pyEQUIB/doc>`_). 
 
 See *Jupyter Notebooks*: `Notebooks.ipynb <https://github.com/equib/pyEQUIB/blob/master/Notebooks.ipynb>`_
 
@@ -103,6 +102,7 @@ Run *Jupyter Notebooks* on `Binder <https://mybinder.org/v2/gh/equib/pyEQUIB/HEA
 .. image:: https://mybinder.org/badge_logo.svg
  :target: https://mybinder.org/v2/gh/equib/pyEQUIB/HEAD?labpath=Notebooks.ipynb
  
+There are three main object units:
 
 * **Collision Unit** has the API functions for plasma diagnostics and abundance analysis of collisionally excited lines. Here are some examples of using *Collision* Unit:
 
