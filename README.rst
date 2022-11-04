@@ -911,7 +911,7 @@ Run *Jupyter Notebooks* on `Binder <https://mybinder.org/v2/gh/equib/pyEQUIB/HEA
       
         fl(6563):     -0.30871187
 
-    - *Dereddening Absolute Flux*::
+    - *Dereddening Relative Flux*::
 
         import pyequib
         wavelength=6563.0
@@ -926,7 +926,7 @@ Run *Jupyter Notebooks* on `Binder <https://mybinder.org/v2/gh/equib/pyEQUIB/HEA
       
         dereddened flux(6563)       0.47847785
 
-    - *Dereddening Relative Flux*::
+    - *Dereddening Absolute Flux*::
 
         import pyequib
         wavelength=6563.0
