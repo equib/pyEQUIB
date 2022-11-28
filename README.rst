@@ -68,7 +68,9 @@ Dependent Python Packages
     - `SciPy <https://scipy.org/scipylib/>`_
     - `AtomNeb <https://github.com/atomneb/AtomNeb-py/>`_
     
-* To get this package with the AtomNeb FITS files, you can simply use ``git`` command as follows::
+* To get this package with the AtomNeb FITS files, you can simply use ``git`` command as follows:
+
+.. code-block::
 
         git clone --recursive https://github.com/equib/pyEQUIB
 
@@ -106,8 +108,10 @@ There are three main object units:
 
 * **Collision Unit** has the API functions for plasma diagnostics and abundance analysis of collisionally excited lines. Here are some examples of using *Collision* Unit:
 
-    - *Temperature*::
+    - *Temperature*:
 
+      .. code-block:: python
+    
         import pyequib
         import atomneb
         import numpy as np
@@ -137,7 +141,9 @@ There are three main object units:
     
         Electron Temperature:       7920.2865
 
-    - *Density*::
+    - *Density*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -168,7 +174,9 @@ There are three main object units:
       
         Electron Density:       2312.6395
 
-    - *Ionic Abundance*::
+    - *Ionic Abundance*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -206,7 +214,9 @@ There are three main object units:
       
         N(O^2+)/N(H+):   0.00041256231 
         
-    - *Emissivity*::
+    - *Emissivity*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -243,7 +253,9 @@ There are three main object units:
         Emissivity(O III 5007):   3.6041012e-21
         
 
-    - *Atomic Level Population*::
+    - *Atomic Level Population*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -271,7 +283,9 @@ There are three main object units:
       
         Populations: 0.96992832 0.0070036315 0.023062261 2.6593671e-06 3.1277019e-06
 
-    - *Critical Density*::
+    - *Critical Density*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -298,7 +312,9 @@ There are three main object units:
       
         Critical Densities: 0.0000000 5007.8396 1732.8414 1072685.0 2220758.1
 
-    - *All Ionic Level Information*::
+    - *All Ionic Level Information*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -365,7 +381,9 @@ There are three main object units:
 
 * **Recombination Unit** has the API functions for plasma diagnostics and abundance analysis of recombination lines. Here are some examples of using *Recombination* Unit:
 
-    - *He+ Ionic Abundance*::
+    - *He+ Ionic Abundance*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -400,8 +418,10 @@ There are three main object units:
       
         N(He^+)/N(H^+):     0.040848393
 
-    - *He++ Ionic Abundance*::
+    - *He++ Ionic Abundance*:
 
+      .. code-block:: python
+      
         import pyequib
         import atomneb
         import numpy as np
@@ -433,7 +453,9 @@ There are three main object units:
       
         N(He^2+)/N(H^+):      0.11228817
 
-    - *C++ Ionic Abundance*::
+    - *C++ Ionic Abundance*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -465,7 +487,9 @@ There are three main object units:
       
         N(C^2+)/N(H+):   0.00063404650 
       
-    - *C3+ Ionic Abundance*::
+    - *C3+ Ionic Abundance*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -498,7 +522,9 @@ There are three main object units:
       
         N(C^3+)/N(H+):   0.00017502840
 
-    - *N++ Ionic Abundance*::
+    - *N++ Ionic Abundance*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -529,7 +555,9 @@ There are three main object units:
       
         N(N^2+)/N(H+):   0.00069297541
 
-    - *N3+ Ionic Abundance*::
+    - *N3+ Ionic Abundance*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -558,8 +586,10 @@ There are three main object units:
       
         N(N^3+)/N(H+):   6.3366175e-05
 
-    - *O++ Ionic Abundance*::
-
+    - *O++ Ionic Abundance*:
+    
+      .. code-block:: python
+      
         import pyequib
         import atomneb
         import os
@@ -590,8 +620,10 @@ There are three main object units:
       
         N(O^2+)/N(H+):    0.0018886330
 
-    - *Ne++ Ionic Abundance*::
-
+    - *Ne++ Ionic Abundance*:
+    
+      .. code-block:: python
+      
         import pyequib
         import atomneb
         import os
@@ -620,7 +652,9 @@ There are three main object units:
         N(Ne^2+)/N(H+):   0.00043376850
 
 
-    - *He I Emissivity*::
+    - *He I Emissivity*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -647,7 +681,9 @@ There are three main object units:
       
         He I Emissivity:   6.3822830e-26
 
-    - *He II Emissivity*::
+    - *He II Emissivity*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -673,7 +709,9 @@ There are three main object units:
       
         He II Emissivity:   1.4989134e-24
 
-    - *C II Emissivity*::
+    - *C II Emissivity*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -698,7 +736,9 @@ There are three main object units:
       
         C II Emissivity:   5.4719511e-26
       
-    - *C III Emissivity*::
+    - *C III Emissivity*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -724,7 +764,9 @@ There are three main object units:
       
         C III Emissivity:   7.5749632e-25
 
-    - *N II Emissivity*::
+    - *N II Emissivity*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -748,7 +790,9 @@ There are three main object units:
       
         N II Emissivity:   3.0397397e-26
 
-    - *N III Emissivity*::
+    - *N III Emissivity*:
+    
+      .. code-block:: python
     
         import pyequib
         import atomneb
@@ -770,7 +814,9 @@ There are three main object units:
       
         N III Emissivity:   4.7908644e-24
 
-    - *O II Emissivity*::
+    - *O II Emissivity*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -794,7 +840,9 @@ There are three main object units:
       
         O II Emissivity:   5.9047319e-27
 
-    - *Ne II Emissivity*::
+    - *Ne II Emissivity*:
+    
+      .. code-block:: python
 
         import pyequib
         import atomneb
@@ -818,7 +866,9 @@ There are three main object units:
         
 * **Reddening Unit** has the API functions for estimating logarithmic extinctions at H-beta and dereddening observed fluxes based on reddening laws and extinctions. Here are some examples of using *Reddening* Unit:
 
-    - *Reddening Law Function*::
+    - *Reddening Law Function*:
+    
+      .. code-block:: python
 
         import pyequib
         wavelength=6563.0
@@ -830,8 +880,10 @@ There are three main object units:
       
         fl(6563):     -0.32013816
 
-    - *Galactic Reddening Law Function based on Seaton (1979), Howarth (1983), & CCM (1983)*::
-
+    - *Galactic Reddening Law Function based on Seaton (1979), Howarth (1983), & CCM (1983)*:
+    
+      .. code-block:: python
+      
         import pyequib
         wavelength=6563.0
         r_v=3.1
@@ -842,7 +894,9 @@ There are three main object units:
       
         fl(6563):     -0.32013816
 
-    - *Galactic Reddening Law Function based on Savage & Mathis (1979)*::
+    - *Galactic Reddening Law Function based on Savage & Mathis (1979)*:
+    
+      .. code-block:: python
 
         import pyequib
         wavelength=6563.0
@@ -853,7 +907,9 @@ There are three main object units:
       
         fl(6563):     -0.30925984
 
-    - *Reddening Law Function based on Cardelli, Clayton & Mathis (1989)*::
+    - *Reddening Law Function based on Cardelli, Clayton & Mathis (1989)*:
+    
+      .. code-block:: python
     
         import pyequib
         wavelength=6563.0
@@ -865,7 +921,9 @@ There are three main object units:
       
         fl(6563):     -0.29756615
 
-    - *Galactic Reddening Law Function based on Whitford (1958), Seaton (1977), & Kaler(1976)*::
+    - *Galactic Reddening Law Function based on Whitford (1958), Seaton (1977), & Kaler(1976)*:
+    
+      .. code-block:: python
     
         import pyequib
         wavelength=6563.0
@@ -876,7 +934,9 @@ There are three main object units:
       
         fl(6563):     -0.33113684
 
-    - *Reddening Law Function based on Fitzpatrick & Massa (1990), Fitzpatrick (1999), Misselt (1999)*::
+    - *Reddening Law Function based on Fitzpatrick & Massa (1990), Fitzpatrick (1999), Misselt (1999)*:
+    
+      .. code-block:: python
     
         import pyequib
         wavelength=6563.0
@@ -889,7 +949,9 @@ There are three main object units:
       
         fl(6563):     -0.35053032
 
-    - *Reddening Law Function for the Small Magellanic Cloud*::
+    - *Reddening Law Function for the Small Magellanic Cloud*:
+    
+      .. code-block:: python
     
         import pyequib
         wavelength=6563.0
@@ -900,7 +962,9 @@ There are three main object units:
       
         fl(6563):     -0.22659261
 
-    - *Reddening Law Function for the Large Magellanic Cloud*::
+    - *Reddening Law Function for the Large Magellanic Cloud*:
+    
+      .. code-block:: python
     
         import pyequib
         wavelength=6563.0
@@ -911,7 +975,9 @@ There are three main object units:
       
         fl(6563):     -0.30871187
 
-    - *Dereddening Relative Flux*::
+    - *Dereddening Relative Flux*:
+    
+      .. code-block:: python
 
         import pyequib
         wavelength=6563.0
@@ -926,7 +992,9 @@ There are three main object units:
       
         dereddened flux(6563)       0.47847785
 
-    - *Dereddening Absolute Flux*::
+    - *Dereddening Absolute Flux*:
+    
+      .. code-block:: python
 
         import pyequib
         wavelength=6563.0
