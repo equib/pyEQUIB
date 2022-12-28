@@ -110,7 +110,7 @@ There are three main object units:
 
     - *Temperature*:
 
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -143,7 +143,7 @@ There are three main object units:
 
     - *Density*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -176,7 +176,7 @@ There are three main object units:
 
     - *Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -216,7 +216,7 @@ There are three main object units:
         
     - *Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -255,7 +255,7 @@ There are three main object units:
 
     - *Atomic Level Population*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -285,7 +285,7 @@ There are three main object units:
 
     - *Critical Density*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -314,7 +314,7 @@ There are three main object units:
 
     - *All Ionic Level Information*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -383,7 +383,7 @@ There are three main object units:
 
     - *He+ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -420,7 +420,7 @@ There are three main object units:
 
     - *He++ Ionic Abundance*:
 
-      .. code-block:: python
+      .. code-block:: Python
       
         import pyequib
         import atomneb
@@ -455,7 +455,7 @@ There are three main object units:
 
     - *C++ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -489,7 +489,7 @@ There are three main object units:
       
     - *C3+ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -524,7 +524,7 @@ There are three main object units:
 
     - *N++ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -557,7 +557,7 @@ There are three main object units:
 
     - *N3+ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -588,7 +588,7 @@ There are three main object units:
 
     - *O++ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
       
         import pyequib
         import atomneb
@@ -622,7 +622,7 @@ There are three main object units:
 
     - *Ne++ Ionic Abundance*:
     
-      .. code-block:: python
+      .. code-block:: Python
       
         import pyequib
         import atomneb
@@ -654,7 +654,7 @@ There are three main object units:
 
     - *He I Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -683,7 +683,7 @@ There are three main object units:
 
     - *He II Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -711,7 +711,7 @@ There are three main object units:
 
     - *C II Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -738,7 +738,7 @@ There are three main object units:
       
     - *C III Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -766,7 +766,7 @@ There are three main object units:
 
     - *N II Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -792,7 +792,7 @@ There are three main object units:
 
     - *N III Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         import atomneb
@@ -816,7 +816,7 @@ There are three main object units:
 
     - *O II Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -842,7 +842,7 @@ There are three main object units:
 
     - *Ne II Emissivity*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         import atomneb
@@ -868,7 +868,7 @@ There are three main object units:
 
     - *Reddening Law Function*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         wavelength=6563.0
@@ -882,7 +882,7 @@ There are three main object units:
 
     - *Galactic Reddening Law Function based on Seaton (1979), Howarth (1983), & CCM (1983)*:
     
-      .. code-block:: python
+      .. code-block:: Python
       
         import pyequib
         wavelength=6563.0
@@ -896,7 +896,7 @@ There are three main object units:
 
     - *Galactic Reddening Law Function based on Savage & Mathis (1979)*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         wavelength=6563.0
@@ -909,7 +909,7 @@ There are three main object units:
 
     - *Reddening Law Function based on Cardelli, Clayton & Mathis (1989)*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         wavelength=6563.0
@@ -923,7 +923,7 @@ There are three main object units:
 
     - *Galactic Reddening Law Function based on Whitford (1958), Seaton (1977), & Kaler(1976)*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         wavelength=6563.0
@@ -936,7 +936,7 @@ There are three main object units:
 
     - *Reddening Law Function based on Fitzpatrick & Massa (1990), Fitzpatrick (1999), Misselt (1999)*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         wavelength=6563.0
@@ -951,7 +951,7 @@ There are three main object units:
 
     - *Reddening Law Function for the Small Magellanic Cloud*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         wavelength=6563.0
@@ -964,7 +964,7 @@ There are three main object units:
 
     - *Reddening Law Function for the Large Magellanic Cloud*:
     
-      .. code-block:: python
+      .. code-block:: Python
     
         import pyequib
         wavelength=6563.0
@@ -977,7 +977,7 @@ There are three main object units:
 
     - *Dereddening Relative Flux*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         wavelength=6563.0
@@ -994,7 +994,7 @@ There are three main object units:
 
     - *Dereddening Absolute Flux*:
     
-      .. code-block:: python
+      .. code-block:: Python
 
         import pyequib
         wavelength=6563.0
