@@ -1025,13 +1025,14 @@ References
 Citation
 ========
 
-Using **pyEQUIB** in a scholarly publication? Please cite thess papers:
+Using the **pyEQUIB** Python package in a scholarly publication? Please cite thess papers:
 
 .. code-block:: bibtex
 
    @article{Danehkar2020,
      author = {{Danehkar}, Ashkbiz},
-     title = {pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis},
+     title = {pyEQUIB Python Package, an addendum to proEQUIB: IDL Library 
+              for Plasma Diagnostics and Abundance Analysis},
      journal = {Journal of Open Source Software},
      volume = {5},
      number = {55},
@@ -1039,6 +1040,10 @@ Using **pyEQUIB** in a scholarly publication? Please cite thess papers:
      year = {2020},
      doi = {10.21105/joss.02798}
    }
+
+and if you use the `proEQUIB <https://github.com/equib/proEQUIB>`_ IDL library:
+
+.. code-block:: bibtex
 
    @article{Danehkar2018,
      author = {{Danehkar}, Ashkbiz},
