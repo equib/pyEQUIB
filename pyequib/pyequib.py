@@ -185,6 +185,11 @@ def calc_temperature(line_flux_ratio=None, density=None,
                             The A values have a different format for IBIG=.
 
         2006, B.Ercolano,   Converted to F90.
+
+        2009, B.Wesson,     Misc updates and improvements. 
+                            Converted to F90. Version written only for    
+                            calculating ionic abundances. Takes arguments
+                            from the command line.
    """
    #common share1, Atomic_Data_Path
    h_planck = 6.62606957e-27 # erg s
@@ -552,6 +557,11 @@ def calc_density(line_flux_ratio=None, temperature=None,
                             The A values have a different format for IBIG=.
 
         2006, B.Ercolano,   Converted to F90.
+
+        2009, B.Wesson,     Misc updates and improvements. 
+                            Converted to F90. Version written only for    
+                            calculating ionic abundances. Takes arguments
+                            from the command line.
    """
    # common share1, Atomic_Data_Path
    h_planck = 6.62606957e-27 # erg s
@@ -903,6 +913,11 @@ def calc_populations(temperature=None, density=None,
                             The A values have a different format for IBIG=.
    
         2006, B.Ercolano,   Converted to F90.
+
+        2009, B.Wesson,     Misc updates and improvements. 
+                            Converted to F90. Version written only for    
+                            calculating ionic abundances. Takes arguments
+                            from the command line.
    """
    h_planck = 4.13566766225e-15 # eV.s #6.62606957e-27 # erg.s
    c_speed = 2.99792458e10 # cm/s
@@ -1150,6 +1165,11 @@ def calc_crit_density(temperature=None,
                             The A values have a different format for IBIG=.
    
         2006, B.Ercolano,   Converted to F90.
+
+        2009, B.Wesson,     Misc updates and improvements. 
+                            Converted to F90. Version written only for    
+                            calculating ionic abundances. Takes arguments
+                            from the command line.
    """
    h_planck = 4.13566766225e-15 # eV.s #6.62606957e-27 # erg.s
    c_speed = 2.99792458e10 # cm/s
@@ -1371,6 +1391,11 @@ def calc_emissivity(temperature=None, density=None,
                             The A values have a different format for IBIG=.
    
         2006, B.Ercolano,   Converted to F90.
+
+        2009, B.Wesson,     Misc updates and improvements. 
+                            Converted to F90. Version written only for    
+                            calculating ionic abundances. Takes arguments
+                            from the command line.
    """
    #global atomic_data_path
    
@@ -1590,6 +1615,11 @@ def calc_abundance(temperature=None, density=None,
                             The A values have a different format for IBIG=.
    
         2006, B.Ercolano,   Converted to F90.
+
+        2009, B.Wesson,     Misc updates and improvements. 
+                            Converted to F90. Version written only for    
+                            calculating ionic abundances. Takes arguments
+                            from the command line.
    """
    ahb = np.float64(0)
    
