@@ -18,8 +18,8 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">pyEQUIB</h1>
-      <h2 class="project-tagline">pyEQUIB - Python Package for Plasma Diagnostics and Abundance Analysis</h2>
+      <h2 class="project-name">pyEQUIB</h2>
+      <h3 class="project-tagline">pyEQUIB - Python Package for Plasma Diagnostics and Abundance Analysis</h3>
       <a href="https://github.com/equib/pyEQUIB" class="btn">View on GitHub</a>
       <a href="https://github.com/equib/pyEQUIB/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/equib/pyEQUIB/tarball/master" class="btn">Download .tar.gz</a>
@@ -27,8 +27,8 @@
     </section>
 
     <section class="main-content">
-      <h1>
-<a id="pyequib" class="anchor" href="#pyequib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>pyEQUIB</h1>
+      <h2>
+<a id="pyequib" class="anchor" href="#pyequib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>pyEQUIB</h2>
 
 <p><strong>pyEQUIB</strong> - Python Package for Plasma Diagnostics and Abundance Analysis</p>
 
@@ -44,14 +44,14 @@
 Support Python versions 2.7 and 3.8</object>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4287576"><img alt="Zenodo" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4287576.svg"></a>
 <a class="reference external image-reference" href="https://doi.org/10.21105/joss.02798"><img alt="JOSS" src="http://joss.theoj.org/papers/10.21105/joss.02798/status.svg"></a>
-
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/equib/pyEQUIB/HEAD?labpath=Notebooks.ipynb"><object data="https://mybinder.org/badge_logo.svg" type="image/svg+xml">https://mybinder.org/badge_logo.svg</object></a>
 <div class="section" id="description">
 <h2>Description</h2>
 <p>The <strong>pyEQUIB</strong> library is a collection of <a class="reference external" href="https://www.python.org/">Python</a> programs developed to perform plasma diagnostics and abundance analysis using emission line fluxes measured in ionzed nebulae. It uses the <a class="reference external" href="https://github.com/atomneb/AtomNeb-py">AtomNeb Python Package</a> to read collision strengths and transition probabilities for collisionally excited lines (CEL), and recombination coefficients for recombination lines (RL). This Python package can be used to determine interstellar extinctions, electron temperatures, electron densities, and ionic abundances from the measured fluxes of emission lines. It mainly contains the follwing API functions written purely in Python:</p>
 <ul class="simple">
-<li><strong>API functions for collisionally excited lines (CEL)</strong> have been developed based on the algorithm of the FORTRAN program <a class="reference external" href="http://adsabs.harvard.edu/abs/2016ascl.soft03005H">EQUIB</a> written in FORTRAN by <a class="reference external" href="http://adsabs.harvard.edu/abs/1981ucl..rept.....H">Howarth &amp; Adams (1981)</a>. The program EQUIB calculates atomic level populations and line emissivities in statistical equilibrium in multi-level atoms for different physical conditions of the stratification layers where the chemical elements are ionized. Using the Python implementation of the program <a class="reference external" href="http://adsabs.harvard.edu/abs/2016ascl.soft03005H">EQUIB</a>, electron temperatures, electron densities, and ionic abundances are determined from the measured fluxes of collisionally excited lines.</li>
-<li><strong>API functions for recombination lines (RL)</strong> have been developed based on the algorithm of the recombination scripts by X. W. Liu and Y. Zhang included in the FORTRAN program <a class="reference external" href="https://github.com/mocassin/MOCASSIN-2.0">MOCASSIN</a>. These API functiosn are used to determine ionic abundances from recombination lines for some heavy element ions.</li>
-<li><strong>API functions for reddening and extinctions</strong> have been developed according to the methods of the reddening law functions from <a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas">STSDAS IRAF Package</a>, which are used to obtain interstellar extinctions and deredden measured fluxes based on different reddening laws.</li>
+<li><strong>API functions for collisionally excited lines (CEL)</strong> have been developed based on the algorithm of the FORTRAN program <a class="reference external" href="https://github.com/equib/EQUIB">EQUIB</a> originally written in FORTRAN by <a class="reference external" href="http://adsabs.harvard.edu/abs/1981ucl..rept.....H">Howarth &amp; Adams (1981)</a>, extended and customized by other people (<a class="reference external" href="http://adsabs.harvard.edu/abs/2016ascl.soft03005H">R. Clegg, D. Ruffle, X.-W. Liu, C. Pritchet, B. Ercolano, &amp; R. Wesson</a>). The program EQUIB calculates atomic level populations and line emissivities in statistical equilibrium in multi-level atoms for different physical conditions of the stratification layers where the chemical elements are ionized. Using the Python implementation of the program EQUIB, electron temperatures, electron densities, and ionic abundances are determined from the measured fluxes of collisionally excited lines.</li>
+<li><strong>API functions for recombination lines (RL)</strong> have been developed based on the algorithm of the recombination scripts by X. W. Liu and Y. Zhang from <a class="reference external" href="https://github.com/mocassin/MOCASSIN-2.0/blob/master/source/output_mod.f90">output_mod.f90</a> included in the FORTRAN program <a class="reference external" href="https://github.com/mocassin/MOCASSIN-2.0">MOCASSIN</a>. These API functiosn are used to determine ionic abundances from recombination lines for some heavy element ions.</li>
+<li><strong>API functions for reddening and extinctions</strong> have been developed according to the methods of the reddening law functions from <a class="reference external" href="https://github.com/equib/iraf-redcorr">STSDAS IRAF Package</a>, which are used to obtain interstellar extinctions and deredden measured fluxes based on different reddening laws.</li>
 </ul>
 </div>
 <div class="section" id="installation">
@@ -68,13 +68,12 @@ Support Python versions 2.7 and 3.8</object>
 </ul>
 </blockquote>
 </blockquote>
-<ul>
-<li><p class="first">To get this package with the AtomNeb FITS files, you can simply use <tt class="docutils literal">git</tt> command as follows:</p>
-<pre class="literal-block">
+<ul class="simple">
+<li>To get this package with the AtomNeb FITS files, you can simply use <tt class="docutils literal">git</tt> command as follows:</li>
+</ul>
+<pre class="code literal-block">
 git clone --recursive https://github.com/equib/pyEQUIB
 </pre>
-</li>
-</ul>
 <p>To install the last version, all you should need to do is</p>
 <pre class="code literal-block">
 $ python setup.py install
@@ -91,36 +90,41 @@ $ conda install -c conda-forge pyequib
 </div>
 <div class="section" id="how-to-use">
 <h2>How to Use</h2>
-<p>The Documentation of the Python functions provides in detail in the <em>API Documentation</em> (<a class="reference external" href="https://equib.github.io/pyEQUIB/doc">equib.github.io/pyEQUIB/doc</a>). There are three main object units:</p>
+<p>The Documentation of the Python functions provides in detail in the <em>API Documentation</em> (<a class="reference external" href="https://equib.github.io/pyEQUIB/doc">equib.github.io/pyEQUIB/doc</a>).</p>
+<p>See <em>Jupyter Notebooks</em>: <a class="reference external" href="https://github.com/equib/pyEQUIB/blob/master/Notebooks.ipynb">Notebooks.ipynb</a></p>
+<p>Run <em>Jupyter Notebooks</em> on <a class="reference external" href="https://mybinder.org/v2/gh/equib/pyEQUIB/HEAD?labpath=Notebooks.ipynb">Binder</a>:</p>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/equib/pyEQUIB/HEAD?labpath=Notebooks.ipynb"><object data="https://mybinder.org/badge_logo.svg" type="image/svg+xml">https://mybinder.org/badge_logo.svg</object></a>
+<p>There are three main object units:</p>
 <ul>
-<li><p class="first"><strong>Collision Unit</strong> which have the API functions for plasma diagnostics and abundance analysis of collisionally excited lines. Here are some examples of using <em>Collision</em> Unit:</p>
+<li><p class="first"><strong>Collision Unit</strong> has the API functions for plasma diagnostics and abundance analysis of collisionally excited lines. Here are some examples of using <em>Collision</em> Unit:</p>
 <blockquote>
 <ul>
 <li><p class="first"><em>Temperature</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 's'
-ion = 'ii'
-s_ii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5)
-s_ii_omij = atomneb.read_omij(atom_omij_file, atom, ion)
-s_ii_aij = atomneb.read_aij(atom_aij_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'s'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span><span class="whitespace">
+</span><span class="name">s_ii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-upper_levels='1,2,1,3/'
-lower_levels='1,5/'
-density = np.float64(2550)
-line_flux_ratio=np.float64(10.753)
-temperature = pyequib.calc_temperature(line_flux_ratio=line_flux_ratio, density=density,
-                       upper_levels=upper_levels, lower_levels=lower_levels,
-                       elj_data=s_ii_elj, omij_data=s_ii_omij, aij_data=s_ii_aij)
-print(&quot;Electron Temperature:&quot;, temperature)
+</span><span class="name">upper_levels</span><span class="operator">=</span><span class="literal string single">'1,2,1,3/'</span><span class="whitespace">
+</span><span class="name">lower_levels</span><span class="operator">=</span><span class="literal string single">'1,5/'</span><span class="whitespace">
+</span><span class="name">density</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number integer">2550</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">line_flux_ratio</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10.753</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">temperature</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_temperature</span><span class="punctuation">(</span><span class="name">line_flux_ratio</span><span class="operator">=</span><span class="name">line_flux_ratio</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                       <span class="name">upper_levels</span><span class="operator">=</span><span class="name">upper_levels</span><span class="punctuation">,</span> <span class="name">lower_levels</span><span class="operator">=</span><span class="name">lower_levels</span><span class="punctuation">,</span><span class="whitespace">
+</span>                       <span class="name">elj_data</span><span class="operator">=</span><span class="name">s_ii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">s_ii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">s_ii_aij</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Electron Temperature:&quot;</span><span class="punctuation">,</span> <span class="name">temperature</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -128,30 +132,31 @@ Electron Temperature:       7920.2865
 </pre>
 </li>
 <li><p class="first"><em>Density</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 's'
-ion = 'ii'
-s_ii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5)
-s_ii_omij = atomneb.read_omij(atom_omij_file, atom, ion)
-s_ii_aij = atomneb.read_aij(atom_aij_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'s'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span><span class="whitespace">
+</span><span class="name">s_ii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-upper_levels='1,2/'
-lower_levels='1,3/'
-temperature=np.float64(7000.0)#
-line_flux_ratio=np.float64(1.506)#
-density = pyequib.calc_density(line_flux_ratio=line_flux_ratio, temperature=temperature,
-                               upper_levels=upper_levels, lower_levels=lower_levels,
-                               elj_data=s_ii_elj, omij_data=s_ii_omij, aij_data=s_ii_aij)
-print(&quot;Electron Density:&quot;, density)
+</span><span class="name">upper_levels</span><span class="operator">=</span><span class="literal string single">'1,2/'</span><span class="whitespace">
+</span><span class="name">lower_levels</span><span class="operator">=</span><span class="literal string single">'1,3/'</span><span class="whitespace">
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">7000.0</span><span class="punctuation">)</span><span class="comment single">#</span><span class="whitespace">
+</span><span class="name">line_flux_ratio</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">1.506</span><span class="punctuation">)</span><span class="comment single">#</span><span class="whitespace">
+</span><span class="name">density</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_density</span><span class="punctuation">(</span><span class="name">line_flux_ratio</span><span class="operator">=</span><span class="name">line_flux_ratio</span><span class="punctuation">,</span> <span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span><span class="whitespace">
+</span>                               <span class="name">upper_levels</span><span class="operator">=</span><span class="name">upper_levels</span><span class="punctuation">,</span> <span class="name">lower_levels</span><span class="operator">=</span><span class="name">lower_levels</span><span class="punctuation">,</span><span class="whitespace">
+</span>                               <span class="name">elj_data</span><span class="operator">=</span><span class="name">s_ii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">s_ii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">s_ii_aij</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Electron Density:&quot;</span><span class="punctuation">,</span> <span class="name">density</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -159,37 +164,38 @@ Electron Density:       2312.6395
 </pre>
 </li>
 <li><p class="first"><em>Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I Rec
-hi_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I Rec</span><span class="whitespace">
+</span><span class="name">hi_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'o'
-ion = 'iii' # [O III]
-o_iii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-o_iii_omij = atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-o_iii_aij = atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'o'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># [O III]</span><span class="whitespace">
+</span><span class="name">o_iii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span> <span class="comment single"># read Energy Levels (Ej)</span><span class="whitespace">
+</span><span class="name">o_iii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span> <span class="comment single"># read Collision Strengths (Omegaij)</span><span class="whitespace">
+</span><span class="name">o_iii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span> <span class="comment single"># read Transition Probabilities (Aij)</span><span class="whitespace">
 
-levels5007='3,4/'
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-iobs5007=np.float64(1200.0)
-abb5007 = pyequib.calc_abundance(temperature=temperature, density=density,
-                                 line_flux=iobs5007, atomic_levels=levels5007,
-                                 elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij,
-                                 h_i_aeff_data=hi_rc_data['aeff'][0])
-print('N(O^2+)/N(H+):', abb5007)
+</span><span class="name">levels5007</span><span class="operator">=</span><span class="literal string single">'3,4/'</span><span class="whitespace">
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">iobs5007</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">1200.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">abb5007</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abundance</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                 <span class="name">line_flux</span><span class="operator">=</span><span class="name">iobs5007</span><span class="punctuation">,</span> <span class="name">atomic_levels</span><span class="operator">=</span><span class="name">levels5007</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                 <span class="name">elj_data</span><span class="operator">=</span><span class="name">o_iii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">o_iii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">o_iii_aij</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                 <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">hi_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">])</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(O^2+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abb5007</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -197,35 +203,36 @@ N(O^2+)/N(H+):   0.00041256231
 </pre>
 </li>
 <li><p class="first"><em>Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I Rec
-hi_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I Rec</span><span class="whitespace">
+</span><span class="name">hi_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'o'
-ion = 'iii' # [O III]
-o_iii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-o_iii_omij = atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-o_iii_aij = atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'o'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># [O III]</span><span class="whitespace">
+</span><span class="name">o_iii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span> <span class="comment single"># read Energy Levels (Ej)</span><span class="whitespace">
+</span><span class="name">o_iii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span> <span class="comment single"># read Collision Strengths (Omegaij)</span><span class="whitespace">
+</span><span class="name">o_iii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span> <span class="comment single"># read Transition Probabilities (Aij)</span><span class="whitespace">
 
-levels5007='3,4/'
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-iobs5007=np.float64(1200.0)
-emis = pyequib.calc_emissivity(temperature=temperature, density=density, atomic_levels=levels5007,
-                               elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij)
-print('Emissivity(O III 5007):', emis)
+</span><span class="name">levels5007</span><span class="operator">=</span><span class="literal string single">'3,4/'</span><span class="whitespace">
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">iobs5007</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">1200.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">emis</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emissivity</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span> <span class="name">atomic_levels</span><span class="operator">=</span><span class="name">levels5007</span><span class="punctuation">,</span><span class="whitespace">
+</span>                               <span class="name">elj_data</span><span class="operator">=</span><span class="name">o_iii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">o_iii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">o_iii_aij</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'Emissivity(O III 5007):'</span><span class="punctuation">,</span> <span class="name">emis</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -233,27 +240,28 @@ Emissivity(O III 5007):   3.6041012e-21
 </pre>
 </li>
 <li><p class="first"><em>Atomic Level Population</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 's'
-ion = 'ii'
-s_ii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5)
-s_ii_omij = atomneb.read_omij(atom_omij_file, atom, ion)
-s_ii_aij = atomneb.read_aij(atom_aij_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'s'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span><span class="whitespace">
+</span><span class="name">s_ii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-density = np.float64(1000)
-temperature=np.float64(10000.0)#
-nlj = pyequib.calc_populations(temperature=temperature, density=density,
-                               elj_data=s_ii_elj, omij_data=s_ii_omij, aij_data=s_ii_aij)
-print('Populations:', nlj)
+</span><span class="name">density</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="comment single">#</span><span class="whitespace">
+</span><span class="name">nlj</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_populations</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                               <span class="name">elj_data</span><span class="operator">=</span><span class="name">s_ii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">s_ii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">s_ii_aij</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'Populations:'</span><span class="punctuation">,</span> <span class="name">nlj</span><span class="punctuation">)</span>
 </pre>
 <p>which prints:</p>
 <pre class="literal-block">
@@ -261,26 +269,27 @@ Populations: 0.96992832 0.0070036315 0.023062261 2.6593671e-06 3.1277019e-06
 </pre>
 </li>
 <li><p class="first"><em>Critical Density</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 's'
-ion = 'ii'
-s_ii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5)
-s_ii_omij = atomneb.read_omij(atom_omij_file, atom, ion)
-s_ii_aij = atomneb.read_aij(atom_aij_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'s'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span><span class="whitespace">
+</span><span class="name">s_ii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">s_ii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-n_crit = pyequib.calc_crit_density(temperature=temperature,
-                                   elj_data=s_ii_elj, omij_data=s_ii_omij, aij_data=s_ii_aij)
-print('Critical Densities:', n_crit)
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">n_crit</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_crit_density</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                   <span class="name">elj_data</span><span class="operator">=</span><span class="name">s_ii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">s_ii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">s_ii_aij</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'Critical Densities:'</span><span class="punctuation">,</span> <span class="name">n_crit</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -288,33 +297,34 @@ Critical Densities: 0.0000000 5007.8396 1732.8414 1072685.0 2220758.1
 </pre>
 </li>
 <li><p class="first"><em>All Ionic Level Information</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_dir = os.path.join('atomic-data', 'chianti70')
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_elj_file = os.path.join(base_dir,data_dir, 'AtomElj.fits')
-atom_omij_file = os.path.join(base_dir,data_dir, 'AtomOmij.fits')
-atom_aij_file = os.path.join(base_dir,data_dir, 'AtomAij.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data'</span><span class="punctuation">,</span> <span class="literal string single">'chianti70'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_elj_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomElj.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_omij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomOmij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_aij_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_dir</span><span class="punctuation">,</span> <span class="literal string single">'AtomAij.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I Rec
-hi_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I Rec</span><span class="whitespace">
+</span><span class="name">hi_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'o'
-ion = 'iii' # [O III]
-o_iii_elj = atomneb.read_elj(atom_elj_file, atom, ion, level_num=5) # read Energy Levels (Ej)
-o_iii_omij = atomneb.read_omij(atom_omij_file, atom, ion) # read Collision Strengths (Omegaij)
-o_iii_aij = atomneb.read_aij(atom_aij_file, atom, ion) # read Transition Probabilities (Aij)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'o'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># [O III]</span><span class="whitespace">
+</span><span class="name">o_iii_elj</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_elj</span><span class="punctuation">(</span><span class="name">atom_elj_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">level_num</span><span class="operator">=</span><span class="literal number integer">5</span><span class="punctuation">)</span> <span class="comment single"># read Energy Levels (Ej)</span><span class="whitespace">
+</span><span class="name">o_iii_omij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_omij</span><span class="punctuation">(</span><span class="name">atom_omij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span> <span class="comment single"># read Collision Strengths (Omegaij)</span><span class="whitespace">
+</span><span class="name">o_iii_aij</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aij</span><span class="punctuation">(</span><span class="name">atom_aij_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span> <span class="comment single"># read Transition Probabilities (Aij)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-pyequib.print_ionic(temperature=temperature, density=density,
-            elj_data=o_iii_elj, omij_data=o_iii_omij, aij_data=o_iii_aij,
-            h_i_aeff_data=hi_rc_data['aeff'][0])
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">print_ionic</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>            <span class="name">elj_data</span><span class="operator">=</span><span class="name">o_iii_elj</span><span class="punctuation">,</span> <span class="name">omij_data</span><span class="operator">=</span><span class="name">o_iii_omij</span><span class="punctuation">,</span> <span class="name">aij_data</span><span class="operator">=</span><span class="name">o_iii_aij</span><span class="punctuation">,</span><span class="whitespace">
+</span>            <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">hi_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">])</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -354,35 +364,39 @@ H-beta emissivity: 1.237E-25 N(H+) Ne  [erg/s]
 </ul>
 </blockquote>
 </li>
-<li><p class="first"><strong>Recombination Unit</strong> which have the API functions for plasma diagnostics and abundance analysis of recombination lines. Here are some examples of using <em>Recombination</em> Unit:</p>
+<li><p class="first"><strong>Recombination Unit</strong> has the API functions for plasma diagnostics and abundance analysis of recombination lines. Here are some examples of using <em>Recombination</em> Unit:</p>
 <blockquote>
 <ul>
 <li><p class="first"><em>He+ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_he_i_file = os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_he_i_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_he_ii_PFSD12.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'he'
-ion = 'ii' # He I
-he_i_rc_data = atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'he'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># He I</span><span class="whitespace">
+</span><span class="name">he_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_he_i_pfsd12</span><span class="punctuation">(</span><span class="name">atom_rc_he_i_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-he_i_4471_flux= 2.104
-linenum=10# 4471.50
-abund_he_i = pyequib.calc_abund_he_i_rl(temperature=temperature, density=density,
-                                linenum=linenum, line_flux=he_i_4471_flux,
-                                he_i_aeff_data=he_i_aeff_data, h_i_aeff_data=h_i_aeff_data)
-print('N(He^+)/N(H^+):', abund_he_i)
+</span><span class="name">h_i_aeff_data</span> <span class="operator">=</span> <span class="name">h_i_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="whitespace">
+</span><span class="name">he_i_aeff_data</span> <span class="operator">=</span> <span class="name">he_i_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="whitespace">
+
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">he_i_4471_flux</span><span class="operator">=</span> <span class="literal number float">2.104</span><span class="whitespace">
+</span><span class="name">linenum</span><span class="operator">=</span><span class="literal number integer">10</span><span class="comment single"># 4471.50</span><span class="whitespace">
+</span><span class="name">abund_he_i</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_he_i_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">linenum</span><span class="operator">=</span><span class="name">linenum</span><span class="punctuation">,</span> <span class="name">line_flux</span><span class="operator">=</span><span class="name">he_i_4471_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">he_i_aeff_data</span><span class="operator">=</span><span class="name">he_i_aeff_data</span><span class="punctuation">,</span> <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(He^+)/N(H^+):'</span><span class="punctuation">,</span> <span class="name">abund_he_i</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -390,29 +404,33 @@ N(He^+)/N(H^+):     0.040848393
 </pre>
 </li>
 <li><p class="first"><em>He++ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'he'
-ion = 'iii' # He II
-he_ii_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'he'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># He II</span><span class="whitespace">
+</span><span class="name">he_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-he_ii_4686_flux = 135.833
-abund_he_ii = pyequib.calc_abund_he_ii_rl(temperature=temperature, density=density,
-                                  line_flux=he_ii_4686_flux,
-                                  he_ii_aeff_data=he_ii_aeff_data, h_i_aeff_data=h_i_aeff_data)
-print('N(He^2+)/N(H^+):', abund_he_ii)
+</span><span class="name">h_i_aeff_data</span> <span class="operator">=</span> <span class="name">h_i_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="whitespace">
+</span><span class="name">he_ii_aeff_data</span> <span class="operator">=</span> <span class="name">he_ii_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="whitespace">
+
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">he_ii_4686_flux</span> <span class="operator">=</span> <span class="literal number float">135.833</span><span class="whitespace">
+</span><span class="name">abund_he_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_he_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">line_flux</span><span class="operator">=</span><span class="name">he_ii_4686_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">he_ii_aeff_data</span><span class="operator">=</span><span class="name">he_ii_aeff_data</span><span class="punctuation">,</span> <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(He^2+)/N(H^+):'</span><span class="punctuation">,</span> <span class="name">abund_he_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -420,31 +438,32 @@ N(He^2+)/N(H^+):      0.11228817
 </pre>
 </li>
 <li><p class="first"><em>C++ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'c'
-ion = 'iii' # C II
-c_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'c'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># C II</span><span class="whitespace">
+</span><span class="name">c_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-wavelength=6151.43
-c_ii_6151_flux = 0.028
-abund_c_ii = pyequib.calc_abund_c_ii_rl(temperature=temperature, density=density,
-                                wavelength=wavelength, line_flux=c_ii_6151_flux,
-                                c_ii_rc_data=c_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
-print('N(C^2+)/N(H+):', abund_c_ii)
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6151.43</span><span class="whitespace">
+</span><span class="name">c_ii_6151_flux</span> <span class="operator">=</span> <span class="literal number float">0.028</span><span class="whitespace">
+</span><span class="name">abund_c_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_c_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">line_flux</span><span class="operator">=</span><span class="name">c_ii_6151_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">c_ii_rc_data</span><span class="operator">=</span><span class="name">c_ii_rc_data</span><span class="punctuation">,</span> <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(C^2+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abund_c_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -452,32 +471,33 @@ N(C^2+)/N(H+):   0.00063404650
 </pre>
 </li>
 <li><p class="first"><em>C3+ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_ppb91_file = os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_ppb91_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_PPB91.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'c'
-ion = 'iv' # C III
-c_iii_rc_data = atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'c'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iv'</span> <span class="comment single"># C III</span><span class="whitespace">
+</span><span class="name">c_iii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_ppb91</span><span class="punctuation">(</span><span class="name">atom_rc_ppb91_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-wavelength=4647.42
-c_iii_4647_flux = 0.107
-abund_c_iii = pyequib.calc_abund_c_iii_rl(temperature=temperature, density=density,
-                                  wavelength=wavelength,
-                                  line_flux=c_iii_4647_flux, c_iii_rc_data=c_iii_rc_data,
-                                  h_i_aeff_data=h_i_aeff_data)
-print('N(C^3+)/N(H+):', abund_c_iii)
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4647.42</span><span class="whitespace">
+</span><span class="name">c_iii_4647_flux</span> <span class="operator">=</span> <span class="literal number float">0.107</span><span class="whitespace">
+</span><span class="name">abund_c_iii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_c_iii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">line_flux</span><span class="operator">=</span><span class="name">c_iii_4647_flux</span><span class="punctuation">,</span> <span class="name">c_iii_rc_data</span><span class="operator">=</span><span class="name">c_iii_rc_data</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(C^3+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abund_c_iii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -485,31 +505,31 @@ N(C^3+)/N(H+):   0.00017502840
 </pre>
 </li>
 <li><p class="first"><em>N++ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'n'
-ion = 'iii' # N II
-n_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-n_ii_rc_data_br = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'n'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># N II</span><span class="whitespace">
+</span><span class="name">n_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">n_ii_rc_data_br</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">br</span><span class="operator">=</span><span class="keyword constant">True</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=4442.02
-n_ii_4442_flux = 0.017
-abund_n_ii = pyequib.calc_abund_n_ii_rl(temperature=temperature, density=density,
-                                wavelength=wavelength, line_flux=n_ii_4442_flux,
-                                n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data,
-                                h_i_aeff_data=h_i_aeff_data)
-print('N(N^2+)/N(H+):', abund_n_ii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4442.02</span><span class="whitespace">
+</span><span class="name">n_ii_4442_flux</span> <span class="operator">=</span> <span class="literal number float">0.017</span><span class="whitespace">
+</span><span class="name">abund_n_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_n_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">line_flux</span><span class="operator">=</span><span class="name">n_ii_4442_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">n_ii_rc_br</span><span class="operator">=</span><span class="name">n_ii_rc_data_br</span><span class="punctuation">,</span> <span class="name">n_ii_rc_data</span><span class="operator">=</span><span class="name">n_ii_rc_data</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(N^2+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abund_n_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -517,29 +537,29 @@ N(N^2+)/N(H+):   0.00069297541
 </pre>
 </li>
 <li><p class="first"><em>N3+ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_ppb91_file = os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_ppb91_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_PPB91.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'n'
-ion = 'iv' # N III
-n_iii_rc_data = atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'n'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iv'</span> <span class="comment single"># N III</span><span class="whitespace">
+</span><span class="name">n_iii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_ppb91</span><span class="punctuation">(</span><span class="name">atom_rc_ppb91_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=4640.64
-n_iii_4641_flux = 0.245
-abund_n_iii = pyequib.calc_abund_n_iii_rl(temperature=temperature, density=density,
-                                  wavelength=wavelength, line_flux=n_iii_4641_flux,
-                                  n_iii_rc_data=n_iii_rc_data, h_i_aeff_data=h_i_aeff_data)
-print('N(N^3+)/N(H+):', abund_n_iii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4640.64</span><span class="whitespace">
+</span><span class="name">n_iii_4641_flux</span> <span class="operator">=</span> <span class="literal number float">0.245</span><span class="whitespace">
+</span><span class="name">abund_n_iii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_n_iii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">line_flux</span><span class="operator">=</span><span class="name">n_iii_4641_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">n_iii_rc_data</span><span class="operator">=</span><span class="name">n_iii_rc_data</span><span class="punctuation">,</span> <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(N^3+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abund_n_iii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -547,32 +567,32 @@ N(N^3+)/N(H+):   6.3366175e-05
 </pre>
 </li>
 <li><p class="first"><em>O++ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'o'
-ion = 'iii' # O II
-o_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-o_ii_rc_data_br = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'o'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># O II</span><span class="whitespace">
+</span><span class="name">o_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">o_ii_rc_data_br</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">br</span><span class="operator">=</span><span class="keyword constant">True</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=4613.68
-o_ii_4614_flux = 0.009
-abund_o_ii = pyequib.calc_abund_o_ii_rl(temperature=temperature, density=density,
-                                wavelength=wavelength, line_flux=o_ii_4614_flux,
-                                o_ii_rc_br=o_ii_rc_data_br,
-                                o_ii_rc_data=o_ii_rc_data,
-                                h_i_aeff_data=h_i_aeff_data)
-print('N(O^2+)/N(H+):', abund_o_ii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4613.68</span><span class="whitespace">
+</span><span class="name">o_ii_4614_flux</span> <span class="operator">=</span> <span class="literal number float">0.009</span><span class="whitespace">
+</span><span class="name">abund_o_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_o_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">line_flux</span><span class="operator">=</span><span class="name">o_ii_4614_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">o_ii_rc_br</span><span class="operator">=</span><span class="name">o_ii_rc_data_br</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">o_ii_rc_data</span><span class="operator">=</span><span class="name">o_ii_rc_data</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(O^2+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abund_o_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -580,29 +600,29 @@ N(O^2+)/N(H+):    0.0018886330
 </pre>
 </li>
 <li><p class="first"><em>Ne++ Ionic Abundance</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'ne'
-ion = 'iii' # Ne II
-ne_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'ne'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># Ne II</span><span class="whitespace">
+</span><span class="name">ne_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'h'
-ion = 'ii' # H I
-h_i_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'h'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># H I</span><span class="whitespace">
+</span><span class="name">h_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=3777.14
-ne_ii_3777_flux = 0.056
-abund_ne_ii = pyequib.calc_abund_ne_ii_rl(temperature=temperature, density=density,
-                                  wavelength=wavelength, line_flux=ne_ii_3777_flux,
-                                  ne_ii_rc_data=ne_ii_rc_data, h_i_aeff_data=h_i_aeff_data)
-print('N(Ne^2+)/N(H+):', Abund_ne_ii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">3777.14</span><span class="whitespace">
+</span><span class="name">ne_ii_3777_flux</span> <span class="operator">=</span> <span class="literal number float">0.056</span><span class="whitespace">
+</span><span class="name">abund_ne_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_abund_ne_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">line_flux</span><span class="operator">=</span><span class="name">ne_ii_3777_flux</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">ne_ii_rc_data</span><span class="operator">=</span><span class="name">ne_ii_rc_data</span><span class="punctuation">,</span> <span class="name">h_i_aeff_data</span><span class="operator">=</span><span class="name">h_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N(Ne^2+)/N(H+):'</span><span class="punctuation">,</span> <span class="name">abund_ne_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -610,24 +630,27 @@ N(Ne^2+)/N(H+):   0.00043376850
 </pre>
 </li>
 <li><p class="first"><em>He I Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_he_i_file = os.path.join(base_dir,data_rc_dir, 'rc_he_ii_PFSD12.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_he_i_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_he_ii_PFSD12.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'he'
-ion = 'ii' # He I
-he_i_rc_data = atomneb.read_aeff_he_i_pfsd12(atom_rc_he_i_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'he'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'ii'</span> <span class="comment single"># He I</span><span class="whitespace">
+</span><span class="name">he_i_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_he_i_pfsd12</span><span class="punctuation">(</span><span class="name">atom_rc_he_i_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-linenum=10# 4471.50
-emiss_he_i = pyequib.calc_emiss_he_i_rl(temperature=temperature, density=density,
-                                linenum=linenum, he_i_aeff_data=he_i_aeff_data)
-print('He I Emissivity:', emiss_he_i)
+</span><span class="name">he_i_aeff_data</span> <span class="operator">=</span> <span class="name">he_i_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="whitespace">
+
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">linenum</span><span class="operator">=</span><span class="literal number integer">10</span><span class="comment single"># 4471.50</span><span class="whitespace">
+</span><span class="name">emiss_he_i</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_he_i_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">linenum</span><span class="operator">=</span><span class="name">linenum</span><span class="punctuation">,</span> <span class="name">he_i_aeff_data</span><span class="operator">=</span><span class="name">he_i_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'He I Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_he_i</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -635,23 +658,26 @@ He I Emissivity:   6.3822830e-26
 </pre>
 </li>
 <li><p class="first"><em>He II Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_sh95_file = os.path.join(base_dir,data_rc_dir, 'rc_SH95.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_sh95_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_SH95.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'he'
-ion = 'iii' # He II
-he_ii_rc_data = atomneb.read_aeff_sh95(atom_rc_sh95_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'he'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># He II</span><span class="whitespace">
+</span><span class="name">he_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_sh95</span><span class="punctuation">(</span><span class="name">atom_rc_sh95_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-emiss_he_ii = pyequib.calc_emiss_he_ii_rl(temperature=temperature, density=density,
-                                  he_ii_aeff_data=he_ii_aeff_data)
-print('He II Emissivity:', emiss_he_ii)
+</span><span class="name">he_ii_aeff_data</span> <span class="operator">=</span> <span class="name">he_ii_rc_data</span><span class="punctuation">[</span><span class="literal string single">'aeff'</span><span class="punctuation">][</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="whitespace">
+
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">emiss_he_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_he_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">he_ii_aeff_data</span><span class="operator">=</span><span class="name">he_ii_aeff_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'He II Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_he_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -659,24 +685,25 @@ He II Emissivity:   1.4989134e-24
 </pre>
 </li>
 <li><p class="first"><em>C II Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'c'
-ion = 'iii' # C II
-c_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'c'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># C II</span><span class="whitespace">
+</span><span class="name">c_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-wavelength=6151.43
-emiss_c_ii = pyequib.calc_emiss_c_ii_rl(temperature=temperature, density=density,
-                                wavelength=wavelength, c_ii_rc_data=c_ii_rc_data)
-print('C II Emissivity:', emiss_c_ii)
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6151.43</span><span class="whitespace">
+</span><span class="name">emiss_c_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_c_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">c_ii_rc_data</span><span class="operator">=</span><span class="name">c_ii_rc_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'C II Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_c_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -684,25 +711,26 @@ C II Emissivity:   5.4719511e-26
 </pre>
 </li>
 <li><p class="first"><em>C III Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_ppb91_file = os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword">as</span> <span class="name namespace">np</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_ppb91_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_PPB91.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'c'
-ion = 'iv' # C III
-c_iii_rc_data = atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'c'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iv'</span> <span class="comment single"># C III</span><span class="whitespace">
+</span><span class="name">c_iii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_ppb91</span><span class="punctuation">(</span><span class="name">atom_rc_ppb91_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-temperature=np.float64(10000.0)
-density=np.float64(5000.0)
-wavelength=4647.42
-emiss_c_iii = pyequib.calc_emiss_c_iii_rl(temperature=temperature, density=density,
-                                  wavelength=wavelength,
-                                  c_iii_rc_data=c_iii_rc_data)
-print('C III Emissivity:', emiss_c_iii)
+</span><span class="name">temperature</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">10000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">density</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float64</span><span class="punctuation">(</span><span class="literal number float">5000.0</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4647.42</span><span class="whitespace">
+</span><span class="name">emiss_c_iii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_c_iii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">c_iii_rc_data</span><span class="operator">=</span><span class="name">c_iii_rc_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'C III Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_c_iii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -710,24 +738,24 @@ C III Emissivity:   7.5749632e-25
 </pre>
 </li>
 <li><p class="first"><em>N II Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'n'
-ion = 'iii' # N II
-n_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-n_ii_rc_data_br = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'n'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># N II</span><span class="whitespace">
+</span><span class="name">n_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">n_ii_rc_data_br</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">br</span><span class="operator">=</span><span class="keyword constant">True</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=4442.02
-emiss_n_ii = pyequib.calc_emiss_n_ii_rl(temperature=temperature, density=density,
-                                wavelength=wavelength,
-                                n_ii_rc_br=n_ii_rc_data_br, n_ii_rc_data=n_ii_rc_data)
-print('N II Emissivity:', emiss_n_ii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4442.02</span><span class="whitespace">
+</span><span class="name">emiss_n_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_n_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">n_ii_rc_br</span><span class="operator">=</span><span class="name">n_ii_rc_data_br</span><span class="punctuation">,</span> <span class="name">n_ii_rc_data</span><span class="operator">=</span><span class="name">n_ii_rc_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N II Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_n_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -735,22 +763,22 @@ N II Emissivity:   3.0397397e-26
 </pre>
 </li>
 <li><p class="first"><em>N III Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_ppb91_file = os.path.join(base_dir,data_rc_dir, 'rc_PPB91.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_ppb91_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_PPB91.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'n'
-ion = 'iv' # N III
-n_iii_rc_data = atomneb.read_aeff_ppb91(atom_rc_ppb91_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'n'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iv'</span> <span class="comment single"># N III</span><span class="whitespace">
+</span><span class="name">n_iii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_ppb91</span><span class="punctuation">(</span><span class="name">atom_rc_ppb91_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=4640.64
-emiss_n_iii = pyequib.calc_emiss_n_iii_rl(temperature=temperature, density=density,
-                                  wavelength=wavelength, n_iii_rc_data=n_iii_rc_data)
-print('N III Emissivity:', emiss_n_iii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4640.64</span><span class="whitespace">
+</span><span class="name">emiss_n_iii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_n_iii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">n_iii_rc_data</span><span class="operator">=</span><span class="name">n_iii_rc_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'N III Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_n_iii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -758,24 +786,24 @@ N III Emissivity:   4.7908644e-24
 </pre>
 </li>
 <li><p class="first"><em>O II Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'o'
-ion = 'iii' # O II
-o_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
-o_ii_rc_data_br = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion, br=True)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'o'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># O II</span><span class="whitespace">
+</span><span class="name">o_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">o_ii_rc_data_br</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">,</span> <span class="name">br</span><span class="operator">=</span><span class="keyword constant">True</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=4613.68
-emiss_o_ii = pyequib.calc_emiss_o_ii_rl(temperature=temperature, density=density,
-                                wavelength=wavelength,
-                                o_ii_rc_br=o_ii_rc_data_br, o_ii_rc_data=o_ii_rc_data)
-print('O II Emissivity:', emiss_o_ii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">4613.68</span><span class="whitespace">
+</span><span class="name">emiss_o_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_o_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                <span class="name">o_ii_rc_br</span><span class="operator">=</span><span class="name">o_ii_rc_data_br</span><span class="punctuation">,</span> <span class="name">o_ii_rc_data</span><span class="operator">=</span><span class="name">o_ii_rc_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'O II Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_o_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -783,22 +811,22 @@ O II Emissivity:   5.9047319e-27
 </pre>
 </li>
 <li><p class="first"><em>Ne II Emissivity</em>:</p>
-<pre class="literal-block">
-import pyequib
-import atomneb
-import os
-base_dir = 'externals/atomneb'
-data_rc_dir = os.path.join('atomic-data-rc')
-atom_rc_all_file = os.path.join(base_dir,data_rc_dir, 'rc_collection.fits')
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">atomneb</span><span class="whitespace">
+</span><span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="whitespace">
+</span><span class="name">base_dir</span> <span class="operator">=</span> <span class="literal string single">'externals/atomneb'</span><span class="whitespace">
+</span><span class="name">data_rc_dir</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="literal string single">'atomic-data-rc'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name">atom_rc_all_file</span> <span class="operator">=</span> <span class="name">os</span><span class="operator">.</span><span class="name">path</span><span class="operator">.</span><span class="name">join</span><span class="punctuation">(</span><span class="name">base_dir</span><span class="punctuation">,</span><span class="name">data_rc_dir</span><span class="punctuation">,</span> <span class="literal string single">'rc_collection.fits'</span><span class="punctuation">)</span><span class="whitespace">
 
-atom = 'ne'
-ion = 'iii' # Ne II
-ne_ii_rc_data = atomneb.read_aeff_collection(atom_rc_all_file, atom, ion)
+</span><span class="name">atom</span> <span class="operator">=</span> <span class="literal string single">'ne'</span><span class="whitespace">
+</span><span class="name">ion</span> <span class="operator">=</span> <span class="literal string single">'iii'</span> <span class="comment single"># Ne II</span><span class="whitespace">
+</span><span class="name">ne_ii_rc_data</span> <span class="operator">=</span> <span class="name">atomneb</span><span class="operator">.</span><span class="name">read_aeff_collection</span><span class="punctuation">(</span><span class="name">atom_rc_all_file</span><span class="punctuation">,</span> <span class="name">atom</span><span class="punctuation">,</span> <span class="name">ion</span><span class="punctuation">)</span><span class="whitespace">
 
-wavelength=3777.14
-emiss_ne_ii = pyequib.calc_emiss_ne_ii_rl(temperature=temperature, density=density,
-                                  wavelength=wavelength, ne_ii_rc_data=ne_ii_rc_data)
-print('Ne II Emissivity:', emiss_ne_ii)
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">3777.14</span><span class="whitespace">
+</span><span class="name">emiss_ne_ii</span> <span class="operator">=</span> <span class="name">pyequib</span><span class="operator">.</span><span class="name">calc_emiss_ne_ii_rl</span><span class="punctuation">(</span><span class="name">temperature</span><span class="operator">=</span><span class="name">temperature</span><span class="punctuation">,</span> <span class="name">density</span><span class="operator">=</span><span class="name">density</span><span class="punctuation">,</span><span class="whitespace">
+</span>                                  <span class="name">wavelength</span><span class="operator">=</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">ne_ii_rc_data</span><span class="operator">=</span><span class="name">ne_ii_rc_data</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'Ne II Emissivity:'</span><span class="punctuation">,</span> <span class="name">emiss_ne_ii</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -808,16 +836,16 @@ Ne II Emissivity:   1.5996881e-25
 </ul>
 </blockquote>
 </li>
-<li><p class="first"><strong>Reddening Unit</strong> which have the API functions for estimating logarithmic extinctions at H-beta and dereddening observed fluxes based on reddening laws and extinctions. Here are some examples of using <em>Reddening</em> Unit:</p>
+<li><p class="first"><strong>Reddening Unit</strong> has the API functions for estimating logarithmic extinctions at H-beta and dereddening observed fluxes based on reddening laws and extinctions. Here are some examples of using <em>Reddening</em> Unit:</p>
 <blockquote>
 <ul>
 <li><p class="first"><em>Reddening Law Function</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-r_v=3.1
-fl=pyequib.redlaw(wavelength, rv=r_v, ext_law='GAL')
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">r_v</span><span class="operator">=</span><span class="literal number float">3.1</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">rv</span><span class="operator">=</span><span class="name">r_v</span><span class="punctuation">,</span> <span class="name">ext_law</span><span class="operator">=</span><span class="literal string single">'GAL'</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -825,12 +853,12 @@ fl(6563):     -0.32013816
 </pre>
 </li>
 <li><p class="first"><em>Galactic Reddening Law Function based on Seaton (1979), Howarth (1983), &amp; CCM (1983)</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-r_v=3.1
-fl=pyequib.redlaw_gal(wavelength, rv=r_v)
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">r_v</span><span class="operator">=</span><span class="literal number float">3.1</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_gal</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">rv</span><span class="operator">=</span><span class="name">r_v</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -838,11 +866,11 @@ fl(6563):     -0.32013816
 </pre>
 </li>
 <li><p class="first"><em>Galactic Reddening Law Function based on Savage &amp; Mathis (1979)</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-fl=pyequib.redlaw_gal2(wavelength)
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_gal2</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -850,12 +878,12 @@ fl(6563):     -0.30925984
 </pre>
 </li>
 <li><p class="first"><em>Reddening Law Function based on Cardelli, Clayton &amp; Mathis (1989)</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-r_v=3.1
-fl=pyequib.redlaw_ccm(wavelength, rv=r_v)
-prin('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">r_v</span><span class="operator">=</span><span class="literal number float">3.1</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_ccm</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">rv</span><span class="operator">=</span><span class="name">r_v</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -863,11 +891,11 @@ fl(6563):     -0.29756615
 </pre>
 </li>
 <li><p class="first"><em>Galactic Reddening Law Function based on Whitford (1958), Seaton (1977), &amp; Kaler(1976)</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-fl=pyequib.redlaw_jbk(wavelength)
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_jbk</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -875,13 +903,13 @@ fl(6563):     -0.33113684
 </pre>
 </li>
 <li><p class="first"><em>Reddening Law Function based on Fitzpatrick &amp; Massa (1990), Fitzpatrick (1999), Misselt (1999)</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-r_v=3.1
-fmlaw='AVGLMC'
-fl=pyequib.redlaw_fm(wavelength, fmlaw=fmlaw, rv=r_v)
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">r_v</span><span class="operator">=</span><span class="literal number float">3.1</span><span class="whitespace">
+</span><span class="name">fmlaw</span><span class="operator">=</span><span class="literal string single">'AVGLMC'</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_fm</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">fmlaw</span><span class="operator">=</span><span class="name">fmlaw</span><span class="punctuation">,</span> <span class="name">rv</span><span class="operator">=</span><span class="name">r_v</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -889,11 +917,11 @@ fl(6563):     -0.35053032
 </pre>
 </li>
 <li><p class="first"><em>Reddening Law Function for the Small Magellanic Cloud</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-fl=pyequib.redlaw_smc(wavelength)
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_smc</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
@@ -901,47 +929,47 @@ fl(6563):     -0.22659261
 </pre>
 </li>
 <li><p class="first"><em>Reddening Law Function for the Large Magellanic Cloud</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-fl=pyequib.redlaw_lmc(wavelength)
-print('fl(6563):', fl)
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">fl</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">redlaw_lmc</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'fl(6563):'</span><span class="punctuation">,</span> <span class="name">fl</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
 fl(6563):     -0.30871187
 </pre>
 </li>
-<li><p class="first"><em>Dereddening Absolute Flux</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-m_ext=1.0
-flux=1.0
-ext_law='GAL'
-r_v=3.1
-flux_deredden=pyequib.deredden_relflux(wavelength, flux, m_ext, ext_law=ext_law, rv=r_v)
-print('dereddened flux(6563)', flux_deredden)
+<li><p class="first"><em>Dereddening Relative Flux</em>:</p>
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">m_ext</span><span class="operator">=</span><span class="literal number float">1.0</span><span class="whitespace">
+</span><span class="name">flux</span><span class="operator">=</span><span class="literal number float">1.0</span><span class="whitespace">
+</span><span class="name">ext_law</span><span class="operator">=</span><span class="literal string single">'GAL'</span><span class="whitespace">
+</span><span class="name">r_v</span><span class="operator">=</span><span class="literal number float">3.1</span><span class="whitespace">
+</span><span class="name">flux_deredden</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">deredden_relflux</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">flux</span><span class="punctuation">,</span> <span class="name">m_ext</span><span class="punctuation">,</span> <span class="name">ext_law</span><span class="operator">=</span><span class="name">ext_law</span><span class="punctuation">,</span> <span class="name">rv</span><span class="operator">=</span><span class="name">r_v</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'dereddened flux(6563)'</span><span class="punctuation">,</span> <span class="name">flux_deredden</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
-dereddened flux(6563)       4.7847785
+dereddened flux(6563)       0.47847785
 </pre>
 </li>
-<li><p class="first"><em>Dereddening Relative Flux</em>:</p>
-<pre class="literal-block">
-import pyequib
-wavelength=6563.0
-m_ext=1.0
-flux=1.0
-ext_law='GAL'
-r_v=3.1
-flux_deredden=pyequib.deredden_flux(wavelength, flux, m_ext, ext_law=ext_law, rv=r_v)
-print('dereddened flux(6563)', flux_deredden)
+<li><p class="first"><em>Dereddening Absolute Flux</em>:</p>
+<pre class="code Python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyequib</span><span class="whitespace">
+</span><span class="name">wavelength</span><span class="operator">=</span><span class="literal number float">6563.0</span><span class="whitespace">
+</span><span class="name">m_ext</span><span class="operator">=</span><span class="literal number float">1.0</span><span class="whitespace">
+</span><span class="name">flux</span><span class="operator">=</span><span class="literal number float">1.0</span><span class="whitespace">
+</span><span class="name">ext_law</span><span class="operator">=</span><span class="literal string single">'GAL'</span><span class="whitespace">
+</span><span class="name">r_v</span><span class="operator">=</span><span class="literal number float">3.1</span><span class="whitespace">
+</span><span class="name">flux_deredden</span><span class="operator">=</span><span class="name">pyequib</span><span class="operator">.</span><span class="name">deredden_flux</span><span class="punctuation">(</span><span class="name">wavelength</span><span class="punctuation">,</span> <span class="name">flux</span><span class="punctuation">,</span> <span class="name">m_ext</span><span class="punctuation">,</span> <span class="name">ext_law</span><span class="operator">=</span><span class="name">ext_law</span><span class="punctuation">,</span> <span class="name">rv</span><span class="operator">=</span><span class="name">r_v</span><span class="punctuation">)</span><span class="whitespace">
+</span><span class="name builtin">print</span><span class="punctuation">(</span><span class="literal string single">'dereddened flux(6563)'</span><span class="punctuation">,</span> <span class="name">flux_deredden</span><span class="punctuation">)</span>
 </pre>
 <p>which gives:</p>
 <pre class="literal-block">
-dereddened flux(6563)      0.47847785
+dereddened flux(6563)      4.7847785
 </pre>
 </li>
 </ul>
@@ -956,35 +984,40 @@ dereddened flux(6563)      0.47847785
 <div class="section" id="references">
 <h2>References</h2>
 <ul class="simple">
-<li>Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>5</strong>, 2798. doi:<a class="reference external" href="https://doi.org/10.21105/joss.02798">10.21105/joss.02798</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2020JOSS....5.2798D">2020JOSS....5.2798D</a>.</li>
-<li>Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>3</strong>, 899. doi:<a class="reference external" href="https://doi.org/10.21105/joss.00899">10.21105/joss.00899</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D">2018JOSS....3..899D</a>.</li>
+<li>Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>5</strong>, 2798. doi:<a class="reference external" href="https://doi.org/10.21105/joss.02798">10.21105/joss.02798</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2020JOSS....5.2798D/abstract">2020JOSS....5.2798D</a>.</li>
+<li>Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. <em>J. Open Source Softw.</em>, <strong>3</strong>, 899. doi:<a class="reference external" href="https://doi.org/10.21105/joss.00899">10.21105/joss.00899</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D/abstract">2018JOSS....3..899D</a>.</li>
+<li>Danehkar, A. (2018). Bi-Abundance Ionisation Structure of the Wolf-Rayet Planetary Nebula PB 8, <em>PASA</em>, <strong>35</strong>, e005.  doi:<a class="reference external" href="https://doi.org/10.1017/pasa.2018.1">10.1017/pasa.2018.1</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018PASA...35....5D/abstract">2018PASA...35....5D</a>.</li>
+<li>Danehkar, A. (2021). Physical and Chemical Properties of Wolf-Rayet Planetary Nebulae, <em>ApJS</em>, <strong>257</strong>, 58.  doi:<a class="reference external" href="https://doi.org/10.3847/1538-4365/ac2310">10.3847/1538-4365/ac2310</a> ads:<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2021ApJS..257...58D/abstract">2021ApJS..257...58D</a>.</li>
 </ul>
 </div>
 <div class="section" id="citation">
 <h2>Citation</h2>
-<p>Using <strong>pyEQUIB</strong> in a scholarly publication? Please cite thess papers:</p>
+<p>Using the <strong>pyEQUIB</strong> Python package in a scholarly publication? Please cite thess papers:</p>
 <pre class="code bibtex literal-block">
-<span class="name class">&#64;article</span><span class="punctuation">{</span><span class="name label">Danehkar2020</span><span class="punctuation">,</span>
-  <span class="name attribute">author</span> <span class="punctuation">=</span> <span class="literal string">{{Danehkar}, Ashkbiz}</span><span class="punctuation">,</span>
-  <span class="name attribute">title</span> <span class="punctuation">=</span> <span class="literal string">{pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis}</span><span class="punctuation">,</span>
-  <span class="name attribute">journal</span> <span class="punctuation">=</span> <span class="literal string">{Journal of Open Source Software}</span><span class="punctuation">,</span>
-  <span class="name attribute">volume</span> <span class="punctuation">=</span> <span class="literal string">{5}</span><span class="punctuation">,</span>
-  <span class="name attribute">number</span> <span class="punctuation">=</span> <span class="literal string">{55}</span><span class="punctuation">,</span>
-  <span class="name attribute">pages</span> <span class="punctuation">=</span> <span class="literal string">{2798}</span><span class="punctuation">,</span>
-  <span class="name attribute">year</span> <span class="punctuation">=</span> <span class="literal string">{2020}</span><span class="punctuation">,</span>
-  <span class="name attribute">doi</span> <span class="punctuation">=</span> <span class="literal string">{10.21105/joss.02798}</span>
-<span class="punctuation">}</span>
-
-<span class="name class">&#64;article</span><span class="punctuation">{</span><span class="name label">Danehkar2018</span><span class="punctuation">,</span>
-  <span class="name attribute">author</span> <span class="punctuation">=</span> <span class="literal string">{{Danehkar}, Ashkbiz}</span><span class="punctuation">,</span>
-  <span class="name attribute">title</span> <span class="punctuation">=</span> <span class="literal string">{proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis}</span><span class="punctuation">,</span>
-  <span class="name attribute">journal</span> <span class="punctuation">=</span> <span class="literal string">{Journal of Open Source Software}</span><span class="punctuation">,</span>
-  <span class="name attribute">volume</span> <span class="punctuation">=</span> <span class="literal string">{3}</span><span class="punctuation">,</span>
-  <span class="name attribute">number</span> <span class="punctuation">=</span> <span class="literal string">{32}</span><span class="punctuation">,</span>
-  <span class="name attribute">pages</span> <span class="punctuation">=</span> <span class="literal string">{899}</span><span class="punctuation">,</span>
-  <span class="name attribute">year</span> <span class="punctuation">=</span> <span class="literal string">{2018}</span><span class="punctuation">,</span>
-  <span class="name attribute">doi</span> <span class="punctuation">=</span> <span class="literal string">{10.21105/joss.00899}</span>
-<span class="punctuation">}</span>
+<span class="name class">&#64;article</span><span class="punctuation">{</span><span class="name label">Danehkar2020</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">author</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{{Danehkar}, Ashkbiz}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">title</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{pyEQUIB Python Package, an addendum to proEQUIB: IDL Library
+           for Plasma Diagnostics and Abundance Analysis}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">journal</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{Journal of Open Source Software}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">volume</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{5}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">number</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{55}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">pages</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{2798}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">year</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{2020}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">doi</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{10.21105/joss.02798}</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+<p>and if you use the <a class="reference external" href="https://github.com/equib/proEQUIB">proEQUIB</a> IDL library:</p>
+<pre class="code bibtex literal-block">
+<span class="name class">&#64;article</span><span class="punctuation">{</span><span class="name label">Danehkar2018</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">author</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{{Danehkar}, Ashkbiz}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">title</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">journal</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{Journal of Open Source Software}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">volume</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{3}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">number</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{32}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">pages</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{899}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">year</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{2018}</span><span class="punctuation">,</span><span class="whitespace">
+  </span><span class="name attribute">doi</span><span class="whitespace"> </span><span class="punctuation">=</span><span class="whitespace"> </span><span class="literal string">{10.21105/joss.00899}</span><span class="whitespace">
+</span><span class="punctuation">}</span>
 </pre>
 </div>
 <div class="section" id="learn-more">
@@ -1014,7 +1047,7 @@ dereddened flux(6563)      0.47847785
 <td><a class="reference external" href="https://doi.org/10.21105/joss.02798">10.21105/joss.02798</a></td>
 </tr>
 <tr><td><strong>Archive</strong></td>
-<td><a class="reference external" href="https://doi.org/10.5281/zenodo.4287576">10.5281/zenodo.4287576</a></td>
+<td><a class="reference external" href="https://doi.org/10.5281/zenodo.4287575">10.5281/zenodo.4287575</a></td>
 </tr>
 </tbody>
 </table>
