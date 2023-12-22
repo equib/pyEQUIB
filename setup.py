@@ -15,7 +15,7 @@ except ImportError:
 
 with codecs.open('README.rst', 'r', 'utf-8') as fd:
     setup(name='pyequib',
-          version="0.4.2", #pyequib.__version__,
+          version="0.4.3", #pyequib.__version__,
           description = 'pyequib: Python Package for Plasma Diagnostics and Abundance Analysis',
           long_description=fd.read(),
           author='Ashkbiz Danehkar',
