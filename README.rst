@@ -1017,13 +1017,13 @@ For more information on how to use the API functions from the pyEQUIB libray, pl
 
 References
 ==========
-* Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **5**, 2798. doi:`10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_ ads:`2020JOSS....5.2798D <https://ui.adsabs.harvard.edu/abs/2020JOSS....5.2798D/abstract>`_.
+* Danehkar, A. (2020). pyEQUIB Python Package, an addendum to proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **5**, 2798. doi: `10.21105/joss.02798 <https://doi.org/10.21105/joss.02798>`_ ads: `2020JOSS....5.2798D <https://ui.adsabs.harvard.edu/abs/2020JOSS....5.2798D/abstract>`_.
 
-* Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **3**, 899. doi:`10.21105/joss.00899 <https://doi.org/10.21105/joss.00899>`_ ads:`2018JOSS....3..899D <https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D/abstract>`_.
+* Danehkar, A. (2018). proEQUIB: IDL Library for Plasma Diagnostics and Abundance Analysis. *J. Open Source Softw.*, **3**, 899. doi: `10.21105/joss.00899 <https://doi.org/10.21105/joss.00899>`_ ads: `2018JOSS....3..899D <https://ui.adsabs.harvard.edu/abs/2018JOSS....3..899D/abstract>`_.
 
-* Danehkar, A. (2018). Bi-Abundance Ionisation Structure of the Wolf-Rayet Planetary Nebula PB 8, *PASA*, **35**, e005.  doi:`10.1017/pasa.2018.1 <https://doi.org/10.1017/pasa.2018.1>`_ ads:`2018PASA...35....5D <https://ui.adsabs.harvard.edu/abs/2018PASA...35....5D/abstract>`_.
+* Danehkar, A. (2018). Bi-Abundance Ionisation Structure of the Wolf-Rayet Planetary Nebula PB 8, *PASA*, **35**, e005.  doi: `10.1017/pasa.2018.1 <https://doi.org/10.1017/pasa.2018.1>`_ ads: `2018PASA...35....5D <https://ui.adsabs.harvard.edu/abs/2018PASA...35....5D/abstract>`_.
 
-* Danehkar, A. (2021). Physical and Chemical Properties of Wolf-Rayet Planetary Nebulae, *ApJS*, **257**, 58.  doi:`10.3847/1538-4365/ac2310 <https://doi.org/10.3847/1538-4365/ac2310>`_ ads:`2021ApJS..257...58D <https://ui.adsabs.harvard.edu/abs/2021ApJS..257...58D/abstract>`_.
+* Danehkar, A. (2021). Physical and Chemical Properties of Wolf-Rayet Planetary Nebulae, *ApJS*, **257**, 58.  doi: `10.3847/1538-4365/ac2310 <https://doi.org/10.3847/1538-4365/ac2310>`_ ads: `2021ApJS..257...58D <https://ui.adsabs.harvard.edu/abs/2021ApJS..257...58D/abstract>`_.
 
 
 Citation
