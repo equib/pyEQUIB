@@ -13,7 +13,7 @@ except ImportError:
 
 #import pyequib
 
-with codecs.open('README.rst', 'r', 'utf-8') as fd:
+with codecs.open('README.md', 'r', 'utf-8') as fd:
     setup(name='pyequib',
           version="0.4.3", #pyequib.__version__,
           description = 'pyequib: Python Package for Plasma Diagnostics and Abundance Analysis',
